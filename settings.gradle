@@ -1,1 +1,1 @@
-include ':app', ':reg-ui2'
+include ':app', ':reg-ui2', ':core-data'
