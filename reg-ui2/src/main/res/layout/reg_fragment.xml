@@ -10,9 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <com.example.core_data.widgets.FormattedEditText
+    <com.vladislav.shumilov.core_data.widgets.FormattedEditText
+        android:id="@+id/phoneEditView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="phone|textEmailAddress"/>
+        android:inputType="phone"/>
 
 </LinearLayout>

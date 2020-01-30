@@ -1,1 +1,1 @@
-include ':app', ':reg-ui2', ':core-data'
+include ':app', ':reg-ui2', ':core-data', ':core-domain'

@@ -1,4 +1,4 @@
-package com.example.core_data
+package com.vladislav.shumilov.core_data
 
 import org.junit.Test
 
