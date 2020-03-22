@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/authFragment"
-        android:name="com.vladislav.shumilov.auth_ui.AuthFragment"
+        android:name="com.vladislav.shumilov.auth_ui.ui.AuthFragment"
         android:label="@string/app_name" />
 
 </navigation>

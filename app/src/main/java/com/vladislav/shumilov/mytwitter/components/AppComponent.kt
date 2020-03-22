@@ -3,6 +3,7 @@ package com.vladislav.shumilov.mytwitter.components
 import android.app.Application
 import android.content.Context
 import com.google.gson.Gson
+import com.vladislav.shumilov.auth_ui.di.AuthAppComponent
 import com.vladislav.shumilov.core_data.database.LocalDatabase
 import com.vladislav.shumilov.core_ui.injection.ApplicationContext
 import com.vladislav.shumilov.core_ui.injection.ApplicationScope
@@ -14,7 +15,7 @@ import dagger.Component
 
 @Component(modules = [AppModule::class, GsonModule::class, HttpModule::class, DataBaseModule::class])
 @ApplicationScope
-interface AppComponent {
+interface AppComponent: AuthAppComponent {
 
     @ApplicationContext
     fun context(): Context
