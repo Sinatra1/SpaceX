@@ -2,8 +2,8 @@ package com.vladislav.shumilov.launch_ui.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.vladislav.shumilov.launch_data.LaunchScope
 import com.vladislav.shumilov.launch_ui.common.LaunchInteractor
-import com.vladislav.shumilov.launch_ui.di.LaunchScope
 import javax.inject.Inject
 
 @LaunchScope

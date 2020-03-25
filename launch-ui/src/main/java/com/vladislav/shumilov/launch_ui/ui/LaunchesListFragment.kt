@@ -9,9 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.auth_ui.R
 import com.example.auth_ui.databinding.AuthFragmentBinding
+import com.vladislav.shumilov.launch_data.LaunchScope
 import com.vladislav.shumilov.launch_ui.app
 import javax.inject.Inject
 
+@LaunchScope
 class LaunchesListFragment : Fragment() {
 
     @Inject
@@ -25,7 +27,7 @@ class LaunchesListFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        app()?.createAuthComponent()?.inject(this)
+        app()?.createLaunchComponent()?.inject(this)
     }
 
     override fun onCreateView(
@@ -41,9 +43,15 @@ class LaunchesListFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        viewModel.getList()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
 
-        app()?.clearAuthComponent()
+        app()?.clearLaunchComponent()
     }
 }

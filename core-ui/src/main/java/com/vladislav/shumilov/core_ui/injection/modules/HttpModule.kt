@@ -6,7 +6,7 @@ import com.vladislav.shumilov.core_data.BuildConfig.API_URL
 import com.vladislav.shumilov.core_data.api.ApiKeyInterceptor
 import com.vladislav.shumilov.core_ui.BuildConfig
 import com.vladislav.shumilov.core_ui.BuildConfig.RELEASE
-import com.vladislav.shumilov.core_ui.injection.ApplicationScope
+import com.vladislav.shumilov.core_data.ApplicationScope
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

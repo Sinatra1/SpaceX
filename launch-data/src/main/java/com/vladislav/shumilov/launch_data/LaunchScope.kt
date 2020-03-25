@@ -1,4 +1,4 @@
-package com.vladislav.shumilov.launch_ui.di
+package com.vladislav.shumilov.launch_data
 
 import javax.inject.Scope
 

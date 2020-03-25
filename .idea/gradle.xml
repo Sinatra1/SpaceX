@@ -15,7 +15,6 @@
             <option value="$PROJECT_DIR$/launch-data" />
             <option value="$PROJECT_DIR$/launch-domain" />
             <option value="$PROJECT_DIR$/launch-ui" />
-            <option value="$PROJECT_DIR$/reg-ui2" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

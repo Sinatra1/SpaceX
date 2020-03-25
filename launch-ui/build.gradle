@@ -38,6 +38,7 @@ dependencies {
     implementation project(path: ':core-data')
     implementation project(path: ':core-ui')
     implementation project(path: ':launch-domain')
+    implementation project(path: ':launch-data')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'

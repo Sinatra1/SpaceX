@@ -1,5 +1,6 @@
 package com.vladislav.shumilov.launch_ui.di
 
+import com.vladislav.shumilov.launch_data.LaunchScope
 import com.vladislav.shumilov.launch_ui.ui.LaunchesListFragment
 import dagger.Subcomponent
 

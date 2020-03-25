@@ -1,4 +1,4 @@
-package com.vladislav.shumilov.core_ui.injection
+package com.vladislav.shumilov.core_data
 
 import javax.inject.Qualifier
 import javax.inject.Scope

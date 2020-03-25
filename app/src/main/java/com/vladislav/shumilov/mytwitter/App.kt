@@ -1,17 +1,17 @@
 package com.vladislav.shumilov.mytwitter
 
 import android.app.Application
-import com.vladislav.shumilov.launch_ui.AuthApp
 import com.vladislav.shumilov.launch_ui.di.LaunchComponent
 import com.vladislav.shumilov.launch_ui.di.LaunchModule
 import com.vladislav.shumilov.core_ui.injection.modules.AppModule
+import com.vladislav.shumilov.launch_ui.LaunchApp
 import com.vladislav.shumilov.mytwitter.components.AppComponent
 import com.vladislav.shumilov.mytwitter.components.DaggerAppComponent
 import timber.log.Timber
 import vladislav.shumilov.mytwitter.BuildConfig
 import kotlin.properties.Delegates
 
-class App : Application(), AuthApp {
+class App : Application(), LaunchApp {
 
     private var appComponent: AppComponent by Delegates.notNull()
     private var launchComponent : LaunchComponent? = null
@@ -24,7 +24,7 @@ class App : Application(), AuthApp {
         initLogs()
     }
 
-    override fun createAuthComponent(): LaunchComponent {
+    override fun createLaunchComponent(): LaunchComponent {
         if (launchComponent == null) {
             launchComponent = appComponent.plusLaunchComponent(LaunchModule())
         }
@@ -32,7 +32,7 @@ class App : Application(), AuthApp {
         return launchComponent!!
     }
 
-    override fun clearAuthComponent() {
+    override fun clearLaunchComponent() {
         launchComponent = null
     }
 

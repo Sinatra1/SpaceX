@@ -4,11 +4,11 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 import androidx.room.Room
+import com.vladislav.shumilov.core_data.ApplicationContext
 import com.vladislav.shumilov.core_data.database.LocalDatabase
-import com.vladislav.shumilov.core_ui.injection.ApplicationContext
-import com.vladislav.shumilov.core_ui.injection.ApplicationScope
+import com.vladislav.shumilov.core_data.ApplicationScope
 
-private const val DATABASE_NAME = "local_database"
+private const val DATABASE_NAME = "spacex_database"
 
 @Module
 @ApplicationScope

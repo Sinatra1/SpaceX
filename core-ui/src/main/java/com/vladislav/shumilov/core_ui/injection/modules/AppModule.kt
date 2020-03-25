@@ -2,16 +2,16 @@ package com.vladislav.shumilov.core_ui.injection.modules
 
 import android.app.Application
 import android.content.Context
-import com.vladislav.shumilov.core_ui.injection.ApplicationContext
-import com.vladislav.shumilov.core_ui.injection.ApplicationScope
+import com.vladislav.shumilov.core_data.ApplicationContext
+import com.vladislav.shumilov.core_data.ApplicationScope
 import dagger.Module
 import dagger.Provides
 
 @Module
 @ApplicationScope
-class AppModule(val app : Application) {
+class AppModule(private val app : Application) {
 
-    val appContext : Context
+    private val appContext : Context
 
     init {
         appContext = app
@@ -19,7 +19,7 @@ class AppModule(val app : Application) {
 
     @Provides
     @ApplicationContext
-    fun provideContext() = appContext
+    fun provideContext(): Context = appContext
 
     @Provides
     @ApplicationScope
