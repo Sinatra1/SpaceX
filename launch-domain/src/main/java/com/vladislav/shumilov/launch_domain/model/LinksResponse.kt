@@ -1,16 +1,16 @@
 package com.vladislav.shumilov.launch_domain.model
 
 interface LinksResponse {
-    var mission_patch: String?
-    var mission_patch_small: String?
-    var reddit_campaign: String?
-    var reddit_launch: String?
-    var reddit_recovery: String?
-    var reddit_media: String?
-    var presskit: String?
-    var article_link: String?
-    var wikipedia: String?
-    var video_link: String?
-    var youtube_id: String?
-    var flickr_images: List<String>?
+    val mission_patch: String?
+    val mission_patch_small: String?
+    val reddit_campaign: String?
+    val reddit_launch: String?
+    val reddit_recovery: String?
+    val reddit_media: String?
+    val presskit: String?
+    val article_link: String?
+    val wikipedia: String?
+    val video_link: String?
+    val youtube_id: String?
+    val flickr_images: List<String>?
 }

@@ -1,14 +1,14 @@
 package com.vladislav.shumilov.launch_data.repository
 
-import com.vladislav.shumilov.launch_domain.model.LaunchResponse
+import com.vladislav.shumilov.launch_data.model.LaunchResponseImpl
 
 class LaunchDBRepository {
 
-    fun remoteListToLocalList(launchResponses: List<LaunchResponse>) {
+    fun remoteListToLocalList(launchResponses: List<LaunchResponseImpl>) {
 
     }
 
-    fun remoteModelToLocalModel(launchResponse: LaunchResponse) {
+    fun remoteModelToLocalModel(launchResponse: LaunchResponseImpl) {
 
     }
 }

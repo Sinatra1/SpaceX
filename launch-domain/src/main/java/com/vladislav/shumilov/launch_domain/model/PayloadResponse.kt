@@ -1,15 +1,15 @@
 package com.vladislav.shumilov.launch_domain.model
 
-interface PayloadResponse {
-    var payload_id: String?
-    var norad_id: List<String>?
-    var reused: Boolean
-    var customers: List<String>?
-    var nationality: String?
-    var manufacturer: String?
-    var payload_type: String?
-    var payload_mass_kg: Int?
-    var payload_mass_lbs: Int?
-    var orbit: String?
-    var orbit_params: OrbitParamsResponse?
+interface PayloadResponse<O : OrbitParamsResponse> {
+    val payload_id: String?
+    val norad_id: List<String>?
+    val reused: Boolean
+    val customers: List<String>?
+    val nationality: String?
+    val manufacturer: String?
+    val payload_type: String?
+    val payload_mass_kg: Float?
+    val payload_mass_lbs: Float?
+    val orbit: String?
+    val orbit_params: O?
 }

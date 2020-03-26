@@ -19,7 +19,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
 
-        buildConfigField "String", "API_URL", '"https://www.behance.net/"'
+        buildConfigField "String", "API_URL", '"https://api.spacexdata.com/v3/"'
     }
 
     buildTypes {

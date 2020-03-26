@@ -1,8 +1,8 @@
 package com.vladislav.shumilov.launch_domain.repository
 
-import com.vladislav.shumilov.launch_domain.model.LaunchResponse
+import com.vladislav.shumilov.launch_domain.model.LaunchResponseAlias
 import io.reactivex.Single
 
-interface LaunchRepository {
-    fun getList(): Single<List<LaunchResponse>>
+interface LaunchRepository<T: LaunchResponseAlias> {
+    fun getList(): Single<List<T>>
 }

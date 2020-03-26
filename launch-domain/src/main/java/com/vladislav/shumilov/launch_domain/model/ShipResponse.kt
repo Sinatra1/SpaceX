@@ -1,28 +1,28 @@
 package com.vladislav.shumilov.launch_domain.model
 
-interface ShipResponse {
-    var ship_id: String?
-    var ship_name: String?
-    var ship_model: String?
-    var ship_type: String?
-    var roles: List<String>?
-    var active: Boolean
-    var imo: Int?
-    var mmsi: Int?
-    var abs: Int?
-    var weight_lbs: Int?
-    var weight_kg: Int?
-    var year_built: Int?
-    var home_port: String?
-    var status: String?
-    var speed_kn: Int?
-    var course_deg: Int?
-    var latitude: Float?
-    var longitude: Float?
-    var successful_landings: Int?
-    var attempted_landings: Int?
-    var missions: List<MissionResponse>?
-    var url: String?
-    var image: String?
+interface ShipResponse<M : MissionResponse> {
+    val ship_id: String?
+    val ship_name: String?
+    val ship_model: String?
+    val ship_type: String?
+    val roles: List<String>?
+    val active: Boolean
+    val imo: Int?
+    val mmsi: Int?
+    val abs: Int?
+    val weight_lbs: Int?
+    val weight_kg: Int?
+    val year_built: Int?
+    val home_port: String?
+    val status: String?
+    val speed_kn: Int?
+    val course_deg: Int?
+    val latitude: Float?
+    val longitude: Float?
+    val successful_landings: Int?
+    val attempted_landings: Int?
+    val missions: List<M>?
+    val url: String?
+    val image: String?
 
 }
