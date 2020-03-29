@@ -1,9 +1,0 @@
-package com.vladislav.shumilov.launch_data.model
-
-import com.vladislav.shumilov.launch_domain.model.LaunchSiteResponse
-
-class LaunchSiteResponseImpl(
-    override val site_id: String?,
-    override val site_name: String?,
-    override val site_name_long: String?
-) : LaunchSiteResponse

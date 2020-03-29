@@ -1,1 +1,1 @@
-include ':app', ':core-data', ':core-domain', ':launch-ui', ':core-ui', ':launch-data', ':launch-domain'
+include ':app', ':core-data', ':core-domain', ':launch-ui', ':core-ui', ':launch-data', ':launch-domain', ':rocket-domain', ':rocket-data', ':rocket-ui'

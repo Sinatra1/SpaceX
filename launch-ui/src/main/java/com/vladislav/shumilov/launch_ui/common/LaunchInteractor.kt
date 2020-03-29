@@ -1,24 +1,21 @@
 package com.vladislav.shumilov.launch_ui.common
 
-import com.vladislav.shumilov.launch_data.LaunchScope
-import com.vladislav.shumilov.launch_data.model.LaunchResponseImpl
-import com.vladislav.shumilov.launch_data.repository.LaunchRemoteRepository
+import com.vladislav.shumilov.core_data.FragmentScope
+import com.vladislav.shumilov.launch_data.model.local.LaunchImpl
+import com.vladislav.shumilov.launch_data.repository.LaunchRemoteRepositoryImpl
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-@LaunchScope
+@FragmentScope
 class LaunchInteractor @Inject constructor(
-    private val launchRemoteRepository: LaunchRemoteRepository
+    private val launchRemoteRepository: LaunchRemoteRepositoryImpl
 ) {
 
-    fun getList(): Single<List<LaunchResponseImpl>> =
+    fun getList(): Single<List<LaunchImpl>> =
         launchRemoteRepository.getList()
             .subscribeOn(Schedulers.io())
             .map {
-                it.forEach {
-                    it
-                }
-            it
-        }
+                launchRemoteRepository.responsesToModels(it)
+            }
 }

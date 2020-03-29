@@ -9,11 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.auth_ui.R
 import com.example.auth_ui.databinding.AuthFragmentBinding
-import com.vladislav.shumilov.launch_data.LaunchScope
+import com.vladislav.shumilov.core_data.FragmentScope
 import com.vladislav.shumilov.launch_ui.app
 import javax.inject.Inject
 
-@LaunchScope
+@FragmentScope
 class LaunchesListFragment : Fragment() {
 
     @Inject

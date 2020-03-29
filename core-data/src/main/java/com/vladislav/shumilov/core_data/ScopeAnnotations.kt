@@ -10,3 +10,7 @@ annotation class ApplicationContext
 @Scope
 @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
 annotation class ApplicationScope
+
+@Scope
+@kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
+annotation class FragmentScope

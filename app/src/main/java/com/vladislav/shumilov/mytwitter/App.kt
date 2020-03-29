@@ -7,6 +7,7 @@ import com.vladislav.shumilov.core_ui.injection.modules.AppModule
 import com.vladislav.shumilov.launch_ui.LaunchApp
 import com.vladislav.shumilov.mytwitter.components.AppComponent
 import com.vladislav.shumilov.mytwitter.components.DaggerAppComponent
+import com.vladislav.shumilov.rocket_ui.di.RocketModule
 import timber.log.Timber
 import vladislav.shumilov.mytwitter.BuildConfig
 import kotlin.properties.Delegates
@@ -26,7 +27,7 @@ class App : Application(), LaunchApp {
 
     override fun createLaunchComponent(): LaunchComponent {
         if (launchComponent == null) {
-            launchComponent = appComponent.plusLaunchComponent(LaunchModule())
+            launchComponent = appComponent.plusLaunchComponent(LaunchModule(), RocketModule())
         }
 
         return launchComponent!!

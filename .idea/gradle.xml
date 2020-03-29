@@ -15,6 +15,9 @@
             <option value="$PROJECT_DIR$/launch-data" />
             <option value="$PROJECT_DIR$/launch-domain" />
             <option value="$PROJECT_DIR$/launch-ui" />
+            <option value="$PROJECT_DIR$/rocket-data" />
+            <option value="$PROJECT_DIR$/rocket-domain" />
+            <option value="$PROJECT_DIR$/rocket-ui" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
