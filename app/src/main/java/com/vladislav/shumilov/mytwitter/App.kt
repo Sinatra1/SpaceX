@@ -5,8 +5,8 @@ import com.vladislav.shumilov.launch_ui.di.LaunchComponent
 import com.vladislav.shumilov.launch_ui.di.LaunchModule
 import com.vladislav.shumilov.core_ui.injection.modules.AppModule
 import com.vladislav.shumilov.launch_ui.LaunchApp
-import com.vladislav.shumilov.mytwitter.components.AppComponent
-import com.vladislav.shumilov.mytwitter.components.DaggerAppComponent
+import com.vladislav.shumilov.mytwitter.di.AppComponent
+import com.vladislav.shumilov.mytwitter.di.DaggerAppComponent
 import com.vladislav.shumilov.rocket_ui.di.RocketModule
 import timber.log.Timber
 import vladislav.shumilov.mytwitter.BuildConfig

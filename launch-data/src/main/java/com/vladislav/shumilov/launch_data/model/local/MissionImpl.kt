@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.vladislav.shumilov.launch_domain.model.local.Mission
 
 @Entity
-class MissionImpl(
+data class MissionImpl(
     @PrimaryKey
     override var id: String,
     override var name: String,

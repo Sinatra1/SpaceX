@@ -5,7 +5,7 @@ import com.example.rocket_domain.model.remote.FairingsResponse
 
 interface FairingsRemoteRepository<T: FairingsResponse, M: Fairings> {
 
-    fun responseToModel(fairingsResponse: T, reportId: String): M
+    fun responseToModel(fairingsResponse: T, rocketId: String): M
 
     fun generateId(): String
 }

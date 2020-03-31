@@ -3,7 +3,7 @@ package com.example.rocket_data.model.local
 import com.example.rocket_domain.model.local.OrbitParams
 
 
-class OrbitParamsImpl(
+data class OrbitParamsImpl(
     override var reference_system: String?,
     override var regime: String?,
     override var longitude: Float?,

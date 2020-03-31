@@ -2,7 +2,7 @@ package com.example.rocket_data.model.local
 
 import com.example.rocket_domain.model.local.Payload
 
-class PayloadImpl(
+data class PayloadImpl(
     override var id: String?,
     override var norad_id: List<String>?,
     override var reused: Boolean,

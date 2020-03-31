@@ -4,9 +4,7 @@ import com.vladislav.shumilov.launch_domain.model.local.LaunchAlias
 import io.reactivex.Single
 
 interface LaunchLocalRepository<T: LaunchAlias> {
-    fun remoteListToLocalList(launchResponses: List<T>)
-
-    fun remoteModelToLocalModel(launchResponse: T)
+    fun insertList(launches: List<T>)
 
     fun getList(): Single<List<T>>
 }

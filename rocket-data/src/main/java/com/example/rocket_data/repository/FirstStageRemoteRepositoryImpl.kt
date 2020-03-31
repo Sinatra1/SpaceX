@@ -8,8 +8,8 @@ import com.vladislav.shumilov.core_data.util.generateRandomId
 class FirstStageRemoteRepositoryImpl :
     FirstStageRemoteRepository<FirstStageResponseImpl, FirstStageImpl> {
 
-    override fun responseToModel(firstStageResponse: FirstStageResponseImpl, reportId: String) =
-        FirstStageImpl(generateId(), reportId)
+    override fun responseToModel(firstStageResponse: FirstStageResponseImpl, rocketId: String) =
+        FirstStageImpl(generateId(), rocketId)
 
     override fun generateId() = generateRandomId()
 }

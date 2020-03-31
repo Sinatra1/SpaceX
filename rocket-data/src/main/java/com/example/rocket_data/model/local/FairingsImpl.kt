@@ -3,6 +3,7 @@ package com.example.rocket_data.model.local
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import com.example.rocket_domain.model.local.Fairings
 
 @Entity(
     foreignKeys = [
@@ -14,7 +15,7 @@ import androidx.room.PrimaryKey
         )
     ]
 )
-class FairingsImpl(
+data class FairingsImpl(
     @PrimaryKey
     override var id: String,
     override var rocket_id: String,
@@ -22,4 +23,4 @@ class FairingsImpl(
     override var recovery_attempt: Boolean,
     override var recovered: Boolean,
     override var ship: String?
-) : com.example.rocket_domain.model.local.Fairings
+) : Fairings

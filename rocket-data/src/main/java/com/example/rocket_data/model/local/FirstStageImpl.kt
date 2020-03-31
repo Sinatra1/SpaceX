@@ -5,7 +5,10 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import com.example.rocket_domain.model.local.FirstStage
 
+internal const val FIRST_STAGE = "first_stage"
+
 @Entity(
+    tableName = FIRST_STAGE,
     foreignKeys = [
         ForeignKey(
             entity = RocketImpl::class,
@@ -15,7 +18,7 @@ import com.example.rocket_domain.model.local.FirstStage
         )
     ]
 )
-class FirstStageImpl(
+data class FirstStageImpl(
     @PrimaryKey
     override var id: String,
     override var rocket_id: String

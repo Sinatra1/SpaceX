@@ -2,7 +2,7 @@ package com.example.rocket_data.model.local
 
 import com.example.rocket_domain.model.local.Core
 
-class CoreImpl(
+data class CoreImpl(
     override var serial: String?,
     override var flight: Int?,
     override var block: String?,

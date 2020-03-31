@@ -8,10 +8,10 @@ import com.vladislav.shumilov.core_data.util.generateRandomId
 class FairingsRemoteRepositoryImpl:
     FairingsRemoteRepository<FairingsResponseImpl, FairingsImpl> {
 
-    override fun responseToModel(fairingsResponse: FairingsResponseImpl, reportId: String) =
+    override fun responseToModel(fairingsResponse: FairingsResponseImpl, rocketId: String) =
         FairingsImpl(
             generateId(),
-            reportId,
+            rocketId,
             fairingsResponse.reused,
             fairingsResponse.recovery_attempt,
             fairingsResponse.recovered,

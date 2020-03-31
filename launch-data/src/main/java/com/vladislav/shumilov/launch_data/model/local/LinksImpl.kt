@@ -5,7 +5,10 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import com.vladislav.shumilov.launch_domain.model.local.Links
 
+internal const val LINKS = "links"
+
 @Entity(
+    tableName = LINKS,
     foreignKeys = [
         ForeignKey(
             entity = LaunchImpl::class,
@@ -15,7 +18,7 @@ import com.vladislav.shumilov.launch_domain.model.local.Links
         )
     ]
 )
-class LinksImpl(
+data class LinksImpl(
     @PrimaryKey
     override var id: String,
     override var launch_id: String,

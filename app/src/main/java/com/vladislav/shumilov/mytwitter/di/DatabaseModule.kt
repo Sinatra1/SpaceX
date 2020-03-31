@@ -1,25 +1,25 @@
-package com.vladislav.shumilov.core_ui.injection.modules
+package com.vladislav.shumilov.mytwitter.di
 
 import android.content.Context
+import androidx.room.Room
+import com.vladislav.shumilov.app_data.database.AppDatabase
+import com.vladislav.shumilov.core_data.ApplicationContext
+import com.vladislav.shumilov.core_data.ApplicationScope
 import dagger.Module
 import dagger.Provides
-import androidx.room.Room
-import com.vladislav.shumilov.core_data.ApplicationContext
-import com.vladislav.shumilov.core_data.database.LocalDatabase
-import com.vladislav.shumilov.core_data.ApplicationScope
 
 private const val DATABASE_NAME = "spacex_database"
 
 @Module
 @ApplicationScope
-class DataBaseModule {
+class DatabaseModule {
 
     @Provides
     @ApplicationScope
-    fun provideDatabase(@ApplicationContext context: Context): LocalDatabase =
+    fun provideDatabase(@ApplicationContext context: Context): AppDatabase =
         Room.databaseBuilder(
             context,
-            LocalDatabase::class.java,
+            AppDatabase::class.java,
             DATABASE_NAME
-        ).allowMainThreadQueries().build()
+        ).build()
 }

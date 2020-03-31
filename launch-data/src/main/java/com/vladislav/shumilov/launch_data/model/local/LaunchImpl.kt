@@ -2,20 +2,18 @@ package com.vladislav.shumilov.launch_data.model.local
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.example.rocket_data.model.local.RocketImpl
 import com.vladislav.shumilov.launch_domain.model.local.*
 
+internal const val LAUNCH = "launch"
+
 @Entity(
+    tableName = LAUNCH,
     foreignKeys = [
         ForeignKey(
-            entity = MissionImpl::class,
-            parentColumns = ["id"],
-            childColumns = ["mission_id"],
-            onDelete = ForeignKey.CASCADE
-        ),
-        ForeignKey(
-            entity = com.example.rocket_data.model.local.RocketImpl::class,
+            entity = RocketImpl::class,
             parentColumns = ["id"],
             childColumns = ["rocket_id"],
             onDelete = ForeignKey.CASCADE
@@ -28,7 +26,7 @@ import com.vladislav.shumilov.launch_domain.model.local.*
         )
     ]
 )
-class LaunchImpl(
+data class LaunchImpl(
     @PrimaryKey
     override var id: String,
     override var flight_number: Int?,
@@ -43,14 +41,23 @@ class LaunchImpl(
     override var tbd: Boolean,
     override var launch_window: Int?,
     override var rocket_id: String?,
-    override var rocket: RocketImpl?,
     /*override var ships: List<String>?,*/
     override var launch_site_id: String?,
-    override var launch_site: LaunchSiteImpl?,
     override var launch_success: Boolean,
-    override var launch_failure_details: LaunchFailureDetailsImpl?,
-    override var links: LinksImpl?,
     override var details: String?,
     override var static_fire_date_utc: String?,
     override var static_fire_date_unix: Int?
-) : Launch<MissionImpl, RocketImpl, LaunchSiteImpl, LaunchFailureDetailsImpl, LinksImpl>
+) : Launch<MissionImpl, RocketImpl, LaunchSiteImpl, LaunchFailureDetailsImpl, LinksImpl> {
+
+    @Ignore
+    override var rocket: RocketImpl? = null
+
+    @Ignore
+    override var launch_site: LaunchSiteImpl? = null
+
+    @Ignore
+    override var launch_failure_details: LaunchFailureDetailsImpl? = null
+
+    @Ignore
+    override var links: LinksImpl? = null
+}

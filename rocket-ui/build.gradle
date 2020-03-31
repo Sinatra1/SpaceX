@@ -33,6 +33,8 @@ dependencies {
     implementation project(path: ':core-data')
     implementation project(path: ':rocket-domain')
     implementation project(path: ':rocket-data')
+    implementation project(path: ':app-data')
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
@@ -48,7 +50,8 @@ dependencies {
 
     //Room
     implementation "android.arch.persistence.room:runtime:$room_version"
-    annotationProcessor "android.arch.persistence.room:compiler:$room_version"
+    kapt "android.arch.persistence.room:compiler:$room_version"
+    implementation "android.arch.persistence.room:rxjava2:$room_version"
 
     //Dagger
     kapt "com.google.dagger:dagger-compiler:$dagger_version"

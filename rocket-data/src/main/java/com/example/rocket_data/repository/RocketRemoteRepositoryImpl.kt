@@ -4,7 +4,6 @@ import com.example.rocket_data.model.local.RocketImpl
 import com.example.rocket_data.model.remote.RocketResponseImpl
 import com.example.rocket_domain.repository.RocketRemoteRepository
 import com.vladislav.shumilov.core_data.FragmentScope
-import com.vladislav.shumilov.core_data.util.generateRandomId
 import javax.inject.Inject
 
 @FragmentScope
@@ -16,27 +15,35 @@ class RocketRemoteRepositoryImpl @Inject constructor(
     RocketRemoteRepository<RocketResponseImpl, RocketImpl> {
 
     override fun responseToModel(rocketResponse: RocketResponseImpl): RocketImpl {
-        val reportId = generateId()
 
-        return RocketImpl(
-            reportId,
+        val rocket = RocketImpl(
+            rocketResponse.rocket_id,
             rocketResponse.rocket_name,
-            rocketResponse.rocket_type,
-            rocketResponse.first_stage?.let {
-                firstStageRemoteRepository.responseToModel(
-                    it,
-                    reportId
-                )
-            },
-            rocketResponse.second_stage?.let {
-                secondStageRemoteRepository.responseToModel(
-                    it,
-                    reportId
-                )
-            },
-            rocketResponse.fairings?.let { fairingsRemoteRepository.responseToModel(it, reportId) }
+            rocketResponse.rocket_type
         )
-    }
 
-    override fun generateId() = generateRandomId()
+        rocket.first_stage = rocketResponse.first_stage?.let {
+            firstStageRemoteRepository.responseToModel(
+                it,
+                rocketResponse.rocket_id
+            )
+        }
+
+        rocket.second_stage = rocketResponse.second_stage?.let {
+            secondStageRemoteRepository.responseToModel(
+                it,
+                rocketResponse.rocket_id
+            )
+        }
+
+        rocket.fairings =
+            rocketResponse.fairings?.let {
+                fairingsRemoteRepository.responseToModel(
+                    it,
+                    rocketResponse.rocket_id
+                )
+            }
+
+        return rocket
+    }
 }

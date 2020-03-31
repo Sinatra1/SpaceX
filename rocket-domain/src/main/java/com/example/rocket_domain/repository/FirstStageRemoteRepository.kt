@@ -5,7 +5,7 @@ import com.example.rocket_domain.model.remote.FirstStageResponse
 
 interface FirstStageRemoteRepository<T: FirstStageResponse<*>, M: FirstStage<*>> {
 
-    fun responseToModel(firstStageResponse: T, reportId: String): M
+    fun responseToModel(firstStageResponse: T, rocketId: String): M
 
     fun generateId(): String
 }
