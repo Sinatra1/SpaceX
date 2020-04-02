@@ -3,24 +3,22 @@ package com.vladislav.shumilov.launch_data.repository
 import com.example.rocket_data.database.RocketDao
 import com.example.rocket_data.model.local.RocketImpl
 import com.vladislav.shumilov.core_data.FragmentScope
-import com.vladislav.shumilov.launch_data.database.LaunchDao
-import com.vladislav.shumilov.launch_data.database.LaunchFailureDetailsDao
-import com.vladislav.shumilov.launch_data.database.LaunchSiteDao
-import com.vladislav.shumilov.launch_data.database.LinksDao
-import com.vladislav.shumilov.launch_data.model.local.LaunchFailureDetailsImpl
-import com.vladislav.shumilov.launch_data.model.local.LaunchImpl
-import com.vladislav.shumilov.launch_data.model.local.LaunchSiteImpl
-import com.vladislav.shumilov.launch_data.model.local.LinksImpl
+import com.vladislav.shumilov.launch_data.database.*
+import com.vladislav.shumilov.launch_data.model.local.*
 import com.vladislav.shumilov.launch_domain.repository.LaunchLocalRepository
+import com.vladislav.shumilov.mission_data.database.MissionDao
+import com.vladislav.shumilov.mission_data.model.local.MissionImpl
 import javax.inject.Inject
 
 @FragmentScope
 class LaunchLocalRepositoryImpl @Inject constructor(
     private val launchDao: LaunchDao,
+    private val missionDao: MissionDao,
     private val rocketDao: RocketDao,
     private val launchSiteDao: LaunchSiteDao,
     private val launchFailureDetailsDao: LaunchFailureDetailsDao,
-    private val linksDao: LinksDao
+    private val linksDao: LinksDao,
+    private val launchToMissionDao: LaunchToMissionDao
 ) :
     LaunchLocalRepository<LaunchImpl> {
 
@@ -32,9 +30,33 @@ class LaunchLocalRepositoryImpl @Inject constructor(
 
         insertLaunchFailureDetails(launches)
         insertLinks(launches)
+        insertMissions(launches)
     }
 
     override fun getList() = launchDao.getList()
+
+    private fun insertMissions(launches: List<LaunchImpl>) {
+        val missions = ArrayList<MissionImpl>()
+        val launchToMissions = ArrayList<LaunchToMissionImpl>()
+
+        launches.forEach { launch ->
+            launch.missions?.let { it ->
+                missions.addAll(it)
+
+                it.forEach {
+                    launchToMissions.add(LaunchToMissionImpl(launch.id, it.id))
+                }
+            }
+        }
+
+        if (missions.isNotEmpty()) {
+            missionDao.insertList(missions)
+        }
+
+        if (launchToMissions.isNotEmpty()) {
+            launchToMissionDao.insertList(launchToMissions)
+        }
+    }
 
     private fun insertRockets(launches: List<LaunchImpl>) {
         val rockets = ArrayList<RocketImpl>()

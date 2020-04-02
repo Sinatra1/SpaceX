@@ -9,6 +9,8 @@ import javax.inject.Inject
 @FragmentScope
 class LaunchesListViewModelFactory @Inject constructor(private val launchInteractor: LaunchInteractor) :
     ViewModelProvider.Factory {
+
+    @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>) = if (modelClass.isAssignableFrom(
             LaunchesListViewModel::class.java
         )

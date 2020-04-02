@@ -16,6 +16,9 @@
             <option value="$PROJECT_DIR$/launch-data" />
             <option value="$PROJECT_DIR$/launch-domain" />
             <option value="$PROJECT_DIR$/launch-ui" />
+            <option value="$PROJECT_DIR$/mission-data" />
+            <option value="$PROJECT_DIR$/mission-domain" />
+            <option value="$PROJECT_DIR$/mission-ui" />
             <option value="$PROJECT_DIR$/rocket-data" />
             <option value="$PROJECT_DIR$/rocket-domain" />
             <option value="$PROJECT_DIR$/rocket-ui" />

@@ -6,11 +6,9 @@ import com.vladislav.shumilov.app_data.database.AppDatabase
 import com.vladislav.shumilov.core_data.ApplicationScope
 import com.vladislav.shumilov.core_data.FragmentScope
 import com.vladislav.shumilov.launch_data.api.LaunchApi
-import com.vladislav.shumilov.launch_data.database.LaunchDao
-import com.vladislav.shumilov.launch_data.database.LaunchFailureDetailsDao
-import com.vladislav.shumilov.launch_data.database.LaunchSiteDao
-import com.vladislav.shumilov.launch_data.database.LinksDao
+import com.vladislav.shumilov.launch_data.database.*
 import com.vladislav.shumilov.launch_data.repository.*
+import com.vladislav.shumilov.mission_data.database.MissionDao
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -39,17 +37,21 @@ class LaunchModule {
     @FragmentScope
     fun provideLaunchLocalRepository(
         launchDao: LaunchDao,
+        missionDao: MissionDao,
         rocketDao: RocketDao,
         launchSiteDao: LaunchSiteDao,
         launchFailureDetailsDao: LaunchFailureDetailsDao,
-        linksDao: LinksDao
+        linksDao: LinksDao,
+        launchToMissionDao: LaunchToMissionDao
     ) =
         LaunchLocalRepositoryImpl(
             launchDao,
+            missionDao,
             rocketDao,
             launchSiteDao,
             launchFailureDetailsDao,
-            linksDao
+            linksDao,
+            launchToMissionDao
         )
 
     @Provides
@@ -87,6 +89,11 @@ class LaunchModule {
     @FragmentScope
     fun provideLinksDao(@ApplicationScope appDatabase: AppDatabase): LinksDao =
         appDatabase.getLinksDao()
+
+    @Provides
+    @FragmentScope
+    fun provideLaunchToMissionDao(@ApplicationScope appDatabase: AppDatabase): LaunchToMissionDao =
+        appDatabase.getLaunchToMissionDao()
 
 
 }

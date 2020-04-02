@@ -1,6 +1,7 @@
 package com.vladislav.shumilov.launch_data.model.remote
 
 import com.vladislav.shumilov.launch_domain.model.remote.ShipResponse
+import com.vladislav.shumilov.mission_data.model.remote.MissionResponseImpl
 
 class ShipResponseImpl(
     override val ship_id: String?,

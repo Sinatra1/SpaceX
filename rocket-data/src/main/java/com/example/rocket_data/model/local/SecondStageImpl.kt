@@ -22,7 +22,7 @@ data class SecondStageImpl(
     @PrimaryKey
     override var id: String,
     override var rocket_id: String,
-    override var block: Int?
-    /*override var payloads: List<PayloadImpl>?*/
+    override var block: Int?/*,
+    override var payloads: List<PayloadImpl>?*/
 ) :
     SecondStage<PayloadImpl>

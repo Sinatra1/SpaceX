@@ -1,4 +1,4 @@
-package com.vladislav.shumilov.launch_domain.model.remote
+package com.vladislav.shumilov.mission_domain.model.remote
 
 interface MissionResponse {
     val name: String?

@@ -1,5 +1,7 @@
 package com.vladislav.shumilov.launch_domain.model.remote
 
+import com.vladislav.shumilov.mission_domain.model.remote.MissionResponse
+
 interface ShipResponse<M : MissionResponse> {
     val ship_id: String?
     val ship_name: String?

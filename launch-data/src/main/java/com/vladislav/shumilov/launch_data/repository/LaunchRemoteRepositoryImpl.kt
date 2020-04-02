@@ -7,6 +7,7 @@ import com.vladislav.shumilov.launch_data.api.LaunchApi
 import com.vladislav.shumilov.launch_data.model.local.LaunchImpl
 import com.vladislav.shumilov.launch_data.model.remote.LaunchResponseImpl
 import com.vladislav.shumilov.launch_domain.repository.LaunchRemoteRepository
+import com.vladislav.shumilov.mission_data.model.local.MissionImpl
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -47,12 +48,15 @@ class LaunchRemoteRepositoryImpl @Inject constructor(
             launchResponse.tbd,
             launchResponse.launch_window,
             launchResponse.rocket?.rocket_id,
+            launchResponse.ships,
             launchResponse.launch_site?.site_id,
             launchResponse.launch_success,
             launchResponse.details,
             launchResponse.static_fire_date_utc,
             launchResponse.static_fire_date_unix
         )
+
+        launch.missions = prepareMissions(launchResponse)
 
         launch.rocket = launchResponse.rocket?.let { rocketRemoteRepository.responseToModel(it) }
 
@@ -68,4 +72,16 @@ class LaunchRemoteRepositoryImpl @Inject constructor(
     }
 
     override fun generateId() = generateRandomId()
+
+    private fun prepareMissions(launchResponse: LaunchResponseImpl) =
+        launchResponse.mission_id?.let { missionIds ->
+            val missions = ArrayList<MissionImpl>()
+            val names = launchResponse.mission_name?.split("/")
+
+            missionIds.forEachIndexed { index, missionId ->
+                missions.add(MissionImpl(missionId, names?.getOrNull(index)?.trim()))
+            }
+
+            missions
+        }
 }
