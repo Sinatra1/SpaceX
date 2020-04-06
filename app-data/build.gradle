@@ -30,6 +30,8 @@ dependencies {
     implementation project(path: ':core-data')
     implementation project(path: ':rocket-domain')
     implementation project(path: ':rocket-data')
+    implementation project(path: ':ship-domain')
+    implementation project(path: ':ship-data')
     implementation project(path: ':mission-domain')
     implementation project(path: ':mission-data')
     implementation project(path: ':launch-domain')

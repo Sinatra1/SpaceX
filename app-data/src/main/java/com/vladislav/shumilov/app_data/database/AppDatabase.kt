@@ -15,16 +15,20 @@ import com.vladislav.shumilov.launch_data.database.*
 import com.vladislav.shumilov.launch_data.model.local.*
 import com.vladislav.shumilov.mission_data.database.MissionDao
 import com.vladislav.shumilov.mission_data.model.local.MissionImpl
+import com.vladislav.shumilov.ship_data.database.ShipDao
+import com.vladislav.shumilov.ship_data.model.local.ShipImpl
 
 @Database(
     entities = [
         LaunchImpl::class,
         RocketImpl::class,
+        ShipImpl::class,
         MissionImpl::class,
         LaunchSiteImpl::class,
         LaunchFailureDetailsImpl::class,
         LinksImpl::class,
         LaunchToMissionImpl::class,
+        LaunchToShipImpl::class,
         FirstStageImpl::class,
         SecondStageImpl::class,
         FairingsImpl::class
@@ -38,6 +42,8 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun getRocketDao(): RocketDao
 
+    abstract fun getShipDao(): ShipDao
+
     abstract fun getMissionDao(): MissionDao
 
     abstract fun getLaunchSiteDao(): LaunchSiteDao
@@ -47,6 +53,8 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun getLinksDao(): LinksDao
 
     abstract fun getLaunchToMissionDao(): LaunchToMissionDao
+
+    abstract fun getLaunchToShipDao(): LaunchToShipDao
 
     abstract fun getFirstStageDao(): FirstStageDao
 

@@ -8,6 +8,8 @@ import com.vladislav.shumilov.launch_data.model.local.*
 import com.vladislav.shumilov.launch_domain.repository.LaunchLocalRepository
 import com.vladislav.shumilov.mission_data.database.MissionDao
 import com.vladislav.shumilov.mission_data.model.local.MissionImpl
+import com.vladislav.shumilov.ship_data.database.ShipDao
+import com.vladislav.shumilov.ship_data.model.local.ShipImpl
 import javax.inject.Inject
 
 @FragmentScope
@@ -15,10 +17,12 @@ class LaunchLocalRepositoryImpl @Inject constructor(
     private val launchDao: LaunchDao,
     private val missionDao: MissionDao,
     private val rocketDao: RocketDao,
+    private val shipDao: ShipDao,
     private val launchSiteDao: LaunchSiteDao,
     private val launchFailureDetailsDao: LaunchFailureDetailsDao,
     private val linksDao: LinksDao,
-    private val launchToMissionDao: LaunchToMissionDao
+    private val launchToMissionDao: LaunchToMissionDao,
+    private val launchToShipDao: LaunchToShipDao
 ) :
     LaunchLocalRepository<LaunchImpl> {
 
@@ -31,6 +35,7 @@ class LaunchLocalRepositoryImpl @Inject constructor(
         insertLaunchFailureDetails(launches)
         insertLinks(launches)
         insertMissions(launches)
+        insertShips(launches)
     }
 
     override fun getList() = launchDao.getList()
@@ -69,6 +74,29 @@ class LaunchLocalRepositoryImpl @Inject constructor(
 
         if (rockets.isNotEmpty()) {
             rocketDao.insertList(rockets)
+        }
+    }
+
+    private fun insertShips(launches: List<LaunchImpl>) {
+        val ships = ArrayList<ShipImpl>()
+        val launchToShips = ArrayList<LaunchToShipImpl>()
+
+        launches.forEach { launch ->
+            launch.ships?.let { it ->
+                ships.addAll(it)
+
+                it.forEach {
+                    launchToShips.add(LaunchToShipImpl(launch.id, it.id))
+                }
+            }
+        }
+
+        if (ships.isNotEmpty()) {
+            shipDao.insertList(ships)
+        }
+
+        if (launchToShips.isNotEmpty()) {
+            launchToShipDao.insertList(launchToShips)
         }
     }
 

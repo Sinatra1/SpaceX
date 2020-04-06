@@ -32,6 +32,8 @@ dependencies {
     implementation project(path: ':mission-ui')
     implementation project(path: ':rocket-data')
     implementation project(path: ':rocket-ui')
+    implementation project(path: ':ship-data')
+    implementation project(path: ':ship-ui')
     implementation project(path: ':launch-data')
     implementation project(path: ':launch-ui')
     implementation project(path: ':app-data')

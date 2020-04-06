@@ -41,6 +41,9 @@ dependencies {
     implementation project(path: ':mission-domain')
     implementation project(path: ':mission-data')
     implementation project(path: ':mission-ui')
+    implementation project(path: ':ship-domain')
+    implementation project(path: ':ship-data')
+    implementation project(path: ':ship-ui')
     implementation project(path: ':app-data')
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])

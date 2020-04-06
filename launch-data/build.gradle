@@ -33,6 +33,8 @@ dependencies {
     implementation project(path: ':rocket-data')
     implementation project(path: ':mission-domain')
     implementation project(path: ':mission-data')
+    implementation project(path: ':ship-domain')
+    implementation project(path: ':ship-data')
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

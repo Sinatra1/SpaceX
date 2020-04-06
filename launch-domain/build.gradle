@@ -34,6 +34,7 @@ compileTestKotlin {
 dependencies {
     implementation project(path: ':rocket-domain')
     implementation project(path: ':mission-domain')
+    implementation project(path: ':ship-domain')
 
     //RxJava
     implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"

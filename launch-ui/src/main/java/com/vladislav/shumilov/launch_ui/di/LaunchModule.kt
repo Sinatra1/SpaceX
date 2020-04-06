@@ -9,6 +9,7 @@ import com.vladislav.shumilov.launch_data.api.LaunchApi
 import com.vladislav.shumilov.launch_data.database.*
 import com.vladislav.shumilov.launch_data.repository.*
 import com.vladislav.shumilov.mission_data.database.MissionDao
+import com.vladislav.shumilov.ship_data.database.ShipDao
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -39,19 +40,23 @@ class LaunchModule {
         launchDao: LaunchDao,
         missionDao: MissionDao,
         rocketDao: RocketDao,
+        shipDao: ShipDao,
         launchSiteDao: LaunchSiteDao,
         launchFailureDetailsDao: LaunchFailureDetailsDao,
         linksDao: LinksDao,
-        launchToMissionDao: LaunchToMissionDao
+        launchToMissionDao: LaunchToMissionDao,
+        launchToShipDao: LaunchToShipDao
     ) =
         LaunchLocalRepositoryImpl(
             launchDao,
             missionDao,
             rocketDao,
+            shipDao,
             launchSiteDao,
             launchFailureDetailsDao,
             linksDao,
-            launchToMissionDao
+            launchToMissionDao,
+            launchToShipDao
         )
 
     @Provides
@@ -94,6 +99,11 @@ class LaunchModule {
     @FragmentScope
     fun provideLaunchToMissionDao(@ApplicationScope appDatabase: AppDatabase): LaunchToMissionDao =
         appDatabase.getLaunchToMissionDao()
+
+    @Provides
+    @FragmentScope
+    fun provideLaunchToShipDao(@ApplicationScope appDatabase: AppDatabase): LaunchToShipDao =
+        appDatabase.getLaunchToShipDao()
 
 
 }

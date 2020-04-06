@@ -8,6 +8,7 @@ import com.vladislav.shumilov.launch_ui.LaunchApp
 import com.vladislav.shumilov.mytwitter.di.AppComponent
 import com.vladislav.shumilov.mytwitter.di.DaggerAppComponent
 import com.vladislav.shumilov.rocket_ui.di.RocketModule
+import com.vladislav.shumilov.ship_ui.di.ShipModule
 import com.vladislav.shumiov.mission_ui.di.MissionModule
 import timber.log.Timber
 import vladislav.shumilov.mytwitter.BuildConfig
@@ -29,7 +30,7 @@ class App : Application(), LaunchApp {
     override fun createLaunchComponent(): LaunchComponent {
         if (launchComponent == null) {
             launchComponent =
-                appComponent.plusLaunchComponent(LaunchModule(), MissionModule(), RocketModule())
+                appComponent.plusLaunchComponent(LaunchModule(), MissionModule(), RocketModule(), ShipModule())
         }
 
         return launchComponent!!

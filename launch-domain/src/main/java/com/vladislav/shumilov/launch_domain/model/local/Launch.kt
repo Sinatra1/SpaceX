@@ -2,10 +2,11 @@ package com.vladislav.shumilov.launch_domain.model.local
 
 import com.example.rocket_domain.model.local.Rocket
 import com.vladislav.shumilov.mission_domain.model.local.Mission
+import com.vladislav.shumilov.ship_domain.model.local.Ship
 
-typealias LaunchAlias = Launch<*, *, *, *, *>
+typealias LaunchAlias = Launch<*, *, *, *, *, *>
 
-interface Launch<M: Mission, R: Rocket<*, *, *>, LS: LaunchSite, LF: LaunchFailureDetails, L: Links> {
+interface Launch<M: Mission, R: Rocket<*, *, *>, S: Ship, LS: LaunchSite, LF: LaunchFailureDetails, L: Links> {
     var id: String
     var flight_number: Int?
     var missions: List<M>?
@@ -19,7 +20,7 @@ interface Launch<M: Mission, R: Rocket<*, *, *>, LS: LaunchSite, LF: LaunchFailu
     var launch_window: Int?
     var rocket_id: String?
     var rocket: R?
-    var ships: List<String>?
+    var ships: List<S>?
     var launch_site_id: String?
     var launch_site: LS?
     var launch_success: Boolean
