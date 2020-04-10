@@ -3,7 +3,7 @@ package com.example.rocket_data.model.remote
 import com.example.rocket_domain.model.remote.CoreResponse
 
 class CoreResponseImpl(
-    override val core_serial: String?,
+    override val core_serial: String,
     override val flight: Int?,
     override val block: String?,
     override val gridfins: Boolean,

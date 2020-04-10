@@ -1,6 +1,7 @@
 package com.example.rocket_domain.model.local
 
 interface Core {
+    var id: String
     var serial: String?
     var flight: Int?
     var block: String?

@@ -1,6 +1,8 @@
 package com.example.rocket_domain.model.local
 
 interface OrbitParams {
+    var id: String
+    var payload_id: String
     var reference_system: String?
     var regime: String?
     var longitude: Float?

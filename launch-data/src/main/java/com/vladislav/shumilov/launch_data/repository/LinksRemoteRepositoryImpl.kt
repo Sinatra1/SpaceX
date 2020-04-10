@@ -25,7 +25,8 @@ class LinksRemoteRepositoryImpl:
             linksResponse.article_link,
             linksResponse.wikipedia,
             linksResponse.video_link,
-            linksResponse.youtube_id
+            linksResponse.youtube_id,
+            linksResponse.flickr_images
         )
 
     override fun generateId() = generateRandomId()

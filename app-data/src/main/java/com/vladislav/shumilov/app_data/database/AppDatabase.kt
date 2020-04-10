@@ -3,14 +3,10 @@ package com.vladislav.shumilov.app_data.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.rocket_data.database.FirstStageDao
-import com.example.rocket_data.database.RocketDao
-import com.example.rocket_data.database.SecondStageDao
-import com.example.rocket_data.model.local.FairingsImpl
-import com.example.rocket_data.model.local.FirstStageImpl
-import com.example.rocket_data.model.local.RocketImpl
-import com.example.rocket_data.model.local.SecondStageImpl
+import com.example.rocket_data.database.*
+import com.example.rocket_data.model.local.*
 import com.vladislav.shumilov.core_data.database.Converters
+import com.example.rocket_data.model.local.CoreImpl
 import com.vladislav.shumilov.launch_data.database.*
 import com.vladislav.shumilov.launch_data.model.local.*
 import com.vladislav.shumilov.mission_data.database.MissionDao
@@ -31,7 +27,12 @@ import com.vladislav.shumilov.ship_data.model.local.ShipImpl
         LaunchToShipImpl::class,
         FirstStageImpl::class,
         SecondStageImpl::class,
-        FairingsImpl::class
+        FairingsImpl::class,
+        CoreImpl::class,
+        FirstStageToCoreImpl::class,
+        SecondStageToPayloadImpl::class,
+        PayloadImpl::class,
+        OrbitParamsImpl::class
     ],
     version = 1
 )
@@ -60,5 +61,13 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun getSecondStageDao(): SecondStageDao
 
+    abstract fun getCoreDao(): CoreDao
 
+    abstract fun getFirstStageToCoreDao(): FirstStageToCoreDao
+
+    abstract fun getSecondStageToPayloadDao(): SecondStageToPayloadDao
+
+    abstract fun getPayloadDao(): PayloadDao
+
+    abstract fun getOrbitParamsDao(): OrbitParamsDao
 }

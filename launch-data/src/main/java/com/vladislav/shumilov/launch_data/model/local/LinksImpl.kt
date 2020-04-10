@@ -32,6 +32,6 @@ data class LinksImpl(
     override var article_link: String?,
     override var wikipedia: String?,
     override var video_link: String?,
-    override var youtube_id: String?
-    /*override var flickr_images: List<String>?*/
+    override var youtube_id: String?,
+    override var flickr_images: List<String>?
 ) : Links

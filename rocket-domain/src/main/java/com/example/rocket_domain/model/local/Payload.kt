@@ -1,7 +1,7 @@
 package com.example.rocket_domain.model.local
 
 interface Payload<O : OrbitParams> {
-    var id: String?
+    var id: String
     var norad_id: List<String>?
     var reused: Boolean
     var customers: List<String>?

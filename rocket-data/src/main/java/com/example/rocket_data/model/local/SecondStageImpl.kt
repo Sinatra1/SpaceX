@@ -2,6 +2,7 @@ package com.example.rocket_data.model.local
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.example.rocket_domain.model.local.SecondStage
 
@@ -22,7 +23,10 @@ data class SecondStageImpl(
     @PrimaryKey
     override var id: String,
     override var rocket_id: String,
-    override var block: Int?/*,
-    override var payloads: List<PayloadImpl>?*/
+    override var block: Int?
 ) :
-    SecondStage<PayloadImpl>
+    SecondStage<PayloadImpl> {
+
+    @Ignore
+    override var payloads: List<PayloadImpl>? = null
+}

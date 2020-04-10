@@ -14,5 +14,5 @@ interface Links {
     var wikipedia: String?
     var video_link: String?
     var youtube_id: String?
-    /*var flickr_images: List<String>?*/
+    var flickr_images: List<String>?
 }

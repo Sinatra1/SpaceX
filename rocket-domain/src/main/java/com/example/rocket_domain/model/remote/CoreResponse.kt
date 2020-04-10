@@ -1,7 +1,7 @@
 package com.example.rocket_domain.model.remote
 
 interface CoreResponse {
-    val core_serial: String?
+    val core_serial: String
     val flight: Int?
     val block: String?
     val gridfins: Boolean

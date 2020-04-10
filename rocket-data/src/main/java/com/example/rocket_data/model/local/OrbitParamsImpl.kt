@@ -1,9 +1,27 @@
 package com.example.rocket_data.model.local
 
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.PrimaryKey
 import com.example.rocket_domain.model.local.OrbitParams
 
+internal const val ORBIT_PARAMS = "orbit_params"
 
+@Entity(
+    tableName = ORBIT_PARAMS,
+    foreignKeys = [
+        ForeignKey(
+            entity = PayloadImpl::class,
+            parentColumns = ["id"],
+            childColumns = ["payload_id"],
+            onDelete = ForeignKey.CASCADE
+        )
+    ]
+)
 data class OrbitParamsImpl(
+    @PrimaryKey
+    override var id: String,
+    override var payload_id: String,
     override var reference_system: String?,
     override var regime: String?,
     override var longitude: Float?,

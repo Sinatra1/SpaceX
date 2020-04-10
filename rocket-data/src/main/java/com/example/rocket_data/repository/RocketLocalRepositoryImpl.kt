@@ -1,6 +1,5 @@
 package com.example.rocket_data.repository
 
-import com.example.rocket_data.database.FirstStageDao
 import com.example.rocket_data.database.RocketDao
 import com.example.rocket_data.database.SecondStageDao
 import com.example.rocket_data.model.local.FirstStageImpl
@@ -13,7 +12,7 @@ import javax.inject.Inject
 @FragmentScope
 class RocketLocalRepositoryImpl @Inject constructor(
     private val rocketDao: RocketDao,
-    private val firstStageDao: FirstStageDao,
+    private val firstStageLocalRepository: FirstStageLocalRepositoryImpl,
     private val secondStageDao: SecondStageDao
 ) :
     RocketLocalRepository<RocketImpl> {
@@ -37,7 +36,7 @@ class RocketLocalRepositoryImpl @Inject constructor(
         }
 
         if (firstStages.isNotEmpty()) {
-            firstStageDao.insertList(firstStages)
+            firstStageLocalRepository.insertList(firstStages)
         }
     }
 

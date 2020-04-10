@@ -37,7 +37,7 @@ class LaunchRemoteRepositoryImpl @Inject constructor(
 
         val launchId = generateId()
 
-        val launch = LaunchImpl(
+        return LaunchImpl(
             launchId,
             launchResponse.flight_number,
             launchResponse.upcoming,
@@ -54,23 +54,18 @@ class LaunchRemoteRepositoryImpl @Inject constructor(
             launchResponse.details,
             launchResponse.static_fire_date_utc,
             launchResponse.static_fire_date_unix
-        )
-
-        launch.missions = prepareMissions(launchResponse)
-
-        launch.rocket = launchResponse.rocket?.let { rocketRemoteRepository.responseToModel(it) }
-
-        launch.ships = prepareShips(launchResponse)
-
-        launch.launch_site =
-            launchResponse.launch_site?.let { launchSiteRemoteRepository.responseToModel(it) }
-        launch.launch_failure_details = launchResponse.launch_failure_details?.let {
-            launchFailureDetailsRemoteRepository.responseToModel(it, launchId)
+        ).apply {
+            missions = prepareMissions(launchResponse)
+            rocket = launchResponse.rocket?.let { rocketRemoteRepository.responseToModel(it) }
+            ships = prepareShips(launchResponse)
+            launch_site =
+                launchResponse.launch_site?.let { launchSiteRemoteRepository.responseToModel(it) }
+            launch_failure_details = launchResponse.launch_failure_details?.let {
+                launchFailureDetailsRemoteRepository.responseToModel(it, launchId)
+            }
+            links =
+                launchResponse.links?.let { linksRemoteRepository.responseToModel(it, launchId) }
         }
-        launch.links =
-            launchResponse.links?.let { linksRemoteRepository.responseToModel(it, launchId) }
-
-        return launch
     }
 
     override fun generateId() = generateRandomId()

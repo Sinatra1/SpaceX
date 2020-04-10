@@ -14,36 +14,33 @@ class RocketRemoteRepositoryImpl @Inject constructor(
 ) :
     RocketRemoteRepository<RocketResponseImpl, RocketImpl> {
 
-    override fun responseToModel(rocketResponse: RocketResponseImpl): RocketImpl {
-
-        val rocket = RocketImpl(
+    override fun responseToModel(rocketResponse: RocketResponseImpl) =
+        RocketImpl(
             rocketResponse.rocket_id,
             rocketResponse.rocket_name,
             rocketResponse.rocket_type
-        )
-
-        rocket.first_stage = rocketResponse.first_stage?.let {
-            firstStageRemoteRepository.responseToModel(
-                it,
-                rocketResponse.rocket_id
-            )
-        }
-
-        rocket.second_stage = rocketResponse.second_stage?.let {
-            secondStageRemoteRepository.responseToModel(
-                it,
-                rocketResponse.rocket_id
-            )
-        }
-
-        rocket.fairings =
-            rocketResponse.fairings?.let {
-                fairingsRemoteRepository.responseToModel(
+        ).apply {
+            first_stage = rocketResponse.first_stage?.let {
+                firstStageRemoteRepository.responseToModel(
                     it,
                     rocketResponse.rocket_id
                 )
             }
 
-        return rocket
-    }
+            second_stage = rocketResponse.second_stage?.let {
+                secondStageRemoteRepository.responseToModel(
+                    it,
+                    rocketResponse.rocket_id
+                )
+            }
+
+            fairings =
+                rocketResponse.fairings?.let {
+                    fairingsRemoteRepository.responseToModel(
+                        it,
+                        rocketResponse.rocket_id
+                    )
+                }
+        }
+
 }
