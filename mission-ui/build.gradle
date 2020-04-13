@@ -30,7 +30,6 @@ dependencies {
     implementation project(path: ':core-data')
     implementation project(path: ':mission-domain')
     implementation project(path: ':mission-data')
-    implementation project(path: ':app-data')
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

@@ -4,8 +4,6 @@ import com.example.payload_data.repository.PayloadLocalRepositoryImpl
 import com.example.rocket_data.database.*
 import com.example.rocket_data.repository.*
 import com.example.rocket_domain.repository.*
-import com.vladislav.shumilov.app_data.database.AppDatabase
-import com.vladislav.shumilov.core_data.ApplicationScope
 import com.vladislav.shumilov.core_data.FragmentScope
 import dagger.Module
 import dagger.Provides
@@ -117,51 +115,4 @@ class RocketModule {
     @FragmentScope
     fun provideOrbitParamsRemoteRepository() =
         OrbitParamsRemoteRepositoryImpl() as OrbitParamsRemoteRepositoryAlias
-
-    @Provides
-    @FragmentScope
-    fun provideRocketDao(@ApplicationScope appDatabase: AppDatabase): RocketDao =
-        appDatabase.getRocketDao()
-
-    @Provides
-    @FragmentScope
-    fun provideFirstStageDao(@ApplicationScope appDatabase: AppDatabase): FirstStageDao =
-        appDatabase.getFirstStageDao()
-
-    @Provides
-    @FragmentScope
-    fun provideSecondStageDao(@ApplicationScope appDatabase: AppDatabase): SecondStageDao =
-        appDatabase.getSecondStageDao()
-
-    @Provides
-    @FragmentScope
-    fun provideCoreDao(@ApplicationScope appDatabase: AppDatabase): CoreDao =
-        appDatabase.getCoreDao()
-
-    @Provides
-    @FragmentScope
-    fun provideFirstStageToCoreDao(@ApplicationScope appDatabase: AppDatabase): FirstStageToCoreDao =
-        appDatabase.getFirstStageToCoreDao()
-
-    @Provides
-    @FragmentScope
-    fun provideSecondStageToPayloadDao(@ApplicationScope appDatabase: AppDatabase): SecondStageToPayloadDao =
-        appDatabase.getSecondStageToPayloadDao()
-
-    @Provides
-    @FragmentScope
-    fun providePayloadDao(@ApplicationScope appDatabase: AppDatabase): PayloadDao =
-        appDatabase.getPayloadDao()
-
-
-    @Provides
-    @FragmentScope
-    fun provideOrbitParamsDao(@ApplicationScope appDatabase: AppDatabase): OrbitParamsDao =
-        appDatabase.getOrbitParamsDao()
-
-    @Provides
-    @FragmentScope
-    fun provideFairingsDao(@ApplicationScope appDatabase: AppDatabase): FairingsDao =
-        appDatabase.getFairingsDao()
-
 }
