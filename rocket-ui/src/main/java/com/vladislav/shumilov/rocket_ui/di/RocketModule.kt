@@ -3,6 +3,7 @@ package com.vladislav.shumilov.rocket_ui.di
 import com.example.payload_data.repository.PayloadLocalRepositoryImpl
 import com.example.rocket_data.database.*
 import com.example.rocket_data.repository.*
+import com.example.rocket_domain.repository.*
 import com.vladislav.shumilov.app_data.database.AppDatabase
 import com.vladislav.shumilov.core_data.ApplicationScope
 import com.vladislav.shumilov.core_data.FragmentScope
@@ -13,32 +14,42 @@ import dagger.Provides
 @FragmentScope
 class RocketModule {
 
+    @Suppress("UNCHECKED_CAST")
     @Provides
     @FragmentScope
     fun provideRocketRemoteRepository(
-        firstStageRemoteRepository: FirstStageRemoteRepositoryImpl,
-        secondStageRemoteRepository: SecondStageRemoteRepositoryImpl,
-        fairingsRemoteRepository: FairingsRemoteRepositoryImpl
+        firstStageRemoteRepository: FirstStageRemoteRepositoryAlias,
+        secondStageRemoteRepository: SecondStageRemoteRepositoryAlias,
+        fairingsRemoteRepository: FairingsRemoteRepositoryAlias
     ) = RocketRemoteRepositoryImpl(
         firstStageRemoteRepository,
         secondStageRemoteRepository,
         fairingsRemoteRepository
-    )
+    ) as RocketRemoteRepositoryAlias
 
+    @Suppress("UNCHECKED_CAST")
     @Provides
     @FragmentScope
     fun provideRocketLocalRepository(
         rocketDao: RocketDao,
-        firstStageLocalRepository: FirstStageLocalRepositoryImpl,
-        secondStageDao: SecondStageDao
+        firstStageLocalRepository: FirstStageLocalRepositoryAlias,
+        secondStageLocalRepository: SecondStageLocalRepositoryAlias,
+        fairingsDao: FairingsDao
     ) =
-        RocketLocalRepositoryImpl(rocketDao, firstStageLocalRepository, secondStageDao)
+        RocketLocalRepositoryImpl(
+            rocketDao,
+            firstStageLocalRepository,
+            secondStageLocalRepository,
+            fairingsDao
+        ) as RocketLocalRepositoryAlias
 
+    @Suppress("UNCHECKED_CAST")
     @Provides
     @FragmentScope
-    fun provideFirstStageRemoteRepository(coreRemoteRepository: CoreRemoteRepositoryImpl) =
-        FirstStageRemoteRepositoryImpl(coreRemoteRepository)
+    fun provideFirstStageRemoteRepository(coreRemoteRepository: CoreRemoteRepositoryAlias) =
+        FirstStageRemoteRepositoryImpl(coreRemoteRepository) as FirstStageRemoteRepositoryAlias
 
+    @Suppress("UNCHECKED_CAST")
     @Provides
     @FragmentScope
     fun provideFirstStageLocalRepository(
@@ -46,39 +57,50 @@ class RocketModule {
         coreDao: CoreDao,
         firstStageToCoreDao: FirstStageToCoreDao
     ) =
-        FirstStageLocalRepositoryImpl(firstStageDao, coreDao, firstStageToCoreDao)
+        FirstStageLocalRepositoryImpl(
+            firstStageDao,
+            coreDao,
+            firstStageToCoreDao
+        ) as FirstStageLocalRepositoryAlias
 
+    @Suppress("UNCHECKED_CAST")
     @Provides
     @FragmentScope
-    fun provideSecondStageRemoteRepository(payloadRemoteRepository: PayloadRemoteRepositoryImpl) =
-        SecondStageRemoteRepositoryImpl(payloadRemoteRepository)
+    fun provideSecondStageRemoteRepository(payloadRemoteRepository: PayloadRemoteRepositoryAlias) =
+        SecondStageRemoteRepositoryImpl(payloadRemoteRepository) as SecondStageRemoteRepositoryAlias
 
+    @Suppress("UNCHECKED_CAST")
     @Provides
     @FragmentScope
     fun provideSecondStageLocalRepository(
         secondStageDao: SecondStageDao,
-        payloadLocalRepository: PayloadLocalRepositoryImpl,
+        payloadLocalRepository: PayloadLocalRepositoryAlias,
         secondStageToPayloadDao: SecondStageToPayloadDao
     ) =
         SecondStageLocalRepositoryImpl(
             secondStageDao,
             payloadLocalRepository,
             secondStageToPayloadDao
-        )
+        ) as SecondStageLocalRepositoryAlias
 
+    @Suppress("UNCHECKED_CAST")
     @Provides
     @FragmentScope
-    fun provideFairingsRemoteRepository() = FairingsRemoteRepositoryImpl()
+    fun provideFairingsRemoteRepository() =
+        FairingsRemoteRepositoryImpl() as FairingsRemoteRepositoryAlias
 
+    @Suppress("UNCHECKED_CAST")
     @Provides
     @FragmentScope
-    fun provideCoreRemoteRepository() = CoreRemoteRepositoryImpl()
+    fun provideCoreRemoteRepository() = CoreRemoteRepositoryImpl() as CoreRemoteRepositoryAlias
 
+    @Suppress("UNCHECKED_CAST")
     @Provides
     @FragmentScope
-    fun providePayloadRemoteRepository(orbitParamsRemoteRepository: OrbitParamsRemoteRepositoryImpl) =
-        PayloadRemoteRepositoryImpl(orbitParamsRemoteRepository)
+    fun providePayloadRemoteRepository(orbitParamsRemoteRepository: OrbitParamsRemoteRepositoryAlias) =
+        PayloadRemoteRepositoryImpl(orbitParamsRemoteRepository) as PayloadRemoteRepositoryAlias
 
+    @Suppress("UNCHECKED_CAST")
     @Provides
     @FragmentScope
     fun providePayloadLocalRepository(
@@ -88,11 +110,13 @@ class RocketModule {
         PayloadLocalRepositoryImpl(
             payloadDao,
             orbitParamsDao
-        )
+        ) as PayloadLocalRepositoryAlias
 
+    @Suppress("UNCHECKED_CAST")
     @Provides
     @FragmentScope
-    fun provideOrbitParamsRemoteRepository() = OrbitParamsRemoteRepositoryImpl()
+    fun provideOrbitParamsRemoteRepository() =
+        OrbitParamsRemoteRepositoryImpl() as OrbitParamsRemoteRepositoryAlias
 
     @Provides
     @FragmentScope
@@ -135,5 +159,9 @@ class RocketModule {
     fun provideOrbitParamsDao(@ApplicationScope appDatabase: AppDatabase): OrbitParamsDao =
         appDatabase.getOrbitParamsDao()
 
+    @Provides
+    @FragmentScope
+    fun provideFairingsDao(@ApplicationScope appDatabase: AppDatabase): FairingsDao =
+        appDatabase.getFairingsDao()
 
 }

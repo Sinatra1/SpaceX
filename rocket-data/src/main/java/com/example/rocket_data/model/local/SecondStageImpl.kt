@@ -1,9 +1,6 @@
 package com.example.rocket_data.model.local
 
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.Ignore
-import androidx.room.PrimaryKey
+import androidx.room.*
 import com.example.rocket_domain.model.local.SecondStage
 
 internal const val SECOND_STAGE = "second_stage"
@@ -17,7 +14,8 @@ internal const val SECOND_STAGE = "second_stage"
             childColumns = ["rocket_id"],
             onDelete = ForeignKey.CASCADE
         )
-    ]
+    ],
+    indices = [Index(value = ["rocket_id"])]
 )
 data class SecondStageImpl(
     @PrimaryKey

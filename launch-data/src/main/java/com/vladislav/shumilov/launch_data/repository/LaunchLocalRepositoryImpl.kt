@@ -1,7 +1,7 @@
 package com.vladislav.shumilov.launch_data.repository
 
-import com.example.rocket_data.database.RocketDao
 import com.example.rocket_data.model.local.RocketImpl
+import com.example.rocket_domain.repository.RocketLocalRepositoryAlias
 import com.vladislav.shumilov.core_data.FragmentScope
 import com.vladislav.shumilov.launch_data.database.*
 import com.vladislav.shumilov.launch_data.model.local.*
@@ -16,7 +16,7 @@ import javax.inject.Inject
 class LaunchLocalRepositoryImpl @Inject constructor(
     private val launchDao: LaunchDao,
     private val missionDao: MissionDao,
-    private val rocketDao: RocketDao,
+    private val rocketLocalRepository: RocketLocalRepositoryAlias,
     private val shipDao: ShipDao,
     private val launchSiteDao: LaunchSiteDao,
     private val launchFailureDetailsDao: LaunchFailureDetailsDao,
@@ -73,7 +73,7 @@ class LaunchLocalRepositoryImpl @Inject constructor(
         }
 
         if (rockets.isNotEmpty()) {
-            rocketDao.insertList(rockets)
+            rocketLocalRepository.insertList(rockets)
         }
     }
 

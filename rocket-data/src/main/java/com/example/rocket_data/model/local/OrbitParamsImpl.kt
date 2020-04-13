@@ -2,6 +2,7 @@ package com.example.rocket_data.model.local
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.example.rocket_domain.model.local.OrbitParams
 
@@ -16,7 +17,8 @@ internal const val ORBIT_PARAMS = "orbit_params"
             childColumns = ["payload_id"],
             onDelete = ForeignKey.CASCADE
         )
-    ]
+    ],
+    indices = [Index(value = ["payload_id"])]
 )
 data class OrbitParamsImpl(
     @PrimaryKey

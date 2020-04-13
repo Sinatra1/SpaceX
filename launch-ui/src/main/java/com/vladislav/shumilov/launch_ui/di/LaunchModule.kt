@@ -1,13 +1,17 @@
 package com.vladislav.shumilov.launch_ui.di
 
 import com.example.rocket_data.database.RocketDao
-import com.example.rocket_data.repository.RocketRemoteRepositoryImpl
+import com.example.rocket_domain.repository.RocketLocalRepositoryAlias
+import com.example.rocket_domain.repository.RocketRemoteRepositoryAlias
 import com.vladislav.shumilov.app_data.database.AppDatabase
 import com.vladislav.shumilov.core_data.ApplicationScope
 import com.vladislav.shumilov.core_data.FragmentScope
 import com.vladislav.shumilov.launch_data.api.LaunchApi
 import com.vladislav.shumilov.launch_data.database.*
 import com.vladislav.shumilov.launch_data.repository.*
+import com.vladislav.shumilov.launch_domain.repository.LaunchFailureDetailsRemoteRepositoryAlias
+import com.vladislav.shumilov.launch_domain.repository.LaunchSiteRemoteRepositoryAlias
+import com.vladislav.shumilov.launch_domain.repository.LinksRemoteRepositoryAlias
 import com.vladislav.shumilov.mission_data.database.MissionDao
 import com.vladislav.shumilov.ship_data.database.ShipDao
 import dagger.Module
@@ -22,10 +26,10 @@ class LaunchModule {
     @FragmentScope
     fun provideLaunchRemoteRepository(
         launchApi: LaunchApi,
-        rocketRemoteRepository: RocketRemoteRepositoryImpl,
-        launchSiteRemoteRepository: LaunchSiteRemoteRepositoryImpl,
-        launchFailureDetailsRemoteRepository: LaunchFailureDetailsRemoteRepositoryImpl,
-        linksRemoteRepository: LinksRemoteRepositoryImpl
+        rocketRemoteRepository: RocketRemoteRepositoryAlias,
+        launchSiteRemoteRepository: LaunchSiteRemoteRepositoryAlias,
+        launchFailureDetailsRemoteRepository: LaunchFailureDetailsRemoteRepositoryAlias,
+        linksRemoteRepository: LinksRemoteRepositoryAlias
     ) = LaunchRemoteRepositoryImpl(
         launchApi,
         rocketRemoteRepository,
@@ -39,7 +43,7 @@ class LaunchModule {
     fun provideLaunchLocalRepository(
         launchDao: LaunchDao,
         missionDao: MissionDao,
-        rocketDao: RocketDao,
+        rocketLocalRepository: RocketLocalRepositoryAlias,
         shipDao: ShipDao,
         launchSiteDao: LaunchSiteDao,
         launchFailureDetailsDao: LaunchFailureDetailsDao,
@@ -50,7 +54,7 @@ class LaunchModule {
         LaunchLocalRepositoryImpl(
             launchDao,
             missionDao,
-            rocketDao,
+            rocketLocalRepository,
             shipDao,
             launchSiteDao,
             launchFailureDetailsDao,
@@ -59,17 +63,22 @@ class LaunchModule {
             launchToShipDao
         )
 
+    @Suppress("UNCHECKED_CAST")
     @Provides
     @FragmentScope
-    fun provideLaunchSiteRemoteRepository() = LaunchSiteRemoteRepositoryImpl()
+    fun provideLaunchSiteRemoteRepository() =
+        LaunchSiteRemoteRepositoryImpl() as LaunchSiteRemoteRepositoryAlias
 
+    @Suppress("UNCHECKED_CAST")
     @Provides
     @FragmentScope
-    fun provideLaunchFailureDetailsRemoteRepository() = LaunchFailureDetailsRemoteRepositoryImpl()
+    fun provideLaunchFailureDetailsRemoteRepository() =
+        LaunchFailureDetailsRemoteRepositoryImpl() as LaunchFailureDetailsRemoteRepositoryAlias
 
+    @Suppress("UNCHECKED_CAST")
     @Provides
     @FragmentScope
-    fun provideLinksRemoteRepository() = LinksRemoteRepositoryImpl()
+    fun provideLinksRemoteRepository() = LinksRemoteRepositoryImpl() as LinksRemoteRepositoryAlias
 
     @Provides
     @FragmentScope

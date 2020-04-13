@@ -2,6 +2,7 @@ package com.vladislav.shumilov.launch_data.model.local
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.vladislav.shumilov.launch_domain.model.local.LaunchFailureDetails
 
@@ -16,7 +17,8 @@ internal const val LAUNCH_FAILURE_DETAILS = "launch_failure_details"
             childColumns = ["launch_id"],
             onDelete = ForeignKey.CASCADE
         )
-    ]
+    ],
+    indices = [Index(value = ["launch_id"])]
 )
 data class LaunchFailureDetailsImpl(
     @PrimaryKey

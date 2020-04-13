@@ -1,9 +1,6 @@
 package com.vladislav.shumilov.launch_data.model.local
 
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.Ignore
-import androidx.room.PrimaryKey
+import androidx.room.*
 import com.example.rocket_data.model.local.RocketImpl
 import com.vladislav.shumilov.launch_domain.model.local.*
 import com.vladislav.shumilov.mission_data.model.local.MissionImpl
@@ -26,6 +23,10 @@ internal const val LAUNCH = "launch"
             childColumns = ["launch_site_id"],
             onDelete = ForeignKey.CASCADE
         )
+    ],
+    indices = [
+        Index(value = ["rocket_id"]),
+        Index(value = ["launch_site_id"])
     ]
 )
 data class LaunchImpl(

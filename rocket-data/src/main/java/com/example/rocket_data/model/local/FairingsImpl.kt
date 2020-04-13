@@ -2,10 +2,14 @@ package com.example.rocket_data.model.local
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.example.rocket_domain.model.local.Fairings
 
+internal const val FAIRINGS = "fairings"
+
 @Entity(
+    tableName = FAIRINGS,
     foreignKeys = [
         ForeignKey(
             entity = RocketImpl::class,
@@ -13,7 +17,8 @@ import com.example.rocket_domain.model.local.Fairings
             childColumns = ["rocket_id"],
             onDelete = ForeignKey.CASCADE
         )
-    ]
+    ],
+    indices = [Index(value = ["rocket_id"])]
 )
 data class FairingsImpl(
     @PrimaryKey

@@ -20,7 +20,8 @@ class LaunchInteractor @Inject constructor(
             .observeOn(Schedulers.io())
             .map {
                 launchRemoteRepository.responsesToModels(it)
-            }.map {
+            }
+            .map {
                 launchLocalRepository.insertList(it)
                 it
             }

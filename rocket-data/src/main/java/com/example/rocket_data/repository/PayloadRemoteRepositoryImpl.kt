@@ -1,13 +1,15 @@
 package com.example.rocket_data.repository
 
+import com.example.rocket_data.model.local.OrbitParamsImpl
 import com.example.rocket_data.model.local.PayloadImpl
 import com.example.rocket_data.model.remote.PayloadResponseImpl
+import com.example.rocket_domain.repository.OrbitParamsRemoteRepositoryAlias
 import com.example.rocket_domain.repository.PayloadRemoteRepository
 import com.vladislav.shumilov.core_data.util.generateRandomId
 import javax.inject.Inject
 
 class PayloadRemoteRepositoryImpl @Inject constructor(
-    private val orbitParamsRemoteRepository: OrbitParamsRemoteRepositoryImpl
+    private val orbitParamsRemoteRepository: OrbitParamsRemoteRepositoryAlias
 ) :
     PayloadRemoteRepository<PayloadResponseImpl, PayloadImpl> {
 
@@ -37,7 +39,7 @@ class PayloadRemoteRepositoryImpl @Inject constructor(
             payloadResponse.orbit
         ).apply {
             orbit_params = payloadResponse.orbit_params?.let {
-                orbitParamsRemoteRepository.responseToModel(it, payloadId)
+                orbitParamsRemoteRepository.responseToModel(it, payloadId) as OrbitParamsImpl
             }
         }
     }

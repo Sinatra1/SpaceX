@@ -70,4 +70,6 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun getPayloadDao(): PayloadDao
 
     abstract fun getOrbitParamsDao(): OrbitParamsDao
+
+    abstract fun getFairingsDao(): FairingsDao
 }

@@ -1,16 +1,22 @@
 package com.example.rocket_data.repository
 
+import com.example.rocket_data.model.local.FairingsImpl
+import com.example.rocket_data.model.local.FirstStageImpl
 import com.example.rocket_data.model.local.RocketImpl
+import com.example.rocket_data.model.local.SecondStageImpl
 import com.example.rocket_data.model.remote.RocketResponseImpl
+import com.example.rocket_domain.repository.FairingsRemoteRepositoryAlias
+import com.example.rocket_domain.repository.FirstStageRemoteRepositoryAlias
 import com.example.rocket_domain.repository.RocketRemoteRepository
+import com.example.rocket_domain.repository.SecondStageRemoteRepositoryAlias
 import com.vladislav.shumilov.core_data.FragmentScope
 import javax.inject.Inject
 
 @FragmentScope
 class RocketRemoteRepositoryImpl @Inject constructor(
-    private val firstStageRemoteRepository: FirstStageRemoteRepositoryImpl,
-    private val secondStageRemoteRepository: SecondStageRemoteRepositoryImpl,
-    private val fairingsRemoteRepository: FairingsRemoteRepositoryImpl
+    private val firstStageRemoteRepository: FirstStageRemoteRepositoryAlias,
+    private val secondStageRemoteRepository: SecondStageRemoteRepositoryAlias,
+    private val fairingsRemoteRepository: FairingsRemoteRepositoryAlias
 ) :
     RocketRemoteRepository<RocketResponseImpl, RocketImpl> {
 
@@ -24,14 +30,14 @@ class RocketRemoteRepositoryImpl @Inject constructor(
                 firstStageRemoteRepository.responseToModel(
                     it,
                     rocketResponse.rocket_id
-                )
+                ) as FirstStageImpl
             }
 
             second_stage = rocketResponse.second_stage?.let {
                 secondStageRemoteRepository.responseToModel(
                     it,
                     rocketResponse.rocket_id
-                )
+                ) as SecondStageImpl
             }
 
             fairings =
@@ -39,7 +45,7 @@ class RocketRemoteRepositoryImpl @Inject constructor(
                     fairingsRemoteRepository.responseToModel(
                         it,
                         rocketResponse.rocket_id
-                    )
+                    ) as FairingsImpl
                 }
         }
 
