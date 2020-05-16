@@ -38,7 +38,7 @@ class LaunchLocalRepositoryImpl @Inject constructor(
         insertShips(launches)
     }
 
-    override fun getList() = launchDao.getList()
+    override fun getList(limit: Int) = launchDao.getList(limit)
 
     private fun insertMissions(launches: List<LaunchImpl>) {
         val missions = ArrayList<MissionImpl>()

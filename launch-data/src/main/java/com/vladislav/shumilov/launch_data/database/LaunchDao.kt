@@ -13,6 +13,6 @@ interface LaunchDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertList(launches: List<LaunchImpl>)
 
-    @Query("select * from LAUNCH")
-    fun getList(): Single<List<LaunchImpl>>
+    @Query("SELECT * FROM LAUNCH LIMIT :limit")
+    fun getList(limit: Int = Int.MAX_VALUE): Single<List<LaunchImpl>>
 }

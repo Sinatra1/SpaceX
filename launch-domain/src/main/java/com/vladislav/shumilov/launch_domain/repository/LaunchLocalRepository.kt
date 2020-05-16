@@ -6,5 +6,5 @@ import io.reactivex.Single
 interface LaunchLocalRepository<T: LaunchAlias> {
     fun insertList(launches: List<T>)
 
-    fun getList(): Single<List<T>>
+    fun getList(limit: Int = Int.MAX_VALUE): Single<List<T>>
 }

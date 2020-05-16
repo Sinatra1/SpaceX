@@ -8,7 +8,7 @@ import com.vladislav.shumilov.launch_ui.common.LaunchInteractor
 class LaunchesListViewModel(private val launchInteractor: LaunchInteractor) : ViewModel() {
 
     fun getList() {
-        launchInteractor.getList().subscribe { t1, t2 ->
+        launchInteractor.getList().subscribe { t2 ->
 
         }
     }

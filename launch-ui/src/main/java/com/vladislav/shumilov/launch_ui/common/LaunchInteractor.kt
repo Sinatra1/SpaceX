@@ -8,6 +8,8 @@ import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
+const val ITEMS_LIMIT = 10
+
 @FragmentScope
 class LaunchInteractor @Inject constructor(
     private val launchRemoteRepository: LaunchRemoteRepositoryImpl,
@@ -15,14 +17,24 @@ class LaunchInteractor @Inject constructor(
 ) {
 
     fun getList(): Single<List<LaunchImpl>> =
-        launchRemoteRepository.getList()
+        launchLocalRepository.getList(ITEMS_LIMIT)
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
-            .map {
-                launchRemoteRepository.responsesToModels(it)
+            .flatMap {
+                if (it.isEmpty()) {
+                    launchRemoteRepository.getList()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(Schedulers.io())
+                        .map {
+                            launchRemoteRepository.responsesToModels(it)
+                        }
+                        .map {
+                            launchLocalRepository.insertList(it)
+                            it
+                        }
+                } else {
+                    Single.just(it)
+                }
             }
-            .map {
-                launchLocalRepository.insertList(it)
-                it
-            }
+
 }
