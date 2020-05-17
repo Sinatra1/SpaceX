@@ -10,10 +10,14 @@
             type="com.vladislav.shumilov.launch_ui.ui.LaunchesListViewModel" />
     </data>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-    </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/launchesList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </ScrollView>
+
 </layout>

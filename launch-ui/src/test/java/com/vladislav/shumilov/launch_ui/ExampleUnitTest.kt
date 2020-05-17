@@ -1,4 +1,4 @@
-package com.example.auth_ui
+package com.example.launch_ui
 
 import org.junit.Test
 

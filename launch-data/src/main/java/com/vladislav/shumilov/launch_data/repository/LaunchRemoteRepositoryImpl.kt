@@ -89,12 +89,14 @@ class LaunchRemoteRepositoryImpl @Inject constructor(
     override fun generateId() = generateRandomId()
 
     private fun prepareMissions(launchResponse: LaunchResponseImpl) =
-        launchResponse.mission_id?.let { missionIds ->
+        launchResponse.mission_name?.let { missionIds ->
             val missions = ArrayList<MissionImpl>()
-            val names = launchResponse.mission_name?.split("/")
+            val names = launchResponse.mission_name.split("/")
+            var name = ""
 
-            missionIds.forEachIndexed { index, missionId ->
-                missions.add(MissionImpl(missionId, names?.getOrNull(index)?.trim()))
+            names.forEach {
+                name = it.trim()
+                missions.add(MissionImpl(name, name))
             }
 
             missions

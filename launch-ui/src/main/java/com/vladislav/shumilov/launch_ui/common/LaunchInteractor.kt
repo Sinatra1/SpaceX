@@ -1,7 +1,7 @@
 package com.vladislav.shumilov.launch_ui.common
 
 import com.vladislav.shumilov.core_data.FragmentScope
-import com.vladislav.shumilov.launch_data.model.local.LaunchImpl
+import com.vladislav.shumilov.launch_data.model.local.LaunchWithMissionsImpl
 import com.vladislav.shumilov.launch_data.repository.LaunchLocalRepositoryImpl
 import com.vladislav.shumilov.launch_data.repository.LaunchRemoteRepositoryImpl
 import io.reactivex.Single
@@ -16,8 +16,8 @@ class LaunchInteractor @Inject constructor(
     private val launchLocalRepository: LaunchLocalRepositoryImpl
 ) {
 
-    fun getList(): Single<List<LaunchImpl>> =
-        launchLocalRepository.getList(ITEMS_LIMIT)
+    fun getListWithMissions(): Single<List<LaunchWithMissionsImpl>> =
+        launchLocalRepository.getListWithMissions(ITEMS_LIMIT)
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .flatMap {
@@ -31,6 +31,9 @@ class LaunchInteractor @Inject constructor(
                         .map {
                             launchLocalRepository.insertList(it)
                             it
+                        }
+                        .flatMap {
+                            Single.just(launchLocalRepository.getListWithMissionsByList(it))
                         }
                 } else {
                     Single.just(it)
