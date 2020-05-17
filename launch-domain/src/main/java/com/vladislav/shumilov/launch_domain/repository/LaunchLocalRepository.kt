@@ -9,7 +9,7 @@ interface LaunchLocalRepository<T: LaunchAlias, LM: LaunchWithMissionsAlias> {
 
     fun getList(limit: Int = Int.MAX_VALUE): Single<List<T>>
 
-    fun getListWithMissions(limit: Int = Int.MAX_VALUE): Single<List<LM>>
+    fun getListWithMissions(offset: Int, limit: Int = Int.MAX_VALUE): Single<List<LM>>
 
     fun getListWithMissionsByList(launches: List<T>): List<LM>
 }

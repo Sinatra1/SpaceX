@@ -17,6 +17,6 @@ interface LaunchDao {
     @Query("SELECT * FROM LAUNCH LIMIT :limit")
     fun getList(limit: Int = Int.MAX_VALUE): Single<List<LaunchImpl>>
 
-    @Query("SELECT * FROM LAUNCH LIMIT :limit")
-    fun getListWithMissions(limit: Int = Int.MAX_VALUE): Single<List<LaunchWithMissionsImpl>>
+    @Query("SELECT * FROM LAUNCH LIMIT :limit OFFSET :offset")
+    fun getListWithMissions(offset: Int, limit: Int = Int.MAX_VALUE): Single<List<LaunchWithMissionsImpl>>
 }

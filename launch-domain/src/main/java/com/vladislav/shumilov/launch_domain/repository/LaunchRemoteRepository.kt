@@ -5,7 +5,7 @@ import com.vladislav.shumilov.launch_domain.model.remote.LaunchResponseAlias
 import io.reactivex.Single
 
 interface LaunchRemoteRepository<T: LaunchResponseAlias, M: LaunchAlias> {
-    fun getList(): Single<List<T>>
+    fun getList(offset: Int, limit: Int): Single<List<T>>
 
     fun responsesToModels(launchResponses: List<T>): List<M>
 

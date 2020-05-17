@@ -40,7 +40,7 @@ class LaunchLocalRepositoryImpl @Inject constructor(
 
     override fun getList(limit: Int) = launchDao.getList(limit)
 
-    override fun getListWithMissions(limit: Int) = launchDao.getListWithMissions(limit)
+    override fun getListWithMissions(offset: Int, limit: Int) = launchDao.getListWithMissions(offset, limit)
 
     override fun getListWithMissionsByList(launches: List<LaunchImpl>): List<LaunchWithMissionsImpl> {
         val launchesWithMissions = ArrayList<LaunchWithMissionsImpl>()

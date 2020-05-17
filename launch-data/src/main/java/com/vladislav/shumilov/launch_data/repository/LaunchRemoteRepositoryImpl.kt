@@ -30,7 +30,7 @@ class LaunchRemoteRepositoryImpl @Inject constructor(
     private val linksRemoteRepository: LinksRemoteRepositoryAlias
 ) :
     LaunchRemoteRepository<LaunchResponseImpl, LaunchImpl> {
-    override fun getList(): Single<List<LaunchResponseImpl>> = launchApi.getList()
+    override fun getList(offset: Int, limit: Int): Single<List<LaunchResponseImpl>> = launchApi.getList(offset, limit)
 
     override fun responsesToModels(launchResponses: List<LaunchResponseImpl>): List<LaunchImpl> {
         val launches = ArrayList<LaunchImpl>()
