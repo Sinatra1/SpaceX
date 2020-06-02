@@ -33,11 +33,9 @@ class LaunchesListViewModel(private val launchInteractor: LaunchInteractorImpl) 
 
         launchInteractor.getListWithMissions(offset, LAUNCHES_LIMIT)
             .subscribe({ launches ->
-                if (launches.isNotEmpty() && launches[0].launch.flight_number != null) {
-                    onLoadedLaunchesSuccess(launches)
-                }
+                onLoadedLaunchesSuccess(launches)
             }, { error ->
-                onLoadedContactsError(error)
+                onLoadedLaunchesError(error)
             })
     }
 
@@ -53,14 +51,19 @@ class LaunchesListViewModel(private val launchInteractor: LaunchInteractorImpl) 
         isShownRefreshingIcon.postValue(inProcess.value)
         offset += LAUNCHES_LIMIT
 
-        val allLaunches = launchesWithMissions.value as ArrayList<LaunchWithMissionsImpl>
-        allLaunches.addAll(launches)
+        if (launches.isNotEmpty()) {
+            val allLaunches = launchesWithMissions.value as ArrayList<LaunchWithMissionsImpl>
+            allLaunches.addAll(launches)
 
-        launchesWithMissions.postValue(allLaunches)
-        isLastPage.postValue(launches.last().launch.flight_number == 0)
+            launchesWithMissions.postValue(allLaunches)
+
+            if (isLastPage.value != true) {
+                isLastPage.postValue(launches.last().launch.flight_number == 0)
+            }
+        }
     }
 
-    private fun onLoadedContactsError(error: Throwable) {
+    private fun onLoadedLaunchesError(error: Throwable) {
         inProcess.postValue(false)
         isShownProgress.set(inProcess.value)
         isShownRefreshingIcon.postValue(inProcess.value)

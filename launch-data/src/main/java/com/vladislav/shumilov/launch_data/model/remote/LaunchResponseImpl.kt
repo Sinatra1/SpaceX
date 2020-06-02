@@ -5,7 +5,7 @@ import com.vladislav.shumilov.launch_domain.model.remote.LaunchResponse
 
 
 class LaunchResponseImpl(
-    override val flight_number: Int?,
+    override val flight_number: Int,
     override val mission_name: String?,
     override val mission_id: List<String>?,
     override val upcoming: Boolean,

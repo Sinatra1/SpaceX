@@ -8,7 +8,7 @@ typealias LaunchAlias = Launch<*, *, *, *, *, *>
 
 interface Launch<M: Mission, R: Rocket<*, *, *>, S: Ship, LS: LaunchSite, LF: LaunchFailureDetails, L: Links> {
     var id: String
-    var flight_number: Int?
+    var flight_number: Int
     var missions: List<M>?
     var upcoming: Boolean
     var launch_year: Int?

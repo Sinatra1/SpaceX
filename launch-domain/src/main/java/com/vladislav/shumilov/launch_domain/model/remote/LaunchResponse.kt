@@ -6,7 +6,7 @@ typealias LaunchResponseAlias = LaunchResponse<*, *, *, *>
 
 interface LaunchResponse<R : RocketResponse<*, *, *>, LS : LaunchSiteResponse, LF : LaunchFailureDetailsResponse, L : LinksResponse> {
 
-    val flight_number: Int?
+    val flight_number: Int
     val mission_name: String?
     val mission_id: List<String>?
     val upcoming: Boolean

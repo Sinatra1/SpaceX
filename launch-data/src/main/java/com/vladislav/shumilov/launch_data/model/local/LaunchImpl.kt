@@ -14,25 +14,24 @@ internal const val LAUNCH = "launch"
         ForeignKey(
             entity = RocketImpl::class,
             parentColumns = ["id"],
-            childColumns = ["rocket_id"],
-            onDelete = ForeignKey.CASCADE
+            childColumns = ["rocket_id"]
         ),
         ForeignKey(
             entity = LaunchSiteImpl::class,
             parentColumns = ["id"],
-            childColumns = ["launch_site_id"],
-            onDelete = ForeignKey.CASCADE
+            childColumns = ["launch_site_id"]
         )
     ],
     indices = [
         Index(value = ["rocket_id"]),
-        Index(value = ["launch_site_id"])
+        Index(value = ["launch_site_id"]),
+        Index(value = ["flight_number"], unique = true)
     ]
 )
 data class LaunchImpl(
     @PrimaryKey
     override var id: String,
-    override var flight_number: Int?,
+    override var flight_number: Int,
     override var upcoming: Boolean,
     override var launch_year: Int?,
     override var launch_date_unix: Int?,

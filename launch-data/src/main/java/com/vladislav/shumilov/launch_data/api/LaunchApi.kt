@@ -7,10 +7,9 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 const val LAUNCHES_LIMIT = 40
-private const val LAUNCHES_OFFSET = 0
-private const val LAUNCHES_SORT = "flight_number"
+internal const val LAUNCHES_SORT = "flight_number"
 private const val LAUNCHES_ORDER = "desc"
-
+private const val LAUNCHES_OFFSET = 0
 
 @FragmentScope
 interface LaunchApi {

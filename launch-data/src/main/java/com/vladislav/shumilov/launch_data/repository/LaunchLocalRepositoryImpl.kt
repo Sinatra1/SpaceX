@@ -27,6 +27,8 @@ class LaunchLocalRepositoryImpl @Inject constructor(
     LaunchLocalRepository<LaunchImpl, LaunchWithMissionsImpl> {
 
     override fun insertList(launches: List<LaunchImpl>) {
+        if (launches.isEmpty()) return
+
         insertRockets(launches)
         insertLaunchSites(launches)
 
