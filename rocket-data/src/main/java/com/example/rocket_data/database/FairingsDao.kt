@@ -13,6 +13,6 @@ interface FairingsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertList(firstStages: List<FairingsImpl>)
 
-    @Query("select * from FAIRINGS")
+    @Query("select * from ${FairingsImpl.TABLE_NAME}")
     fun getList(): Single<List<FairingsImpl>>
 }

@@ -13,6 +13,6 @@ interface SecondStageDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertList(secondStages: List<SecondStageImpl>)
 
-    @Query("select * from SECOND_STAGE")
+    @Query("select * from ${SecondStageImpl.TABLE_NAME}")
     fun getList(): Single<List<SecondStageImpl>>
 }

@@ -13,6 +13,6 @@ interface LaunchToMissionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertList(launchToMissions: List<LaunchToMissionImpl>)
 
-    @Query("select * from LAUNCH_TO_MISSION")
+    @Query("select * from ${LaunchToMissionImpl.TABLE_NAME}")
     fun getList(): Single<List<LaunchToMissionImpl>>
 }

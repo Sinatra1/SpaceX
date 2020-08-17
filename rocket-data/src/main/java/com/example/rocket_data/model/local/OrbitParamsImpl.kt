@@ -1,42 +1,82 @@
 package com.example.rocket_data.model.local
 
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.Index
-import androidx.room.PrimaryKey
+import androidx.room.*
+import com.example.rocket_data.model.local.OrbitParamsImpl.Companion.TABLE_NAME
 import com.example.rocket_domain.model.local.OrbitParams
 
-internal const val ORBIT_PARAMS = "orbit_params"
-
 @Entity(
-    tableName = ORBIT_PARAMS,
+    tableName = TABLE_NAME,
     foreignKeys = [
         ForeignKey(
             entity = PayloadImpl::class,
-            parentColumns = ["id"],
-            childColumns = ["payload_id"],
+            parentColumns = [PayloadImpl.Columns.ID],
+            childColumns = [OrbitParamsImpl.Columns.PAYLOAD_ID],
             onDelete = ForeignKey.CASCADE
         )
     ],
-    indices = [Index(value = ["payload_id"])]
+    indices = [Index(value = [OrbitParamsImpl.Columns.PAYLOAD_ID])]
 )
 data class OrbitParamsImpl(
     @PrimaryKey
+    @ColumnInfo(name = Columns.ID)
     override var id: String,
-    override var payload_id: String,
-    override var reference_system: String?,
+    @ColumnInfo(name = Columns.PAYLOAD_ID)
+    override var payloadId: String,
+    @ColumnInfo(name = Columns.REFERENCE_SYSTEM)
+    override var referenceSystem: String?,
+    @ColumnInfo(name = Columns.REGIME)
     override var regime: String?,
+    @ColumnInfo(name = Columns.LONGITUDE)
     override var longitude: Float?,
-    override var semi_major_axis_km: Float?,
+    @ColumnInfo(name = Columns.SEMI_MAJOR_AXIS_KM)
+    override var semiMajorAxisKm: Float?,
+    @ColumnInfo(name = Columns.ECCENTRICITY)
     override var eccentricity: Float?,
-    override var periapsis_km: Float?,
-    override var apoapsis_km: Float?,
-    override var inclination_deg: Float?,
-    override var period_min: Float?,
-    override var lifespan_years: Float?,
+    @ColumnInfo(name = Columns.PERIAPSIS_KM)
+    override var periapsisKm: Float?,
+    @ColumnInfo(name = Columns.APOAPSIS_KM)
+    override var apoapsisKm: Float?,
+    @ColumnInfo(name = Columns.INCLINATION_DEG)
+    override var inclinationDeg: Float?,
+    @ColumnInfo(name = Columns.PERIOD_MIN)
+    override var periodMin: Float?,
+    @ColumnInfo(name = Columns.LIFESPAN_YEARS)
+    override var lifespanYears: Float?,
+    @ColumnInfo(name = Columns.EPOCH)
     override var epoch: String?,
-    override var mean_motion: Float?,
+    @ColumnInfo(name = Columns.MEAN_MOTION)
+    override var meanMotion: Float?,
+    @ColumnInfo(name = Columns.RAAN)
     override var raan: Float?,
-    override var arg_of_pericenter: String?,
-    override var mean_anomaly: String?
-) : OrbitParams
+    @ColumnInfo(name = Columns.ARG_OF_PERICENTER)
+    override var argOfPericenter: String?,
+    @ColumnInfo(name = Columns.MEAN_ANOMALY)
+    override var meanAnomaly: String?
+) : OrbitParams {
+
+    companion object {
+        const val TABLE_NAME = "orbit_params"
+    }
+
+    class Columns {
+        companion object {
+            const val ID = "id"
+            const val PAYLOAD_ID = "payloadId"
+            const val REFERENCE_SYSTEM = "reference_system"
+            const val REGIME = "regime"
+            const val LONGITUDE = "longitude"
+            const val SEMI_MAJOR_AXIS_KM = "semi_major_axis_km"
+            const val ECCENTRICITY = "eccentricity"
+            const val PERIAPSIS_KM = "periapsis_km"
+            const val APOAPSIS_KM = "apoapsis_km"
+            const val INCLINATION_DEG = "inclination_deg"
+            const val PERIOD_MIN = "period_min"
+            const val LIFESPAN_YEARS = "lifespan_years"
+            const val EPOCH = "epoch"
+            const val MEAN_MOTION = "mean_motion"
+            const val RAAN = "raan"
+            const val ARG_OF_PERICENTER = "arg_of_pericenter"
+            const val MEAN_ANOMALY = "mean_anomaly"
+        }
+    }
+}

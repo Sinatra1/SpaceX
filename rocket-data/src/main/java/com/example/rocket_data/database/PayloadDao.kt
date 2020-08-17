@@ -13,6 +13,6 @@ interface PayloadDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertList(payloads: List<PayloadImpl>)
 
-    @Query("select * from PAYLOAD")
+    @Query("select * from ${PayloadImpl.TABLE_NAME}")
     fun getList(): Single<List<PayloadImpl>>
 }

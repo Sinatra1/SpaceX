@@ -11,13 +11,13 @@ data class LaunchWithMissionsImpl(
     @Embedded
     override val launch: LaunchImpl,
     @Relation(
-        parentColumn = "id",
+        parentColumn = LaunchImpl.Columns.ID,
         entity = MissionImpl::class,
-        entityColumn = "id",
+        entityColumn = MissionImpl.Columns.ID,
         associateBy = Junction(
             value = LaunchToMissionImpl::class,
-            parentColumn = "launch_id",
-            entityColumn = "mission_id"
+            parentColumn = LaunchToMissionImpl.Columns.LAUNCH_ID,
+            entityColumn = LaunchToMissionImpl.Columns.MISSION_ID
         )
 
     )
@@ -48,7 +48,7 @@ data class LaunchWithMissionsImpl(
     var flightNumberStr: String? = null
         get() {
             if (field == null) {
-                field = launch.flight_number.toString()
+                field = launch.flightNumber.toString()
             }
 
             return field

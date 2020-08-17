@@ -13,6 +13,6 @@ interface OrbitParamsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertList(orbitParams: List<OrbitParamsImpl>)
 
-    @Query("select * from ORBIT_PARAMS")
+    @Query("select * from ${OrbitParamsImpl.TABLE_NAME}")
     fun getList(): Single<List<OrbitParamsImpl>>
 }

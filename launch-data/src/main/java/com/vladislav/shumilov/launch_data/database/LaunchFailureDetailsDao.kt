@@ -13,6 +13,6 @@ interface LaunchFailureDetailsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertList(launchFailureDetails: List<LaunchFailureDetailsImpl>)
 
-    @Query("select * from LAUNCH_FAILURE_DETAILS")
+    @Query("select * from ${LaunchFailureDetailsImpl.TABLE_NAME}")
     fun getList(): Single<List<LaunchFailureDetailsImpl>>
 }

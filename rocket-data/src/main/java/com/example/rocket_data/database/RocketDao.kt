@@ -13,6 +13,6 @@ interface RocketDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertList(rockets: List<RocketImpl>)
 
-    @Query("select * from ROCKET")
+    @Query("select * from ${RocketImpl.TABLE_NAME}")
     fun getList(): Single<List<RocketImpl>>
 }

@@ -13,6 +13,6 @@ interface FirstStageToCoreDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertList(firstStageToCores: List<FirstStageToCoreImpl>)
 
-    @Query("select * from FIRST_STAGE_TO_CORE")
+    @Query("select * from ${FirstStageToCoreImpl.TABLE_NAME}")
     fun getList(): Single<List<FirstStageToCoreImpl>>
 }

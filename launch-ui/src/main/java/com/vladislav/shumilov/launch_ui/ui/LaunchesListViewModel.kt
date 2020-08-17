@@ -58,7 +58,7 @@ class LaunchesListViewModel(private val launchInteractor: LaunchInteractorImpl) 
             launchesWithMissions.postValue(allLaunches)
 
             if (isLastPage.value != true) {
-                isLastPage.postValue(launches.last().launch.flight_number == 0)
+                isLastPage.postValue(launches.last().launch.flightNumber == 0)
             }
         }
     }

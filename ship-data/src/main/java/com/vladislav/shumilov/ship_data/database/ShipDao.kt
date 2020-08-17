@@ -13,6 +13,6 @@ interface ShipDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertList(missions: List<ShipImpl>)
 
-    @Query("select * from SHIP")
+    @Query("select * from ${ShipImpl.TABLE_NAME}")
     fun getList(): Single<List<ShipImpl>>
 }

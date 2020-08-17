@@ -1,37 +1,75 @@
 package com.vladislav.shumilov.launch_data.model.local
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import com.vladislav.shumilov.launch_data.model.local.LinksImpl.Companion.TABLE_NAME
 import com.vladislav.shumilov.launch_domain.model.local.Links
 
-internal const val LINKS = "links"
-
 @Entity(
-    tableName = LINKS,
+    tableName = TABLE_NAME,
     foreignKeys = [
         ForeignKey(
             entity = LaunchImpl::class,
-            parentColumns = ["id"],
-            childColumns = ["launch_id"],
+            parentColumns = [LaunchImpl.Columns.ID],
+            childColumns = [LinksImpl.Columns.LAUNCH_ID],
             onDelete = ForeignKey.CASCADE
         )
     ]
 )
 data class LinksImpl(
     @PrimaryKey
+    @ColumnInfo(name = Columns.ID)
     override var id: String,
-    override var launch_id: String,
-    override var mission_patch: String?,
-    override var mission_patch_small: String?,
-    override var reddit_campaign: String?,
-    override var reddit_launch: String?,
-    override var reddit_recovery: String?,
-    override var reddit_media: String?,
+    @ColumnInfo(name = Columns.LAUNCH_ID)
+    override var launchId: String,
+    @ColumnInfo(name = Columns.MISSION_PATCH)
+    override var missionPatch: String?,
+    @ColumnInfo(name = Columns.MISSION_PATCH_SMALL)
+    override var missionPatchSmall: String?,
+    @ColumnInfo(name = Columns.REDDIT_CAMPAIGN)
+    override var redditCampaign: String?,
+    @ColumnInfo(name = Columns.REDDIT_LAUNCH)
+    override var redditLaunch: String?,
+    @ColumnInfo(name = Columns.REDDIT_RECOVERY)
+    override var redditRecovery: String?,
+    @ColumnInfo(name = Columns.REDDIT_MEDIA)
+    override var redditMedia: String?,
+    @ColumnInfo(name = Columns.PRESSKIT)
     override var presskit: String?,
-    override var article_link: String?,
+    @ColumnInfo(name = Columns.ARTICLE_LINK)
+    override var articleLink: String?,
+    @ColumnInfo(name = Columns.WIKIPEDIA)
     override var wikipedia: String?,
-    override var video_link: String?,
-    override var youtube_id: String?,
-    override var flickr_images: List<String>?
-) : Links
+    @ColumnInfo(name = Columns.VIDEO_LINK)
+    override var videoLink: String?,
+    @ColumnInfo(name = Columns.YOUTUBE_ID)
+    override var youtubeId: String?,
+    @ColumnInfo(name = Columns.FLICKR_IMAGES)
+    override var flickrImages: List<String>?
+) : Links {
+
+    companion object {
+        const val TABLE_NAME = "links"
+    }
+
+    class Columns {
+        companion object {
+            const val ID = "id"
+            const val LAUNCH_ID = "launch_id"
+            const val MISSION_PATCH = "mission_patch"
+            const val MISSION_PATCH_SMALL = "mission_patch_small"
+            const val REDDIT_CAMPAIGN = "reddit_campaign"
+            const val REDDIT_LAUNCH = "reddit_launch"
+            const val REDDIT_RECOVERY = "reddit_recovery"
+            const val REDDIT_MEDIA = "reddit_media"
+            const val PRESSKIT = "presskit"
+            const val ARTICLE_LINK = "article_link"
+            const val WIKIPEDIA = "wikipedia"
+            const val VIDEO_LINK = "video_link"
+            const val YOUTUBE_ID = "youtubeId"
+            const val FLICKR_IMAGES = "flickr_images"
+        }
+    }
+}

@@ -13,6 +13,6 @@ interface SecondStageToPayloadDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertList(secondStageToPayloads: List<SecondStageToPayloadImpl>)
 
-    @Query("select * from SECOND_STAGE_TO_PAYLOAD")
+    @Query("select * from ${SecondStageToPayloadImpl.TABLE_NAME}")
     fun getList(): Single<List<SecondStageToPayloadImpl>>
 }

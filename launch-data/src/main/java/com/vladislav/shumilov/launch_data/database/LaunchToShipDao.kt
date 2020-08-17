@@ -13,6 +13,6 @@ interface LaunchToShipDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertList(launchToShips: List<LaunchToShipImpl>)
 
-    @Query("select * from LAUNCH_TO_SHIP")
+    @Query("select * from ${LaunchToShipImpl.TABLE_NAME}")
     fun getList(): Single<List<LaunchToShipImpl>>
 }

@@ -22,7 +22,7 @@ internal class LaunchesListAdapter(context: Context) :
         super.setHasStableIds(true)
     }
 
-    override fun getItemId(position: Int) = items[position].launch.flight_number?.toLong() ?: 0
+    override fun getItemId(position: Int) = items[position].launch.flightNumber?.toLong() ?: 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LaunchesListViewHolder {
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.launches_list_row, parent, false)

@@ -13,6 +13,6 @@ interface CoreDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertList(cores: List<CoreImpl>)
 
-    @Query("select * from CORE")
+    @Query("select * from ${CoreImpl.TABLE_NAME}")
     fun getList(): Single<List<CoreImpl>>
 }

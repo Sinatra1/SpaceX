@@ -8,8 +8,8 @@ interface Core {
     var gridfins: Boolean
     var legs: Boolean
     var reused: Boolean
-    var land_success: Boolean?
-    var landing_intent: Boolean
-    var landing_type: String?
-    var landing_vehicle: String?
+    var landSuccess: Boolean?
+    var landingIntent: Boolean
+    var landingType: String?
+    var landingVehicle: String?
 }

@@ -8,25 +8,25 @@ typealias LaunchAlias = Launch<*, *, *, *, *, *>
 
 interface Launch<M: Mission, R: Rocket<*, *, *>, S: Ship, LS: LaunchSite, LF: LaunchFailureDetails, L: Links> {
     var id: String
-    var flight_number: Int
+    var flightNumber: Int
     var missions: List<M>?
     var upcoming: Boolean
-    var launch_year: Int?
-    var launch_date_unix: Int?
-    var launch_date_utc: String?
-    var is_tentative: Boolean
-    var tentative_max_precision: String?
+    var launchYear: Int?
+    var launchDateUnix: Int?
+    var launchDateUtc: String?
+    var isTentative: Boolean
+    var tentativeMaxPrecision: String?
     var tbd: Boolean
-    var launch_window: Int?
-    var rocket_id: String?
+    var launchWindow: Int?
+    var rocketId: String?
     var rocket: R?
     var ships: List<S>?
-    var launch_site_id: String?
+    var launchSiteId: String?
     var launch_site: LS?
-    var launch_success: Boolean
+    var launchSuccess: Boolean
     var launch_failure_details: LF?
     var links: L?
     var details: String?
-    var static_fire_date_utc: String?
-    var static_fire_date_unix: Int?
+    var staticFireDateUtc: String?
+    var staticFireDateUnix: Int?
 }

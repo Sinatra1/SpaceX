@@ -15,10 +15,10 @@ interface LaunchDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertList(launches: List<LaunchImpl>)
 
-    @Query("SELECT * FROM LAUNCH LIMIT :limit")
+    @Query("SELECT * FROM ${LaunchImpl.TABLE_NAME} LIMIT :limit")
     fun getList(limit: Int = Int.MAX_VALUE): Single<List<LaunchImpl>>
 
-    @Query("SELECT * FROM LAUNCH ORDER BY :sort DESC LIMIT :limit OFFSET :offset")
+    @Query("SELECT * FROM ${LaunchImpl.TABLE_NAME} ORDER BY :sort DESC LIMIT :limit OFFSET :offset")
     fun getListWithMissions(
         offset: Int,
         limit: Int = Int.MAX_VALUE,

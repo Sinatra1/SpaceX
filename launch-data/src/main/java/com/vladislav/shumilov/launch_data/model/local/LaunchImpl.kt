@@ -2,50 +2,65 @@ package com.vladislav.shumilov.launch_data.model.local
 
 import androidx.room.*
 import com.example.rocket_data.model.local.RocketImpl
+import com.vladislav.shumilov.launch_data.model.local.LaunchImpl.Companion.TABLE_NAME
 import com.vladislav.shumilov.launch_domain.model.local.*
 import com.vladislav.shumilov.mission_data.model.local.MissionImpl
 import com.vladislav.shumilov.ship_data.model.local.ShipImpl
 
-internal const val LAUNCH = "launch"
-
 @Entity(
-    tableName = LAUNCH,
+    tableName = TABLE_NAME,
     foreignKeys = [
         ForeignKey(
             entity = RocketImpl::class,
-            parentColumns = ["id"],
-            childColumns = ["rocket_id"]
+            parentColumns = [RocketImpl.Columns.ID],
+            childColumns = [LaunchImpl.Columns.ROCKET_ID]
         ),
         ForeignKey(
             entity = LaunchSiteImpl::class,
-            parentColumns = ["id"],
-            childColumns = ["launch_site_id"]
+            parentColumns = [LaunchSiteImpl.Columns.ID],
+            childColumns = [LaunchImpl.Columns.LAUNCH_SITE_ID]
         )
     ],
     indices = [
-        Index(value = ["rocket_id"]),
-        Index(value = ["launch_site_id"]),
-        Index(value = ["flight_number"], unique = true)
+        Index(value = [LaunchImpl.Columns.ROCKET_ID]),
+        Index(value = [LaunchImpl.Columns.LAUNCH_SITE_ID]),
+        Index(value = [LaunchImpl.Columns.FLIGHT_NUMBER], unique = true)
     ]
 )
 data class LaunchImpl(
     @PrimaryKey
+    @ColumnInfo(name = Columns.ID)
     override var id: String,
-    override var flight_number: Int,
+    @ColumnInfo(name = Columns.FLIGHT_NUMBER)
+    override var flightNumber: Int,
+    @ColumnInfo(name = Columns.UPCOMING)
     override var upcoming: Boolean,
-    override var launch_year: Int?,
-    override var launch_date_unix: Int?,
-    override var launch_date_utc: String?,
-    override var is_tentative: Boolean,
-    override var tentative_max_precision: String?,
+    @ColumnInfo(name = Columns.LAUNCH_YEAR)
+    override var launchYear: Int?,
+    @ColumnInfo(name = Columns.LAUNCH_DATE_UNIX)
+    override var launchDateUnix: Int?,
+    @ColumnInfo(name = Columns.LAUNCH_DATE_UTC)
+    override var launchDateUtc: String?,
+    @ColumnInfo(name = Columns.IS_TENTATIVE)
+    override var isTentative: Boolean,
+    @ColumnInfo(name = Columns.TENTATIVE_MAX_PRECISION)
+    override var tentativeMaxPrecision: String?,
+    @ColumnInfo(name = Columns.TBD)
     override var tbd: Boolean,
-    override var launch_window: Int?,
-    override var rocket_id: String?,
-    override var launch_site_id: String?,
-    override var launch_success: Boolean,
+    @ColumnInfo(name = Columns.LAUNCH_WINDOW)
+    override var launchWindow: Int?,
+    @ColumnInfo(name = Columns.ROCKET_ID)
+    override var rocketId: String?,
+    @ColumnInfo(name = Columns.LAUNCH_SITE_ID)
+    override var launchSiteId: String?,
+    @ColumnInfo(name = Columns.LAUNCH_SUCCESS)
+    override var launchSuccess: Boolean,
+    @ColumnInfo(name = Columns.DETAILS)
     override var details: String?,
-    override var static_fire_date_utc: String?,
-    override var static_fire_date_unix: Int?
+    @ColumnInfo(name = Columns.STATIC_FIRE_DATE_UTC)
+    override var staticFireDateUtc: String?,
+    @ColumnInfo(name = Columns.STATIC_FIRE_DATE_UNIX)
+    override var staticFireDateUnix: Int?
 ) : Launch<MissionImpl, RocketImpl, ShipImpl, LaunchSiteImpl, LaunchFailureDetailsImpl, LinksImpl> {
 
     @Ignore
@@ -65,4 +80,29 @@ data class LaunchImpl(
 
     @Ignore
     override var links: LinksImpl? = null
+
+    companion object {
+        const val TABLE_NAME = "launch"
+    }
+
+    class Columns {
+        companion object {
+            const val ID = "id"
+            const val FLIGHT_NUMBER = "flight_number"
+            const val UPCOMING = "upcoming"
+            const val LAUNCH_YEAR = "launch_year"
+            const val LAUNCH_DATE_UNIX = "launch_date_unix"
+            const val LAUNCH_DATE_UTC = "launch_date_utc"
+            const val IS_TENTATIVE = "is_tentative"
+            const val TENTATIVE_MAX_PRECISION = "tentative_max_precision"
+            const val TBD = "tbd"
+            const val LAUNCH_WINDOW = "launch_window"
+            const val ROCKET_ID = "rocketId"
+            const val LAUNCH_SITE_ID = "launch_site_id"
+            const val LAUNCH_SUCCESS = "launch_success"
+            const val DETAILS = "details"
+            const val STATIC_FIRE_DATE_UTC = "static_fire_date_utc"
+            const val STATIC_FIRE_DATE_UNIX = "static_fire_date_unix"
+        }
+    }
 }

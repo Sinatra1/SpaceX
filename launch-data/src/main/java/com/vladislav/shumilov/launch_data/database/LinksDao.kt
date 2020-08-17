@@ -13,6 +13,6 @@ interface LinksDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertList(links: List<LinksImpl>)
 
-    @Query("select * from LINKS")
+    @Query("select * from ${LinksImpl.TABLE_NAME}")
     fun getList(): Single<List<LinksImpl>>
 }

@@ -1,31 +1,47 @@
 package com.vladislav.shumilov.launch_data.model.local
 
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.Index
-import androidx.room.PrimaryKey
+import androidx.room.*
+import com.vladislav.shumilov.launch_data.model.local.LaunchFailureDetailsImpl.Companion.TABLE_NAME
 import com.vladislav.shumilov.launch_domain.model.local.LaunchFailureDetails
 
-internal const val LAUNCH_FAILURE_DETAILS = "launch_failure_details"
-
 @Entity(
-    tableName = LAUNCH_FAILURE_DETAILS,
+    tableName = TABLE_NAME,
     foreignKeys = [
         ForeignKey(
             entity = LaunchImpl::class,
-            parentColumns = ["id"],
-            childColumns = ["launch_id"],
+            parentColumns = [LaunchFailureDetailsImpl.Columns.ID],
+            childColumns = [LaunchFailureDetailsImpl.Columns.LAUNCH_ID],
             onDelete = ForeignKey.CASCADE
         )
     ],
-    indices = [Index(value = ["launch_id"])]
+    indices = [Index(value = [LaunchFailureDetailsImpl.Columns.LAUNCH_ID])]
 )
 data class LaunchFailureDetailsImpl(
     @PrimaryKey
+    @ColumnInfo(name = Columns.ID)
     override var id: String,
-    override var launch_id: String,
+    @ColumnInfo(name = Columns.LAUNCH_ID)
+    override var launchId: String,
+    @ColumnInfo(name = Columns.TIME)
     override var time: Int?,
+    @ColumnInfo(name = Columns.ALTITUDE)
     override var altitude: String?,
+    @ColumnInfo(name = Columns.REASON)
     override var reason: String?
 ) :
-    LaunchFailureDetails
+    LaunchFailureDetails {
+
+    companion object {
+        const val TABLE_NAME = "launch_failure_details"
+    }
+
+    class Columns {
+        companion object {
+            const val ID = "id"
+            const val LAUNCH_ID = "launchId"
+            const val TIME = "time"
+            const val ALTITUDE = "altitude"
+            const val REASON = "reason"
+        }
+    }
+}

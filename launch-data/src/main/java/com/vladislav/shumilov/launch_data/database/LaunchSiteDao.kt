@@ -13,6 +13,6 @@ interface LaunchSiteDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertList(launchSites: List<LaunchSiteImpl>)
 
-    @Query("select * from LAUNCH_SITE")
+    @Query("select * from ${LaunchSiteImpl.TABLE_NAME}")
     fun getList(): Single<List<LaunchSiteImpl>>
 }
