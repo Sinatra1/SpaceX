@@ -69,7 +69,7 @@ class LaunchRemoteRepositoryImpl @Inject constructor(
                 launchResponse.rocket?.let { (rocketRemoteRepository.responseToModel(it)) as RocketImpl }
             ships = prepareShips(launchResponse)
             launch_site =
-                launchResponse.launch_site?.let { launchSiteRemoteRepository.responseToModel(it) as LaunchSiteImpl }
+                launchResponse.launch_site?.let { launchSiteRemoteRepository.responseToModel(it) as LaunchSiteImpl? }
             launch_failure_details = launchResponse.launch_failure_details?.let {
                 launchFailureDetailsRemoteRepository.responseToModel(
                     it,

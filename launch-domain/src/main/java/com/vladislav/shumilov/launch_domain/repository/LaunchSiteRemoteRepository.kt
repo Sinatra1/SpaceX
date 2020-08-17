@@ -7,5 +7,5 @@ typealias LaunchSiteRemoteRepositoryAlias = LaunchSiteRemoteRepository<LaunchSit
 
 interface LaunchSiteRemoteRepository<T: LaunchSiteResponse, M: LaunchSite> {
 
-    fun responseToModel(launchSiteResponse: T): M
+    fun responseToModel(launchSiteResponse: T): M?
 }

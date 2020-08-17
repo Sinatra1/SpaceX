@@ -4,12 +4,18 @@ import com.vladislav.shumilov.launch_data.model.local.LaunchSiteImpl
 import com.vladislav.shumilov.launch_data.model.remote.LaunchSiteResponseImpl
 import com.vladislav.shumilov.launch_domain.repository.LaunchSiteRemoteRepository
 
-class LaunchSiteRemoteRepositoryImpl:
+class LaunchSiteRemoteRepositoryImpl :
     LaunchSiteRemoteRepository<LaunchSiteResponseImpl, LaunchSiteImpl> {
 
-    override fun responseToModel(launchSiteResponse: LaunchSiteResponseImpl) =
-        LaunchSiteImpl(
-            launchSiteResponse.site_id,
-            launchSiteResponse.site_name,
-            launchSiteResponse.site_name_long)
+    override fun responseToModel(launchSiteResponse: LaunchSiteResponseImpl): LaunchSiteImpl? =
+        if (launchSiteResponse.site_id != null) {
+            LaunchSiteImpl(
+                launchSiteResponse.site_id,
+                launchSiteResponse.site_name,
+                launchSiteResponse.site_name_long
+            )
+        } else {
+            null
+        }
+
 }
