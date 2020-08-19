@@ -3,6 +3,7 @@ package com.vladislav.shumilov.launch_data.model.local
 import androidx.room.Embedded
 import androidx.room.Junction
 import androidx.room.Relation
+import com.vladislav.shumilov.core_data.util.databaseDateToHumanDate
 import com.vladislav.shumilov.launch_domain.model.local.LaunchWithMissions
 import com.vladislav.shumilov.mission_data.model.local.MissionImpl
 
@@ -37,5 +38,8 @@ data class LaunchWithMissionsImpl(
         } else ""
 
     override val flightNumberStr: String
-        get() = launch.flightNumber.toString()
+        get() = "#${launch.flightNumber}"
+
+    override val humanDate: String
+        get() = databaseDateToHumanDate(launch.launchDateUtc)
 }
