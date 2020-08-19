@@ -1,39 +1,36 @@
 package com.vladislav.shumilov.launch_data.repository
 
-import com.example.rocket_data.model.local.RocketImpl
-import com.example.rocket_domain.repository.RocketRemoteRepositoryAlias
+import com.example.rocket_domain.repository.RocketRemoteRepository
 import com.vladislav.shumilov.core_data.FragmentScope
+import com.vladislav.shumilov.core_data.util.UNCHECKED_CAST
 import com.vladislav.shumilov.core_data.util.generateRandomId
 import com.vladislav.shumilov.launch_data.api.LaunchApi
-import com.vladislav.shumilov.launch_data.model.local.LaunchFailureDetailsImpl
 import com.vladislav.shumilov.launch_data.model.local.LaunchImpl
-import com.vladislav.shumilov.launch_data.model.local.LaunchSiteImpl
-import com.vladislav.shumilov.launch_data.model.local.LinksImpl
-import com.vladislav.shumilov.launch_data.model.remote.LaunchResponseImpl
-import com.vladislav.shumilov.launch_domain.repository.LaunchFailureDetailsRemoteRepositoryAlias
-import com.vladislav.shumilov.launch_domain.repository.LaunchRemoteRepository
-import com.vladislav.shumilov.launch_domain.repository.LaunchSiteRemoteRepositoryAlias
-import com.vladislav.shumilov.launch_domain.repository.LinksRemoteRepositoryAlias
+import com.vladislav.shumilov.launch_domain.model.local.Launch
+import com.vladislav.shumilov.launch_domain.model.remote.LaunchResponse
+import com.vladislav.shumilov.launch_domain.repository.*
 import com.vladislav.shumilov.mission_data.model.local.MissionImpl
 import com.vladislav.shumilov.ship_data.model.local.ShipImpl
 import io.reactivex.Single
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
+import kotlin.collections.mutableListOf
 
 @FragmentScope
 class LaunchRemoteRepositoryImpl @Inject constructor(
     private val launchApi: LaunchApi,
-    private val rocketRemoteRepository: RocketRemoteRepositoryAlias,
-    private val launchSiteRemoteRepository: LaunchSiteRemoteRepositoryAlias,
-    private val launchFailureDetailsRemoteRepository: LaunchFailureDetailsRemoteRepositoryAlias,
-    private val linksRemoteRepository: LinksRemoteRepositoryAlias
-) :
-    LaunchRemoteRepository<LaunchResponseImpl, LaunchImpl> {
-    override fun getList(offset: Int, limit: Int): Single<List<LaunchResponseImpl>> = launchApi.getList(offset, limit)
+    private val rocketRemoteRepository: RocketRemoteRepository,
+    private val launchSiteRemoteRepository: LaunchSiteRemoteRepository,
+    private val launchFailureDetailsRemoteRepository: LaunchFailureDetailsRemoteRepository,
+    private val linksRemoteRepository: LinksRemoteRepository
+) : LaunchRemoteRepository {
 
-    override fun responsesToModels(launchResponses: List<LaunchResponseImpl>): List<LaunchImpl> {
-        val launches = ArrayList<LaunchImpl>()
+    @Suppress(UNCHECKED_CAST)
+    override fun getList(offset: Int, limit: Int) =
+        launchApi.getList(offset, limit) as Single<List<LaunchResponse>>
+
+    override fun responsesToModels(launchResponses: List<LaunchResponse>): List<Launch> {
+        val launches = mutableListOf<Launch>()
 
         launchResponses.forEach {
             launches.add(responseToModel(it))
@@ -42,7 +39,7 @@ class LaunchRemoteRepositoryImpl @Inject constructor(
         return launches
     }
 
-    override fun responseToModel(launchResponse: LaunchResponseImpl): LaunchImpl {
+    override fun responseToModel(launchResponse: LaunchResponse): Launch {
 
         val launchId = generateId()
 
@@ -66,32 +63,24 @@ class LaunchRemoteRepositoryImpl @Inject constructor(
         ).apply {
             missions = prepareMissions(launchResponse)
             rocket =
-                launchResponse.rocket?.let { (rocketRemoteRepository.responseToModel(it)) as RocketImpl }
+                launchResponse.rocket?.let(rocketRemoteRepository::responseToModel)
             ships = prepareShips(launchResponse)
-            launch_site =
-                launchResponse.launch_site?.let { launchSiteRemoteRepository.responseToModel(it) as LaunchSiteImpl? }
-            launch_failure_details = launchResponse.launch_failure_details?.let {
-                launchFailureDetailsRemoteRepository.responseToModel(
-                    it,
-                    launchId
-                ) as LaunchFailureDetailsImpl
+            launchSite =
+                launchResponse.launch_site?.let(launchSiteRemoteRepository::responseToModel)
+            launchFailureDetails = launchResponse.launch_failure_details?.let {
+                launchFailureDetailsRemoteRepository.responseToModel(it, launchId)
             }
             links =
-                launchResponse.links?.let {
-                    linksRemoteRepository.responseToModel(
-                        it,
-                        launchId
-                    ) as LinksImpl
-                }
+                launchResponse.links?.let { linksRemoteRepository.responseToModel(it, launchId) }
         }
     }
 
     override fun generateId() = generateRandomId()
 
-    private fun prepareMissions(launchResponse: LaunchResponseImpl) =
-        launchResponse.mission_name?.let { missionIds ->
-            val missions = ArrayList<MissionImpl>()
-            val names = launchResponse.mission_name.split("/")
+    private fun prepareMissions(launchResponse: LaunchResponse) =
+        launchResponse.mission_name?.let { missionName ->
+            val missions = mutableListOf<MissionImpl>()
+            val names = missionName.split("/")
             var name = ""
 
             names.forEach {
@@ -102,9 +91,9 @@ class LaunchRemoteRepositoryImpl @Inject constructor(
             missions
         }
 
-    private fun prepareShips(launchResponse: LaunchResponseImpl) =
+    private fun prepareShips(launchResponse: LaunchResponse) =
         launchResponse.ships?.let { missionIds ->
-            val ships = ArrayList<ShipImpl>()
+            val ships = mutableListOf<ShipImpl>()
 
             missionIds.forEachIndexed { index, shipId ->
                 ships.add(ShipImpl(shipId.toUpperCase(Locale.US), shipId))

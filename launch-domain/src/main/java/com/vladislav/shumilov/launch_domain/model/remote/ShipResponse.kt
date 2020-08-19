@@ -2,7 +2,7 @@ package com.vladislav.shumilov.launch_domain.model.remote
 
 import com.vladislav.shumilov.mission_domain.model.remote.MissionResponse
 
-interface ShipResponse<M : MissionResponse> {
+interface ShipResponse {
     val ship_id: String?
     val ship_name: String?
     val ship_model: String?
@@ -23,7 +23,7 @@ interface ShipResponse<M : MissionResponse> {
     val longitude: Float?
     val successful_landings: Int?
     val attempted_landings: Int?
-    val missions: List<M>?
+    val missions: List<MissionResponse>?
     val url: String?
     val image: String?
 

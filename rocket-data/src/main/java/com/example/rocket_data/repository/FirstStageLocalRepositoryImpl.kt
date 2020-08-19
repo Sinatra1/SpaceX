@@ -6,8 +6,12 @@ import com.example.rocket_data.database.FirstStageToCoreDao
 import com.example.rocket_data.model.local.CoreImpl
 import com.example.rocket_data.model.local.FirstStageImpl
 import com.example.rocket_data.model.local.FirstStageToCoreImpl
+import com.example.rocket_domain.model.local.Core
+import com.example.rocket_domain.model.local.FirstStage
 import com.example.rocket_domain.repository.FirstStageLocalRepository
 import com.vladislav.shumilov.core_data.FragmentScope
+import com.vladislav.shumilov.core_data.util.UNCHECKED_CAST
+import io.reactivex.Single
 import javax.inject.Inject
 
 @FragmentScope
@@ -16,19 +20,21 @@ class FirstStageLocalRepositoryImpl @Inject constructor(
     private val coreDao: CoreDao,
     private val firstStageToCoreDao: FirstStageToCoreDao
 ) :
-    FirstStageLocalRepository<FirstStageImpl> {
+    FirstStageLocalRepository {
 
-    override fun insertList(firstStages: List<FirstStageImpl>) {
-        firstStageDao.insertList(firstStages)
+    @Suppress(UNCHECKED_CAST)
+    override fun insertList(firstStages: List<FirstStage>) {
+        firstStageDao.insertList(firstStages as List<FirstStageImpl>)
 
         insertCores(firstStages)
     }
 
-    override fun getList() = firstStageDao.getList()
+    @Suppress(UNCHECKED_CAST)
+    override fun getList() = firstStageDao.getList() as Single<List<FirstStage>>
 
-    private fun insertCores(firstStages: List<FirstStageImpl>) {
-        val cores = ArrayList<CoreImpl>()
-        val firstStageToCores = ArrayList<FirstStageToCoreImpl>()
+    private fun insertCores(firstStages: List<FirstStage>) {
+        val cores = mutableListOf<Core>()
+        val firstStageToCores = mutableListOf<FirstStageToCoreImpl>()
 
         firstStages.forEach { firstStage ->
             firstStage.cores?.let {
@@ -41,7 +47,8 @@ class FirstStageLocalRepositoryImpl @Inject constructor(
         }
 
         if (cores.isNotEmpty()) {
-            coreDao.insertList(cores)
+            @Suppress(UNCHECKED_CAST)
+            coreDao.insertList(cores as List<CoreImpl>)
         }
 
         if (firstStageToCores.isNotEmpty()) {

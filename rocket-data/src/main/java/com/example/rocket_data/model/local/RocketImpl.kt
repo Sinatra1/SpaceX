@@ -5,24 +5,31 @@ import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.example.rocket_data.model.local.RocketImpl.Companion.TABLE_NAME
+import com.example.rocket_domain.model.local.Fairings
+import com.example.rocket_domain.model.local.FirstStage
 import com.example.rocket_domain.model.local.Rocket
+import com.example.rocket_domain.model.local.SecondStage
 
 @Entity(tableName = TABLE_NAME)
 data class RocketImpl(
     @PrimaryKey
     @ColumnInfo(name = Columns.ID)
     override var id: String,
+
     @ColumnInfo(name = Columns.NAME)
     override var name: String?,
+
     @ColumnInfo(name = Columns.TYPE)
     override var type: String?
-) : Rocket<FirstStageImpl, SecondStageImpl, FairingsImpl> {
+) : Rocket {
     @Ignore
-    override var first_stage: FirstStageImpl? = null
+    override var firstStage: FirstStage? = null
+
     @Ignore
-    override var second_stage: SecondStageImpl? = null
+    override var secondStage: SecondStage? = null
+
     @Ignore
-    override var fairings: FairingsImpl? = null
+    override var fairings: Fairings? = null
 
     companion object {
         const val TABLE_NAME = "rocket"

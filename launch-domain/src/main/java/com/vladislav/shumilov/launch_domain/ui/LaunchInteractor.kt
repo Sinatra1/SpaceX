@@ -1,9 +1,9 @@
 package com.vladislav.shumilov.launch_domain.ui
 
-import com.vladislav.shumilov.launch_domain.model.local.LaunchWithMissionsAlias
+import com.vladislav.shumilov.launch_domain.model.local.LaunchWithMissions
 import io.reactivex.Single
 
-interface LaunchInteractor<LM: LaunchWithMissionsAlias> {
+interface LaunchInteractor {
 
-    fun getListWithMissions(offset: Int, limit: Int): Single<List<LM>>
+    fun getListWithMissions(offset: Int, limit: Int): Single<List<LaunchWithMissions>>
 }

@@ -15,6 +15,7 @@ data class ShipImpl(
     @ColumnInfo(name = Columns.NAME)
     override var name: String?
 ) : Ship {
+    @ColumnInfo(name = Columns.TYPE)
     override var type: String? = null
 
     companion object {
@@ -25,6 +26,7 @@ data class ShipImpl(
         companion object {
             const val ID = "id"
             const val NAME = "name"
+            const val TYPE = "type"
         }
     }
 }

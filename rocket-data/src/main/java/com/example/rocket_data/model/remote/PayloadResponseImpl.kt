@@ -14,4 +14,4 @@ class PayloadResponseImpl(
     override val payload_mass_lbs: Float?,
     override val orbit: String?,
     override val orbit_params: OrbitParamsResponseImpl?
-) : PayloadResponse<OrbitParamsResponseImpl>
+) : PayloadResponse

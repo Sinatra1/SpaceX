@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.launch_ui.R
 import com.example.launch_ui.databinding.LaunchesListBinding
 import com.vladislav.shumilov.core_data.FragmentScope
-import com.vladislav.shumilov.launch_data.model.local.LaunchWithMissionsImpl
+import com.vladislav.shumilov.launch_domain.model.local.LaunchWithMissions
 import com.vladislav.shumilov.launch_ui.app
 import javax.inject.Inject
 
@@ -94,11 +94,11 @@ class LaunchesListFragment : Fragment() {
         })
     }
 
-    private fun showLaunches(launches: List<LaunchWithMissionsImpl>) {
+    private fun showLaunches(launches: List<LaunchWithMissions>) {
         launchesListAdapter.addItems(launches)
     }
 
-    private val recyclerViewOnScrollListener = object: RecyclerView.OnScrollListener() {
+    private val recyclerViewOnScrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
 

@@ -1,21 +1,22 @@
 package com.example.rocket_data.repository
 
 import com.example.rocket_data.model.local.FairingsImpl
-import com.example.rocket_data.model.remote.FairingsResponseImpl
+import com.example.rocket_domain.model.remote.FairingsResponse
 import com.example.rocket_domain.repository.FairingsRemoteRepository
 import com.vladislav.shumilov.core_data.util.generateRandomId
 
-class FairingsRemoteRepositoryImpl:
-    FairingsRemoteRepository<FairingsResponseImpl, FairingsImpl> {
+class FairingsRemoteRepositoryImpl :
+    FairingsRemoteRepository {
 
-    override fun responseToModel(fairingsResponse: FairingsResponseImpl, rocketId: String) =
+    override fun responseToModel(fairingsResponse: FairingsResponse, rocketId: String) =
         FairingsImpl(
             generateId(),
             rocketId,
             fairingsResponse.reused,
             fairingsResponse.recovery_attempt,
             fairingsResponse.recovered,
-            fairingsResponse.ship)
+            fairingsResponse.ship
+        )
 
     override fun generateId() = generateRandomId()
 }

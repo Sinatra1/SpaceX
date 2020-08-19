@@ -1,15 +1,18 @@
 package com.vladislav.shumilov.launch_domain.repository
 
-import com.vladislav.shumilov.launch_domain.model.local.LaunchAlias
-import com.vladislav.shumilov.launch_domain.model.local.LaunchWithMissionsAlias
+import com.vladislav.shumilov.launch_domain.model.local.Launch
+import com.vladislav.shumilov.launch_domain.model.local.LaunchWithMissions
 import io.reactivex.Single
 
-interface LaunchLocalRepository<T: LaunchAlias, LM: LaunchWithMissionsAlias> {
-    fun insertList(launches: List<T>)
+interface LaunchLocalRepository {
+    fun insertList(launches: List<Launch>)
 
-    fun getList(limit: Int = Int.MAX_VALUE): Single<List<T>>
+    fun getList(limit: Int = Int.MAX_VALUE): Single<List<Launch>>
 
-    fun getListWithMissions(offset: Int, limit: Int = Int.MAX_VALUE): Single<List<LM>>
+    fun getListWithMissions(
+        offset: Int,
+        limit: Int = Int.MAX_VALUE
+    ): Single<List<LaunchWithMissions>>
 
-    fun getListWithMissionsByList(launches: List<T>): List<LM>
+    fun getListWithMissionsByList(launches: List<Launch>): List<LaunchWithMissions>
 }

@@ -2,10 +2,14 @@ package com.vladislav.shumilov.launch_data.model.local
 
 import androidx.room.*
 import com.example.rocket_data.model.local.RocketImpl
+import com.example.rocket_domain.model.local.Rocket
 import com.vladislav.shumilov.launch_data.model.local.LaunchImpl.Companion.TABLE_NAME
-import com.vladislav.shumilov.launch_domain.model.local.*
-import com.vladislav.shumilov.mission_data.model.local.MissionImpl
-import com.vladislav.shumilov.ship_data.model.local.ShipImpl
+import com.vladislav.shumilov.launch_domain.model.local.Launch
+import com.vladislav.shumilov.launch_domain.model.local.LaunchFailureDetails
+import com.vladislav.shumilov.launch_domain.model.local.LaunchSite
+import com.vladislav.shumilov.launch_domain.model.local.Links
+import com.vladislav.shumilov.mission_domain.model.local.Mission
+import com.vladislav.shumilov.ship_domain.model.local.Ship
 
 @Entity(
     tableName = TABLE_NAME,
@@ -31,55 +35,70 @@ data class LaunchImpl(
     @PrimaryKey
     @ColumnInfo(name = Columns.ID)
     override var id: String,
+
     @ColumnInfo(name = Columns.FLIGHT_NUMBER)
     override var flightNumber: Int,
+
     @ColumnInfo(name = Columns.UPCOMING)
     override var upcoming: Boolean,
+
     @ColumnInfo(name = Columns.LAUNCH_YEAR)
     override var launchYear: Int?,
+
     @ColumnInfo(name = Columns.LAUNCH_DATE_UNIX)
     override var launchDateUnix: Int?,
+
     @ColumnInfo(name = Columns.LAUNCH_DATE_UTC)
     override var launchDateUtc: String?,
+
     @ColumnInfo(name = Columns.IS_TENTATIVE)
     override var isTentative: Boolean,
+
     @ColumnInfo(name = Columns.TENTATIVE_MAX_PRECISION)
     override var tentativeMaxPrecision: String?,
+
     @ColumnInfo(name = Columns.TBD)
     override var tbd: Boolean,
+
     @ColumnInfo(name = Columns.LAUNCH_WINDOW)
     override var launchWindow: Int?,
+
     @ColumnInfo(name = Columns.ROCKET_ID)
     override var rocketId: String?,
+
     @ColumnInfo(name = Columns.LAUNCH_SITE_ID)
     override var launchSiteId: String?,
+
     @ColumnInfo(name = Columns.LAUNCH_SUCCESS)
     override var launchSuccess: Boolean,
+
     @ColumnInfo(name = Columns.DETAILS)
     override var details: String?,
+
     @ColumnInfo(name = Columns.STATIC_FIRE_DATE_UTC)
     override var staticFireDateUtc: String?,
+
     @ColumnInfo(name = Columns.STATIC_FIRE_DATE_UNIX)
     override var staticFireDateUnix: Int?
-) : Launch<MissionImpl, RocketImpl, ShipImpl, LaunchSiteImpl, LaunchFailureDetailsImpl, LinksImpl> {
+) : Launch {
 
     @Ignore
-    override var missions: List<MissionImpl>? = null
+    override var missions: List<Mission>? = null
 
     @Ignore
-    override var rocket: RocketImpl? = null
+    override var rocket: Rocket? = null
 
     @Ignore
-    override var ships: List<ShipImpl>? = null
+    override var ships: List<Ship>? = null
 
     @Ignore
-    override var launch_site: LaunchSiteImpl? = null
+    override var launchSite: LaunchSite? = null
 
     @Ignore
-    override var launch_failure_details: LaunchFailureDetailsImpl? = null
+    override var launchFailureDetails: LaunchFailureDetails? = null
 
     @Ignore
-    override var links: LinksImpl? = null
+    override var links: Links? = null
 
     companion object {
         const val TABLE_NAME = "launch"

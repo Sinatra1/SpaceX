@@ -20,19 +20,22 @@ data class LaunchFailureDetailsImpl(
     @PrimaryKey
     @ColumnInfo(name = Columns.ID)
     override var id: String,
+
     @ColumnInfo(name = Columns.LAUNCH_ID)
     override var launchId: String,
+
     @ColumnInfo(name = Columns.TIME)
     override var time: Int?,
+
     @ColumnInfo(name = Columns.ALTITUDE)
     override var altitude: String?,
+
     @ColumnInfo(name = Columns.REASON)
     override var reason: String?
-) :
-    LaunchFailureDetails {
+) : LaunchFailureDetails {
 
     companion object {
-        const val TABLE_NAME = "launch_failure_details"
+        const val TABLE_NAME = "launchFailureDetails"
     }
 
     class Columns {

@@ -20,14 +20,19 @@ data class FairingsImpl(
     @PrimaryKey
     @ColumnInfo(name = Columns.ID)
     override var id: String,
+
     @ColumnInfo(name = Columns.ROCKET_ID)
     override var rocketId: String,
+
     @ColumnInfo(name = Columns.REUSED)
     override var reused: Boolean,
+
     @ColumnInfo(name = Columns.RECOVERY_ATTEMPT)
     override var recoveryAttempt: Boolean,
+
     @ColumnInfo(name = Columns.RECOVERED)
     override var recovered: Boolean,
+
     @ColumnInfo(name = Columns.SHIP)
     override var ship: String?
 ) : Fairings {

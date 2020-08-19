@@ -25,4 +25,4 @@ class LaunchResponseImpl(
     override val details: String?,
     override val static_fire_date_utc: String?,
     override val static_fire_date_unix: Int?
-) : LaunchResponse<RocketResponseImpl, LaunchSiteResponseImpl, LaunchFailureDetailsResponseImpl, LinksResponseImpl>
+) : LaunchResponse

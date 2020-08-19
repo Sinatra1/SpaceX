@@ -28,6 +28,7 @@ import com.vladislav.shumilov.mission_data.model.local.MissionImpl
 data class LaunchToMissionImpl(
     @ColumnInfo(name = Columns.LAUNCH_ID)
     override val launchId: String,
+
     @ColumnInfo(name = Columns.MISSION_ID)
     override val missionId: String
 ) : LaunchToMission {

@@ -1,13 +1,10 @@
 package com.example.rocket_domain.model.remote
 
-typealias RocketResponseAlias = RocketResponse<*, *, *>
-
-interface RocketResponse<F : FirstStageResponse<*>, S : SecondStageResponse<*>, FA : FairingsResponse> {
-
+interface RocketResponse {
     val rocket_id: String
     val rocket_name: String?
     val rocket_type: String?
-    val first_stage: F?
-    val second_stage: S?
-    val fairings: FA?
+    val first_stage: FirstStageResponse?
+    val second_stage: SecondStageResponse?
+    val fairings: FairingsResponse?
 }

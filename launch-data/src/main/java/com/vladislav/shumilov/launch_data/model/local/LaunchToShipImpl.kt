@@ -28,6 +28,7 @@ import com.vladislav.shumilov.ship_data.model.local.ShipImpl
 data class LaunchToShipImpl(
     @ColumnInfo(name = Columns.LAUNCH_ID)
     override val launchId: String,
+
     @ColumnInfo(name = Columns.SHIP_ID)
     override val shipId: String
 ) : LaunchToShip {

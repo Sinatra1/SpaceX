@@ -1,15 +1,15 @@
 package com.vladislav.shumilov.launch_domain.repository
 
-import com.vladislav.shumilov.launch_domain.model.local.LaunchAlias
-import com.vladislav.shumilov.launch_domain.model.remote.LaunchResponseAlias
+import com.vladislav.shumilov.launch_domain.model.local.Launch
+import com.vladislav.shumilov.launch_domain.model.remote.LaunchResponse
 import io.reactivex.Single
 
-interface LaunchRemoteRepository<T: LaunchResponseAlias, M: LaunchAlias> {
-    fun getList(offset: Int, limit: Int): Single<List<T>>
+interface LaunchRemoteRepository {
+    fun getList(offset: Int, limit: Int): Single<List<LaunchResponse>>
 
-    fun responsesToModels(launchResponses: List<T>): List<M>
+    fun responsesToModels(launchResponses: List<LaunchResponse>): List<Launch>
 
-    fun responseToModel(launchResponse: T): M
+    fun responseToModel(launchResponse: LaunchResponse): Launch
 
     fun generateId(): String
 }

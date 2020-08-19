@@ -2,6 +2,7 @@ package com.example.rocket_data.model.local
 
 import androidx.room.*
 import com.example.rocket_data.model.local.SecondStageImpl.Companion.TABLE_NAME
+import com.example.rocket_domain.model.local.Payload
 import com.example.rocket_domain.model.local.SecondStage
 
 
@@ -21,24 +22,25 @@ data class SecondStageImpl(
     @PrimaryKey
     @ColumnInfo(name = Columns.ID)
     override var id: String,
+
     @ColumnInfo(name = Columns.ROCKET_ID)
     override var rocketId: String,
+
     @ColumnInfo(name = Columns.BLOCK)
     override var block: Int?
-) :
-    SecondStage<PayloadImpl> {
+) : SecondStage {
 
     @Ignore
-    override var payloads: List<PayloadImpl>? = null
+    override var payloads: List<Payload>? = null
 
     companion object {
-        const val TABLE_NAME = "second_stage"
+        const val TABLE_NAME = "secondStage"
     }
 
     class Columns {
         companion object {
             const val ID = "id"
-            const val ROCKET_ID = "rocket_id"
+            const val ROCKET_ID = "rocketId"
             const val BLOCK = "block"
         }
     }

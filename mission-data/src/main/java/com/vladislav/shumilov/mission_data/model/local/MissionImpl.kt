@@ -11,15 +11,20 @@ data class MissionImpl(
     @PrimaryKey
     @ColumnInfo(name = Columns.ID)
     override var id: String,
+
     @ColumnInfo(name = Columns.NAME)
     override var name: String?
+
 ) : Mission {
     @ColumnInfo(name = Columns.WIKIPEDIA)
     override var wikipedia: String? = null
+
     @ColumnInfo(name = Columns.WEBSITE)
     override var website: String? = null
+
     @ColumnInfo(name = Columns.TWITTER)
     override var twitter: String? = null
+
     @ColumnInfo(name = Columns.DESCRIPTION)
     override var description: String? = null
 

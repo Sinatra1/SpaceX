@@ -1,22 +1,27 @@
 package com.vladislav.shumilov.launch_data.repository
 
-import com.example.rocket_data.model.local.RocketImpl
-import com.example.rocket_domain.repository.RocketLocalRepositoryAlias
+import com.example.rocket_domain.model.local.Rocket
+import com.example.rocket_domain.repository.RocketLocalRepository
 import com.vladislav.shumilov.core_data.FragmentScope
+import com.vladislav.shumilov.core_data.util.UNCHECKED_CAST
 import com.vladislav.shumilov.launch_data.database.*
 import com.vladislav.shumilov.launch_data.model.local.*
+import com.vladislav.shumilov.launch_domain.model.local.*
 import com.vladislav.shumilov.launch_domain.repository.LaunchLocalRepository
 import com.vladislav.shumilov.mission_data.database.MissionDao
 import com.vladislav.shumilov.mission_data.model.local.MissionImpl
+import com.vladislav.shumilov.mission_domain.model.local.Mission
 import com.vladislav.shumilov.ship_data.database.ShipDao
 import com.vladislav.shumilov.ship_data.model.local.ShipImpl
+import com.vladislav.shumilov.ship_domain.model.local.Ship
+import io.reactivex.Single
 import javax.inject.Inject
 
 @FragmentScope
 class LaunchLocalRepositoryImpl @Inject constructor(
     private val launchDao: LaunchDao,
     private val missionDao: MissionDao,
-    private val rocketLocalRepository: RocketLocalRepositoryAlias,
+    private val rocketLocalRepository: RocketLocalRepository,
     private val shipDao: ShipDao,
     private val launchSiteDao: LaunchSiteDao,
     private val launchFailureDetailsDao: LaunchFailureDetailsDao,
@@ -24,15 +29,17 @@ class LaunchLocalRepositoryImpl @Inject constructor(
     private val launchToMissionDao: LaunchToMissionDao,
     private val launchToShipDao: LaunchToShipDao
 ) :
-    LaunchLocalRepository<LaunchImpl, LaunchWithMissionsImpl> {
+    LaunchLocalRepository {
 
-    override fun insertList(launches: List<LaunchImpl>) {
+
+    override fun insertList(launches: List<Launch>) {
         if (launches.isEmpty()) return
 
         insertRockets(launches)
         insertLaunchSites(launches)
 
-        launchDao.insertList(launches)
+        @Suppress(UNCHECKED_CAST)
+        launchDao.insertList(launches as List<LaunchImpl>)
 
         insertLaunchFailureDetails(launches)
         insertLinks(launches)
@@ -40,36 +47,46 @@ class LaunchLocalRepositoryImpl @Inject constructor(
         insertShips(launches)
     }
 
-    override fun getList(limit: Int) = launchDao.getList(limit)
+    @Suppress(UNCHECKED_CAST)
+    override fun getList(limit: Int) = launchDao.getList(limit) as Single<List<Launch>>
 
-    override fun getListWithMissions(offset: Int, limit: Int) = launchDao.getListWithMissions(offset, limit)
+    @Suppress(UNCHECKED_CAST)
+    override fun getListWithMissions(offset: Int, limit: Int) =
+        launchDao.getListWithMissions(offset, limit) as Single<List<LaunchWithMissions>>
 
-    override fun getListWithMissionsByList(launches: List<LaunchImpl>): List<LaunchWithMissionsImpl> {
-        val launchesWithMissions = ArrayList<LaunchWithMissionsImpl>()
+    override fun getListWithMissionsByList(launches: List<Launch>): List<LaunchWithMissions> {
+        val launchesWithMissions = mutableListOf<LaunchWithMissionsImpl>()
 
         launches.forEach {
-            launchesWithMissions.add(LaunchWithMissionsImpl(it, it.missions?: emptyList()))
+            launchesWithMissions.add(
+                @Suppress(UNCHECKED_CAST)
+                LaunchWithMissionsImpl(
+                    it as LaunchImpl,
+                    (it.missions ?: emptyList()) as List<MissionImpl>
+                )
+            )
         }
 
         return launchesWithMissions
     }
 
-    private fun insertMissions(launches: List<LaunchImpl>) {
-        val missions = ArrayList<MissionImpl>()
-        val launchToMissions = ArrayList<LaunchToMissionImpl>()
+    private fun insertMissions(launches: List<Launch>) {
+        val missionsList = mutableListOf<Mission>()
+        val launchToMissions = mutableListOf<LaunchToMissionImpl>()
 
         launches.forEach { launch ->
-            launch.missions?.let { it ->
-                missions.addAll(it)
+            launch.missions?.let { missions ->
+                missionsList.addAll(missions)
 
-                it.forEach {
+                missions.forEach {
                     launchToMissions.add(LaunchToMissionImpl(launch.id, it.id))
                 }
             }
         }
 
-        if (missions.isNotEmpty()) {
-            missionDao.insertList(missions)
+        if (missionsList.isNotEmpty()) {
+            @Suppress(UNCHECKED_CAST)
+            missionDao.insertList(missionsList as List<MissionImpl>)
         }
 
         if (launchToMissions.isNotEmpty()) {
@@ -77,13 +94,11 @@ class LaunchLocalRepositoryImpl @Inject constructor(
         }
     }
 
-    private fun insertRockets(launches: List<LaunchImpl>) {
-        val rockets = ArrayList<RocketImpl>()
+    private fun insertRockets(launches: List<Launch>) {
+        val rockets = mutableListOf<Rocket>()
 
         launches.forEach {
-            it.rocket?.let {
-                rockets.add(it)
-            }
+            it.rocket?.let(rockets::add)
         }
 
         if (rockets.isNotEmpty()) {
@@ -91,22 +106,23 @@ class LaunchLocalRepositoryImpl @Inject constructor(
         }
     }
 
-    private fun insertShips(launches: List<LaunchImpl>) {
-        val ships = ArrayList<ShipImpl>()
-        val launchToShips = ArrayList<LaunchToShipImpl>()
+    private fun insertShips(launches: List<Launch>) {
+        val shipsList = mutableListOf<Ship>()
+        val launchToShips = mutableListOf<LaunchToShipImpl>()
 
         launches.forEach { launch ->
-            launch.ships?.let { it ->
-                ships.addAll(it)
+            launch.ships?.let { ships ->
+                shipsList.addAll(ships)
 
-                it.forEach {
+                ships.forEach {
                     launchToShips.add(LaunchToShipImpl(launch.id, it.id))
                 }
             }
         }
 
-        if (ships.isNotEmpty()) {
-            shipDao.insertList(ships)
+        if (shipsList.isNotEmpty()) {
+            @Suppress(UNCHECKED_CAST)
+            shipDao.insertList(shipsList as List<ShipImpl>)
         }
 
         if (launchToShips.isNotEmpty()) {
@@ -114,45 +130,42 @@ class LaunchLocalRepositoryImpl @Inject constructor(
         }
     }
 
-    private fun insertLaunchSites(launches: List<LaunchImpl>) {
-        val launchSites = ArrayList<LaunchSiteImpl>()
+    private fun insertLaunchSites(launches: List<Launch>) {
+        val launchSites = mutableListOf<LaunchSite>()
 
         launches.forEach {
-            it.launch_site?.let {
-                launchSites.add(it)
-            }
+            it.launchSite?.let(launchSites::add)
         }
 
         if (launchSites.isNotEmpty()) {
-            launchSiteDao.insertList(launchSites)
+            @Suppress(UNCHECKED_CAST)
+            launchSiteDao.insertList(launchSites as List<LaunchSiteImpl>)
         }
     }
 
-    private fun insertLaunchFailureDetails(launches: List<LaunchImpl>) {
-        val launchFailureDetails = ArrayList<LaunchFailureDetailsImpl>()
+    private fun insertLaunchFailureDetails(launches: List<Launch>) {
+        val launchFailureDetailsList = mutableListOf<LaunchFailureDetails>()
 
         launches.forEach {
-            it.launch_failure_details?.let {
-                launchFailureDetails.add(it)
-            }
+            it.launchFailureDetails?.let(launchFailureDetailsList::add)
         }
 
-        if (launchFailureDetails.isNotEmpty()) {
-            launchFailureDetailsDao.insertList(launchFailureDetails)
+        if (launchFailureDetailsList.isNotEmpty()) {
+            @Suppress(UNCHECKED_CAST)
+            launchFailureDetailsDao.insertList(launchFailureDetailsList as List<LaunchFailureDetailsImpl>)
         }
     }
 
-    private fun insertLinks(launches: List<LaunchImpl>) {
-        val links = ArrayList<LinksImpl>()
+    private fun insertLinks(launches: List<Launch>) {
+        val linksList = mutableListOf<Links>()
 
         launches.forEach {
-            it.links?.let {
-                links.add(it)
-            }
+            it.links?.let(linksList::add)
         }
 
-        if (links.isNotEmpty()) {
-            linksDao.insertList(links)
+        if (linksList.isNotEmpty()) {
+            @Suppress(UNCHECKED_CAST)
+            linksDao.insertList(linksList as List<LinksImpl>)
         }
     }
 }

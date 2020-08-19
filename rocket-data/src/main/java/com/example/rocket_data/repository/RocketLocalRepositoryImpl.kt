@@ -3,41 +3,45 @@ package com.example.rocket_data.repository
 import com.example.rocket_data.database.FairingsDao
 import com.example.rocket_data.database.RocketDao
 import com.example.rocket_data.model.local.FairingsImpl
-import com.example.rocket_data.model.local.FirstStageImpl
 import com.example.rocket_data.model.local.RocketImpl
-import com.example.rocket_data.model.local.SecondStageImpl
-import com.example.rocket_domain.repository.FirstStageLocalRepositoryAlias
+import com.example.rocket_domain.model.local.Fairings
+import com.example.rocket_domain.model.local.FirstStage
+import com.example.rocket_domain.model.local.Rocket
+import com.example.rocket_domain.model.local.SecondStage
+import com.example.rocket_domain.repository.FirstStageLocalRepository
 import com.example.rocket_domain.repository.RocketLocalRepository
-import com.example.rocket_domain.repository.SecondStageLocalRepositoryAlias
+import com.example.rocket_domain.repository.SecondStageLocalRepository
 import com.vladislav.shumilov.core_data.FragmentScope
+import com.vladislav.shumilov.core_data.util.UNCHECKED_CAST
+import io.reactivex.Single
 import javax.inject.Inject
 
 @FragmentScope
 class RocketLocalRepositoryImpl @Inject constructor(
     private val rocketDao: RocketDao,
-    private val firstStageLocalRepository: FirstStageLocalRepositoryAlias,
-    private val secondStageLocalRepository: SecondStageLocalRepositoryAlias,
+    private val firstStageLocalRepository: FirstStageLocalRepository,
+    private val secondStageLocalRepository: SecondStageLocalRepository,
     private val fairingsDao: FairingsDao
 ) :
-    RocketLocalRepository<RocketImpl> {
+    RocketLocalRepository {
 
-    override fun insertList(rockets: List<RocketImpl>) {
-        rocketDao.insertList(rockets)
+    @Suppress(UNCHECKED_CAST)
+    override fun insertList(rockets: List<Rocket>) {
+        rocketDao.insertList(rockets as List<RocketImpl>)
 
         insertFirstStages(rockets)
         insertSecondStages(rockets)
         insertFairings(rockets)
     }
 
-    override fun getList() = rocketDao.getList()
+    @Suppress(UNCHECKED_CAST)
+    override fun getList() = rocketDao.getList() as Single<List<Rocket>>
 
-    private fun insertFirstStages(rockets: List<RocketImpl>) {
-        val firstStages = ArrayList<FirstStageImpl>()
+    private fun insertFirstStages(rockets: List<Rocket>) {
+        val firstStages = mutableListOf<FirstStage>()
 
         rockets.forEach {
-            it.first_stage?.let {
-                firstStages.add(it)
-            }
+            it.firstStage?.let(firstStages::add)
         }
 
         if (firstStages.isNotEmpty()) {
@@ -45,13 +49,11 @@ class RocketLocalRepositoryImpl @Inject constructor(
         }
     }
 
-    private fun insertSecondStages(rockets: List<RocketImpl>) {
-        val secondStages = ArrayList<SecondStageImpl>()
+    private fun insertSecondStages(rockets: List<Rocket>) {
+        val secondStages = mutableListOf<SecondStage>()
 
         rockets.forEach {
-            it.second_stage?.let {
-                secondStages.add(it)
-            }
+            it.secondStage?.let(secondStages::add)
         }
 
         if (secondStages.isNotEmpty()) {
@@ -59,17 +61,16 @@ class RocketLocalRepositoryImpl @Inject constructor(
         }
     }
 
-    private fun insertFairings(rockets: List<RocketImpl>) {
-        val fairings = ArrayList<FairingsImpl>()
+    private fun insertFairings(rockets: List<Rocket>) {
+        val fairings = mutableListOf<Fairings>()
 
         rockets.forEach {
-            it.fairings?.let {
-                fairings.add(it)
-            }
+            it.fairings?.let(fairings::add)
         }
 
         if (fairings.isNotEmpty()) {
-            fairingsDao.insertList(fairings)
+            @Suppress(UNCHECKED_CAST)
+            fairingsDao.insertList(fairings as List<FairingsImpl>)
         }
     }
 }

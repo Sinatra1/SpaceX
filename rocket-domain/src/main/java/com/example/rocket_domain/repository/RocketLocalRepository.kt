@@ -1,12 +1,10 @@
 package com.example.rocket_domain.repository
 
-import com.example.rocket_domain.model.local.RocketAlias
+import com.example.rocket_domain.model.local.Rocket
 import io.reactivex.Single
 
-typealias RocketLocalRepositoryAlias = RocketLocalRepository<RocketAlias>
+interface RocketLocalRepository {
+    fun insertList(rockets: List<Rocket>)
 
-interface RocketLocalRepository<T : RocketAlias> {
-    fun insertList(rockets: List<T>)
-
-    fun getList(): Single<List<T>>
+    fun getList(): Single<List<Rocket>>
 }

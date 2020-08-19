@@ -1,6 +1,6 @@
 package com.example.rocket_domain.model.local
 
-interface Payload<O : OrbitParams> {
+interface Payload {
     var id: String
     var noradId: List<String>?
     var reused: Boolean
@@ -11,5 +11,5 @@ interface Payload<O : OrbitParams> {
     var massKg: Float?
     var massLbs: Float?
     var orbit: String?
-    var orbit_params: O?
+    var orbitParams: OrbitParams?
 }

@@ -7,14 +7,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.launch_ui.R
 import com.example.launch_ui.databinding.LaunchesListRowBinding
-import com.vladislav.shumilov.launch_data.model.local.LaunchWithMissionsImpl
-
+import com.vladislav.shumilov.launch_domain.model.local.LaunchWithMissions
 
 
 internal class LaunchesListAdapter(context: Context) :
     RecyclerView.Adapter<LaunchesListViewHolder>() {
 
-    private val items: ArrayList<LaunchWithMissionsImpl> = ArrayList()
+    private val items: ArrayList<LaunchWithMissions> = ArrayList()
     private val layoutInflater = LayoutInflater.from(context)
     private lateinit var binding: LaunchesListRowBinding
 
@@ -22,7 +21,7 @@ internal class LaunchesListAdapter(context: Context) :
         super.setHasStableIds(true)
     }
 
-    override fun getItemId(position: Int) = items[position].launch.flightNumber?.toLong() ?: 0
+    override fun getItemId(position: Int) = items[position].launch.flightNumber.toLong()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LaunchesListViewHolder {
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.launches_list_row, parent, false)
@@ -39,7 +38,7 @@ internal class LaunchesListAdapter(context: Context) :
 
     override fun getItemViewType(position: Int) = LAUNCHES_LIST_VIEW_HOLDER_TYPE
 
-    fun addItems(items: List<LaunchWithMissionsImpl>) {
+    fun addItems(items: List<LaunchWithMissions>) {
         this.items.clear()
         this.items.addAll(items)
         notifyDataSetChanged()

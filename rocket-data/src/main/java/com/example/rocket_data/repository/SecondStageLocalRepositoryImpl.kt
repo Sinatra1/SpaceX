@@ -2,33 +2,38 @@ package com.example.rocket_data.repository
 
 import com.example.rocket_data.database.SecondStageDao
 import com.example.rocket_data.database.SecondStageToPayloadDao
-import com.example.rocket_data.model.local.PayloadImpl
 import com.example.rocket_data.model.local.SecondStageImpl
 import com.example.rocket_data.model.local.SecondStageToPayloadImpl
-import com.example.rocket_domain.repository.PayloadLocalRepositoryAlias
+import com.example.rocket_domain.model.local.Payload
+import com.example.rocket_domain.model.local.SecondStage
+import com.example.rocket_domain.repository.PayloadLocalRepository
 import com.example.rocket_domain.repository.SecondStageLocalRepository
 import com.vladislav.shumilov.core_data.FragmentScope
+import com.vladislav.shumilov.core_data.util.UNCHECKED_CAST
+import io.reactivex.Single
 import javax.inject.Inject
 
 @FragmentScope
 class SecondStageLocalRepositoryImpl @Inject constructor(
     private val secondStageDao: SecondStageDao,
-    private val payloadLocalRepository: PayloadLocalRepositoryAlias,
+    private val payloadLocalRepository: PayloadLocalRepository,
     private val secondStageToPayloadDao: SecondStageToPayloadDao
 ) :
-    SecondStageLocalRepository<SecondStageImpl> {
+    SecondStageLocalRepository {
 
-    override fun insertList(secondStages: List<SecondStageImpl>) {
-        secondStageDao.insertList(secondStages)
+    @Suppress(UNCHECKED_CAST)
+    override fun insertList(secondStages: List<SecondStage>) {
+        secondStageDao.insertList(secondStages as List<SecondStageImpl>)
 
         insertPayloads(secondStages)
     }
 
-    override fun getList() = secondStageDao.getList()
+    @Suppress(UNCHECKED_CAST)
+    override fun getList() = secondStageDao.getList() as Single<List<SecondStage>>
 
-    private fun insertPayloads(secondStages: List<SecondStageImpl>) {
-        val payloads = ArrayList<PayloadImpl>()
-        val secondStageToPayloads = ArrayList<SecondStageToPayloadImpl>()
+    private fun insertPayloads(secondStages: List<SecondStage>) {
+        val payloads = mutableListOf<Payload>()
+        val secondStageToPayloads = mutableListOf<SecondStageToPayloadImpl>()
 
         secondStages.forEach { secondStage ->
             secondStage.payloads?.let {

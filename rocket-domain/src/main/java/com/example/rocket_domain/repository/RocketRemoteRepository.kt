@@ -1,11 +1,9 @@
 package com.example.rocket_domain.repository
 
-import com.example.rocket_domain.model.local.RocketAlias
-import com.example.rocket_domain.model.remote.RocketResponseAlias
+import com.example.rocket_domain.model.local.Rocket
+import com.example.rocket_domain.model.remote.RocketResponse
 
-typealias RocketRemoteRepositoryAlias = RocketRemoteRepository<RocketResponseAlias, RocketAlias>
+interface RocketRemoteRepository {
 
-interface RocketRemoteRepository<T: RocketResponseAlias, M: RocketAlias> {
-
-    fun responseToModel(rocketResponse: T): M
+    fun responseToModel(rocketResponse: RocketResponse): Rocket
 }

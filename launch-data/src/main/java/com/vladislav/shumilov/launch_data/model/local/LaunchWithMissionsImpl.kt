@@ -1,7 +1,6 @@
 package com.vladislav.shumilov.launch_data.model.local
 
 import androidx.room.Embedded
-import androidx.room.Ignore
 import androidx.room.Junction
 import androidx.room.Relation
 import com.vladislav.shumilov.launch_domain.model.local.LaunchWithMissions
@@ -22,35 +21,21 @@ data class LaunchWithMissionsImpl(
 
     )
     override val missions: List<MissionImpl>
-) : LaunchWithMissions<LaunchImpl, MissionImpl> {
+) : LaunchWithMissions {
 
-    @Ignore
-    var missionName: String? = null
-        get() {
-            if (field == null) {
-                field = if (missions.isNotEmpty()) {
-                    var missionNames = ""
-                    missions.forEachIndexed { index, mission ->
-                        if (index > 0) {
-                            missionNames += " "
-                        }
+    override val missionName: String
+        get() = if (missions.isNotEmpty()) {
+            var missionNames = ""
+            missions.forEachIndexed { index, mission ->
+                if (index > 0) {
+                    missionNames += " "
+                }
 
-                        missionNames += mission.name
-                    }
-                    missionNames
-                } else ""
+                missionNames += mission.name
             }
-            return field
-        }
+            missionNames
+        } else ""
 
-
-    @Ignore
-    var flightNumberStr: String? = null
-        get() {
-            if (field == null) {
-                field = launch.flightNumber.toString()
-            }
-
-            return field
-        }
+    override val flightNumberStr: String
+        get() = launch.flightNumber.toString()
 }

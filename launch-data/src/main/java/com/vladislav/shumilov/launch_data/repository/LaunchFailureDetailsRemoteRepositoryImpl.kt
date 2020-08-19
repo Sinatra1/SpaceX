@@ -2,14 +2,14 @@ package com.vladislav.shumilov.launch_data.repository
 
 import com.vladislav.shumilov.core_data.util.generateRandomId
 import com.vladislav.shumilov.launch_data.model.local.LaunchFailureDetailsImpl
-import com.vladislav.shumilov.launch_data.model.remote.LaunchFailureDetailsResponseImpl
+import com.vladislav.shumilov.launch_domain.model.remote.LaunchFailureDetailsResponse
 import com.vladislav.shumilov.launch_domain.repository.LaunchFailureDetailsRemoteRepository
 
-class LaunchFailureDetailsRemoteRepositoryImpl:
-    LaunchFailureDetailsRemoteRepository<LaunchFailureDetailsResponseImpl, LaunchFailureDetailsImpl> {
+class LaunchFailureDetailsRemoteRepositoryImpl :
+    LaunchFailureDetailsRemoteRepository {
 
     override fun responseToModel(
-        launchFailureDetailsResponse: LaunchFailureDetailsResponseImpl,
+        launchFailureDetailsResponse: LaunchFailureDetailsResponse,
         launchId: String
     ) =
         LaunchFailureDetailsImpl(

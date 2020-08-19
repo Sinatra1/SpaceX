@@ -1,15 +1,19 @@
 package com.example.rocket_data.repository
 
 import com.example.rocket_data.model.local.OrbitParamsImpl
-import com.example.rocket_data.model.remote.OrbitParamsResponseImpl
+import com.example.rocket_domain.model.local.OrbitParams
+import com.example.rocket_domain.model.remote.OrbitParamsResponse
 import com.example.rocket_domain.repository.OrbitParamsRemoteRepository
 import com.vladislav.shumilov.core_data.util.generateRandomId
 
 class OrbitParamsRemoteRepositoryImpl :
-    OrbitParamsRemoteRepository<OrbitParamsResponseImpl, OrbitParamsImpl> {
+    OrbitParamsRemoteRepository {
 
-    override fun responseToModels(orbitParamsResponses: List<OrbitParamsResponseImpl>, payloadId: String): List<OrbitParamsImpl> {
-        val orbitParams = ArrayList<OrbitParamsImpl>()
+    override fun responseToModels(
+        orbitParamsResponses: List<OrbitParamsResponse>,
+        payloadId: String
+    ): List<OrbitParams> {
+        val orbitParams = mutableListOf<OrbitParams>()
 
         orbitParamsResponses.forEach {
             orbitParams.add(responseToModel(it, payloadId))
@@ -18,7 +22,7 @@ class OrbitParamsRemoteRepositoryImpl :
         return orbitParams
     }
 
-    override fun responseToModel(orbitParamsResponse: OrbitParamsResponseImpl, payloadId: String) =
+    override fun responseToModel(orbitParamsResponse: OrbitParamsResponse, payloadId: String) =
         OrbitParamsImpl(
             generateId(),
             payloadId,

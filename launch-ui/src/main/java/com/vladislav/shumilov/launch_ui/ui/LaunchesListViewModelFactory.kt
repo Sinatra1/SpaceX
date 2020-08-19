@@ -3,6 +3,7 @@ package com.vladislav.shumilov.launch_ui.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.vladislav.shumilov.core_data.FragmentScope
+import com.vladislav.shumilov.core_data.util.UNCHECKED_CAST
 import com.vladislav.shumilov.launch_ui.common.LaunchInteractorImpl
 import javax.inject.Inject
 
@@ -10,13 +11,11 @@ import javax.inject.Inject
 class LaunchesListViewModelFactory @Inject constructor(private val launchInteractor: LaunchInteractorImpl) :
     ViewModelProvider.Factory {
 
-    @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel?> create(modelClass: Class<T>) = if (modelClass.isAssignableFrom(
-            LaunchesListViewModel::class.java
-        )
-    ) {
-        LaunchesListViewModel(launchInteractor) as T
-    } else {
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
+    @Suppress(UNCHECKED_CAST)
+    override fun <T : ViewModel?> create(modelClass: Class<T>) =
+        if (modelClass.isAssignableFrom(LaunchesListViewModel::class.java)) {
+            LaunchesListViewModel(launchInteractor) as T
+        } else {
+            throw IllegalArgumentException("Unknown ViewModel class")
+        }
 }

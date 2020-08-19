@@ -1,52 +1,45 @@
 package com.example.rocket_data.repository
 
-import com.example.rocket_data.model.local.FairingsImpl
-import com.example.rocket_data.model.local.FirstStageImpl
 import com.example.rocket_data.model.local.RocketImpl
-import com.example.rocket_data.model.local.SecondStageImpl
-import com.example.rocket_data.model.remote.RocketResponseImpl
-import com.example.rocket_domain.repository.FairingsRemoteRepositoryAlias
-import com.example.rocket_domain.repository.FirstStageRemoteRepositoryAlias
-import com.example.rocket_domain.repository.RocketRemoteRepository
-import com.example.rocket_domain.repository.SecondStageRemoteRepositoryAlias
+import com.example.rocket_domain.model.remote.RocketResponse
+import com.example.rocket_domain.repository.*
 import com.vladislav.shumilov.core_data.FragmentScope
 import javax.inject.Inject
 
 @FragmentScope
 class RocketRemoteRepositoryImpl @Inject constructor(
-    private val firstStageRemoteRepository: FirstStageRemoteRepositoryAlias,
-    private val secondStageRemoteRepository: SecondStageRemoteRepositoryAlias,
-    private val fairingsRemoteRepository: FairingsRemoteRepositoryAlias
+    private val firstStageRemoteRepository: FirstStageRemoteRepository,
+    private val secondStageRemoteRepository: SecondStageRemoteRepository,
+    private val fairingsRemoteRepository: FairingsRemoteRepository
 ) :
-    RocketRemoteRepository<RocketResponseImpl, RocketImpl> {
+    RocketRemoteRepository {
 
-    override fun responseToModel(rocketResponse: RocketResponseImpl) =
+    override fun responseToModel(rocketResponse: RocketResponse) =
         RocketImpl(
             rocketResponse.rocket_id,
             rocketResponse.rocket_name,
             rocketResponse.rocket_type
         ).apply {
-            first_stage = rocketResponse.first_stage?.let {
+            firstStage = rocketResponse.first_stage?.let {
                 firstStageRemoteRepository.responseToModel(
                     it,
                     rocketResponse.rocket_id
-                ) as FirstStageImpl
+                )
             }
 
-            second_stage = rocketResponse.second_stage?.let {
+            secondStage = rocketResponse.second_stage?.let {
                 secondStageRemoteRepository.responseToModel(
                     it,
                     rocketResponse.rocket_id
-                ) as SecondStageImpl
+                )
             }
 
-            fairings =
-                rocketResponse.fairings?.let {
-                    fairingsRemoteRepository.responseToModel(
-                        it,
-                        rocketResponse.rocket_id
-                    ) as FairingsImpl
-                }
+            fairings = rocketResponse.fairings?.let {
+                fairingsRemoteRepository.responseToModel(
+                    it,
+                    rocketResponse.rocket_id
+                )
+            }
         }
 
 }

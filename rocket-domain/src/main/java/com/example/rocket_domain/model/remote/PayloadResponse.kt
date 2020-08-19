@@ -1,6 +1,6 @@
 package com.example.rocket_domain.model.remote
 
-interface PayloadResponse<O : OrbitParamsResponse> {
+interface PayloadResponse {
     val payload_id: String?
     val norad_id: List<String>?
     val reused: Boolean
@@ -11,5 +11,5 @@ interface PayloadResponse<O : OrbitParamsResponse> {
     val payload_mass_kg: Float?
     val payload_mass_lbs: Float?
     val orbit: String?
-    val orbit_params: O?
+    val orbit_params: OrbitParamsResponse?
 }

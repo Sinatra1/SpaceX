@@ -1,5 +1,3 @@
 <resources>
     <string name="app_name">core-data</string>
-    <string name="error_phone_invalid">The phone is not valid</string>
-    <string name="mobile_phone">Mobile phone</string>
 </resources>

@@ -2,14 +2,13 @@ package com.vladislav.shumilov.launch_data.repository
 
 import com.vladislav.shumilov.core_data.util.generateRandomId
 import com.vladislav.shumilov.launch_data.model.local.LinksImpl
-import com.vladislav.shumilov.launch_data.model.remote.LinksResponseImpl
+import com.vladislav.shumilov.launch_domain.model.remote.LinksResponse
 import com.vladislav.shumilov.launch_domain.repository.LinksRemoteRepository
 
-class LinksRemoteRepositoryImpl:
-    LinksRemoteRepository<LinksResponseImpl, LinksImpl> {
+class LinksRemoteRepositoryImpl : LinksRemoteRepository {
 
     override fun responseToModel(
-        linksResponse: LinksResponseImpl,
+        linksResponse: LinksResponse,
         launchId: String
     ) =
         LinksImpl(

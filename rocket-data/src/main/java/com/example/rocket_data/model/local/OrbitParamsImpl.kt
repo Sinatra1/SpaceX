@@ -20,42 +20,58 @@ data class OrbitParamsImpl(
     @PrimaryKey
     @ColumnInfo(name = Columns.ID)
     override var id: String,
+
     @ColumnInfo(name = Columns.PAYLOAD_ID)
     override var payloadId: String,
+
     @ColumnInfo(name = Columns.REFERENCE_SYSTEM)
     override var referenceSystem: String?,
+
     @ColumnInfo(name = Columns.REGIME)
     override var regime: String?,
+
     @ColumnInfo(name = Columns.LONGITUDE)
     override var longitude: Float?,
+
     @ColumnInfo(name = Columns.SEMI_MAJOR_AXIS_KM)
     override var semiMajorAxisKm: Float?,
+
     @ColumnInfo(name = Columns.ECCENTRICITY)
     override var eccentricity: Float?,
+
     @ColumnInfo(name = Columns.PERIAPSIS_KM)
     override var periapsisKm: Float?,
+
     @ColumnInfo(name = Columns.APOAPSIS_KM)
     override var apoapsisKm: Float?,
+
     @ColumnInfo(name = Columns.INCLINATION_DEG)
     override var inclinationDeg: Float?,
+
     @ColumnInfo(name = Columns.PERIOD_MIN)
     override var periodMin: Float?,
+
     @ColumnInfo(name = Columns.LIFESPAN_YEARS)
     override var lifespanYears: Float?,
+
     @ColumnInfo(name = Columns.EPOCH)
     override var epoch: String?,
+
     @ColumnInfo(name = Columns.MEAN_MOTION)
     override var meanMotion: Float?,
+
     @ColumnInfo(name = Columns.RAAN)
     override var raan: Float?,
+
     @ColumnInfo(name = Columns.ARG_OF_PERICENTER)
     override var argOfPericenter: String?,
+
     @ColumnInfo(name = Columns.MEAN_ANOMALY)
     override var meanAnomaly: String?
 ) : OrbitParams {
 
     companion object {
-        const val TABLE_NAME = "orbit_params"
+        const val TABLE_NAME = "orbitParams"
     }
 
     class Columns {

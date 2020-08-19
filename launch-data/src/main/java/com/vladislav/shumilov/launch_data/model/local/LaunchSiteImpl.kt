@@ -12,14 +12,16 @@ data class LaunchSiteImpl(
     @PrimaryKey
     @ColumnInfo(name = Columns.ID)
     override var id: String,
+
     @ColumnInfo(name = Columns.NAME)
     override var name: String?,
+
     @ColumnInfo(name = Columns.NAME_LONG)
     override var nameLong: String?
 ) : LaunchSite {
 
     companion object {
-        const val TABLE_NAME = "launch_site"
+        const val TABLE_NAME = "launchSite"
     }
 
     class Columns {

@@ -22,30 +22,43 @@ data class LinksImpl(
     @PrimaryKey
     @ColumnInfo(name = Columns.ID)
     override var id: String,
+
     @ColumnInfo(name = Columns.LAUNCH_ID)
     override var launchId: String,
+
     @ColumnInfo(name = Columns.MISSION_PATCH)
     override var missionPatch: String?,
+
     @ColumnInfo(name = Columns.MISSION_PATCH_SMALL)
     override var missionPatchSmall: String?,
+
     @ColumnInfo(name = Columns.REDDIT_CAMPAIGN)
     override var redditCampaign: String?,
+
     @ColumnInfo(name = Columns.REDDIT_LAUNCH)
     override var redditLaunch: String?,
+
     @ColumnInfo(name = Columns.REDDIT_RECOVERY)
     override var redditRecovery: String?,
+
     @ColumnInfo(name = Columns.REDDIT_MEDIA)
     override var redditMedia: String?,
+
     @ColumnInfo(name = Columns.PRESSKIT)
     override var presskit: String?,
+
     @ColumnInfo(name = Columns.ARTICLE_LINK)
     override var articleLink: String?,
+
     @ColumnInfo(name = Columns.WIKIPEDIA)
     override var wikipedia: String?,
+
     @ColumnInfo(name = Columns.VIDEO_LINK)
     override var videoLink: String?,
+
     @ColumnInfo(name = Columns.YOUTUBE_ID)
     override var youtubeId: String?,
+
     @ColumnInfo(name = Columns.FLICKR_IMAGES)
     override var flickrImages: List<String>?
 ) : Links {

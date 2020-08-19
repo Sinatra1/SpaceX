@@ -26,9 +26,10 @@ import com.example.rocket_domain.model.local.FirstStageToCore
 )
 data class FirstStageToCoreImpl(
     @ColumnInfo(name = Columns.FIRST_STAGE_ID)
-    override val first_stage_id: String,
+    override val firstStageId: String,
+
     @ColumnInfo(name = Columns.CORE_ID)
-    override val core_id: String
+    override val coreId: String
 ) : FirstStageToCore {
 
     companion object {

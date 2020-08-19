@@ -6,21 +6,23 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.vladislav.shumilov.core_data.FragmentScope
 import com.vladislav.shumilov.launch_data.api.LAUNCHES_LIMIT
-import com.vladislav.shumilov.launch_data.model.local.LaunchWithMissionsImpl
+import com.vladislav.shumilov.launch_domain.model.local.LaunchWithMissions
 import com.vladislav.shumilov.launch_ui.common.LaunchInteractorImpl
+import io.reactivex.disposables.CompositeDisposable
 
 @FragmentScope
 class LaunchesListViewModel(private val launchInteractor: LaunchInteractorImpl) : ViewModel() {
 
-    private val launchesWithMissions = MutableLiveData<List<LaunchWithMissionsImpl>>().apply {
+    private val launchesWithMissions = MutableLiveData<List<LaunchWithMissions>>().apply {
         value = ArrayList()
     }
 
-    val isShownProgress = ObservableField<Boolean>().apply { false }
+    val isShownProgress = ObservableField<Boolean>().apply { set(false) }
     private var offset = 0
     private val inProcess = MutableLiveData<Boolean>().apply { value = false }
     private val isLastPage = MutableLiveData<Boolean>().apply { value = false }
     private val isShownRefreshingIcon = MutableLiveData<Boolean>()
+    private val compositeDisposable = CompositeDisposable()
 
 
     fun getListWithMissions() {
@@ -31,28 +33,34 @@ class LaunchesListViewModel(private val launchInteractor: LaunchInteractorImpl) 
         inProcess.postValue(true)
         isShownProgress.set(inProcess.value)
 
-        launchInteractor.getListWithMissions(offset, LAUNCHES_LIMIT)
-            .subscribe({ launches ->
-                onLoadedLaunchesSuccess(launches)
-            }, { error ->
-                onLoadedLaunchesError(error)
-            })
+        compositeDisposable.add(
+            launchInteractor.getListWithMissions(offset, LAUNCHES_LIMIT)
+                .subscribe({ launches ->
+                    onLoadedLaunchesSuccess(launches)
+                }, {
+                    onLoadedLaunchesError()
+                })
+        )
     }
 
-    val launchesWithMissionsLiveData: LiveData<List<LaunchWithMissionsImpl>> = launchesWithMissions
+    override fun onCleared() {
+        compositeDisposable.clear()
+    }
+
+    val launchesWithMissionsLiveData: LiveData<List<LaunchWithMissions>> = launchesWithMissions
 
     val inProcessLiveData: LiveData<Boolean> = inProcess
 
     val isLastPageLiveData: LiveData<Boolean> = isLastPage
 
-    private fun onLoadedLaunchesSuccess(launches: List<LaunchWithMissionsImpl>) {
+    private fun onLoadedLaunchesSuccess(launches: List<LaunchWithMissions>) {
         inProcess.postValue(false)
         isShownProgress.set(inProcess.value)
         isShownRefreshingIcon.postValue(inProcess.value)
         offset += LAUNCHES_LIMIT
 
         if (launches.isNotEmpty()) {
-            val allLaunches = launchesWithMissions.value as ArrayList<LaunchWithMissionsImpl>
+            val allLaunches = launchesWithMissions.value as ArrayList<LaunchWithMissions>
             allLaunches.addAll(launches)
 
             launchesWithMissions.postValue(allLaunches)
@@ -63,7 +71,7 @@ class LaunchesListViewModel(private val launchInteractor: LaunchInteractorImpl) 
         }
     }
 
-    private fun onLoadedLaunchesError(error: Throwable) {
+    private fun onLoadedLaunchesError() {
         inProcess.postValue(false)
         isShownProgress.set(inProcess.value)
         isShownRefreshingIcon.postValue(inProcess.value)

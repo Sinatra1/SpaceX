@@ -1,20 +1,20 @@
 package com.example.rocket_data.repository
 
-import com.example.rocket_data.model.local.OrbitParamsImpl
 import com.example.rocket_data.model.local.PayloadImpl
-import com.example.rocket_data.model.remote.PayloadResponseImpl
-import com.example.rocket_domain.repository.OrbitParamsRemoteRepositoryAlias
+import com.example.rocket_domain.model.local.Payload
+import com.example.rocket_domain.model.remote.PayloadResponse
+import com.example.rocket_domain.repository.OrbitParamsRemoteRepository
 import com.example.rocket_domain.repository.PayloadRemoteRepository
 import com.vladislav.shumilov.core_data.util.generateRandomId
 import javax.inject.Inject
 
 class PayloadRemoteRepositoryImpl @Inject constructor(
-    private val orbitParamsRemoteRepository: OrbitParamsRemoteRepositoryAlias
+    private val orbitParamsRemoteRepository: OrbitParamsRemoteRepository
 ) :
-    PayloadRemoteRepository<PayloadResponseImpl, PayloadImpl> {
+    PayloadRemoteRepository {
 
-    override fun responseToModels(payloadResponses: List<PayloadResponseImpl>): List<PayloadImpl> {
-        val payloads = ArrayList<PayloadImpl>()
+    override fun responseToModels(payloadResponses: List<PayloadResponse>): List<Payload> {
+        val payloads = mutableListOf<Payload>()
 
         payloadResponses.forEach {
             payloads.add(responseToModel(it))
@@ -23,7 +23,7 @@ class PayloadRemoteRepositoryImpl @Inject constructor(
         return payloads
     }
 
-    override fun responseToModel(payloadResponse: PayloadResponseImpl): PayloadImpl {
+    override fun responseToModel(payloadResponse: PayloadResponse): Payload {
         val payloadId = generateId()
 
         return PayloadImpl(
@@ -38,8 +38,8 @@ class PayloadRemoteRepositoryImpl @Inject constructor(
             payloadResponse.payload_mass_lbs,
             payloadResponse.orbit
         ).apply {
-            orbit_params = payloadResponse.orbit_params?.let {
-                orbitParamsRemoteRepository.responseToModel(it, payloadId) as OrbitParamsImpl
+            orbitParams = payloadResponse.orbit_params?.let {
+                orbitParamsRemoteRepository.responseToModel(it, payloadId)
             }
         }
     }

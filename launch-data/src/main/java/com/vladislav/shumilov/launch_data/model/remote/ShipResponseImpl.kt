@@ -27,4 +27,4 @@ class ShipResponseImpl(
     override val missions: List<MissionResponseImpl>?,
     override val url: String?,
     override val image: String?
-) : ShipResponse<MissionResponseImpl>
+) : ShipResponse

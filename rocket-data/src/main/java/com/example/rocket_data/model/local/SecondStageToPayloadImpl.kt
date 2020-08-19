@@ -27,6 +27,7 @@ import com.example.rocket_domain.model.local.SecondStageToPayload
 class SecondStageToPayloadImpl(
     @ColumnInfo(name = Columns.SECOND_STAGE_ID)
     override var secondStageId: String,
+
     @ColumnInfo(name = Columns.PAYLOAD_ID)
     override var payloadId: String
 ) : SecondStageToPayload {

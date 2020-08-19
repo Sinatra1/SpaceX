@@ -2,9 +2,7 @@ package com.vladislav.shumilov.launch_domain.model.remote
 
 import com.example.rocket_domain.model.remote.RocketResponse
 
-typealias LaunchResponseAlias = LaunchResponse<*, *, *, *>
-
-interface LaunchResponse<R : RocketResponse<*, *, *>, LS : LaunchSiteResponse, LF : LaunchFailureDetailsResponse, L : LinksResponse> {
+interface LaunchResponse {
 
     val flight_number: Int
     val mission_name: String?
@@ -17,12 +15,12 @@ interface LaunchResponse<R : RocketResponse<*, *, *>, LS : LaunchSiteResponse, L
     val tentative_max_precision: String?
     val tbd: Boolean
     val launch_window: Int?
-    val rocket: R?
+    val rocket: RocketResponse?
     val ships: List<String>?
-    val launch_site: LS?
+    val launch_site: LaunchSiteResponse?
     val launch_success: Boolean
-    val launch_failure_details: LF?
-    val links: L?
+    val launch_failure_details: LaunchFailureDetailsResponse?
+    val links: LinksResponse?
     val details: String?
     val static_fire_date_utc: String?
     val static_fire_date_unix: Int?

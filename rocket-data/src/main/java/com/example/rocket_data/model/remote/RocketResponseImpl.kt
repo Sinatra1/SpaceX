@@ -9,4 +9,4 @@ class RocketResponseImpl(
     override val first_stage: FirstStageResponseImpl?,
     override val second_stage: SecondStageResponseImpl?,
     override val fairings: FairingsResponseImpl?
-) : RocketResponse<FirstStageResponseImpl, SecondStageResponseImpl, FairingsResponseImpl>
+) : RocketResponse
