@@ -22,6 +22,7 @@ buildscript {
     ext.rxjava_version = '2.2.10'
     ext.rxandroid_version = '2.0.1'
     ext.rxjava2_adapter_version = '1.0.0'
+    ext.fresco_version = '2.3.0'
 
     repositories {
         google()

@@ -66,4 +66,14 @@ dependencies {
     implementation "com.google.dagger:dagger:$dagger_version"
 
     implementation "com.google.code.gson:gson:$gson_version"
+
+    //Fresco
+    implementation("com.facebook.fresco:fresco:$fresco_version") {
+        exclude group: 'com.facebook.soloader', module: 'soloader'
+        exclude group: 'com.facebook.fresco', module: 'soloader'
+        exclude group: 'com.facebook.fresco', module: 'nativeimagefilters'
+        exclude group: 'com.facebook.fresco', module: 'nativeimagetranscoder'
+        exclude group: 'com.facebook.fresco', module: 'memory-type-native'
+        exclude group: 'com.facebook.fresco', module: 'imagepipeline-native'
+    }
 }

@@ -10,6 +10,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/app-data" />
+            <option value="$PROJECT_DIR$/common-ui" />
             <option value="$PROJECT_DIR$/core-data" />
             <option value="$PROJECT_DIR$/core-domain" />
             <option value="$PROJECT_DIR$/core-ui" />
