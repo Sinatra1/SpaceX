@@ -4,7 +4,8 @@ import com.vladislav.shumilov.mission_domain.model.local.Mission
 
 interface LaunchWithMissions {
     val launch: Launch
-    val missions: List<Mission>
+    val missions: List<Mission>?
+    val links: Links?
     val missionName: String
     val flightNumberStr: String
     val humanDate: String

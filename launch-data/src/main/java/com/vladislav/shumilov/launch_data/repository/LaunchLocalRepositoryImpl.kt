@@ -62,7 +62,8 @@ class LaunchLocalRepositoryImpl @Inject constructor(
                 @Suppress(UNCHECKED_CAST)
                 LaunchWithMissionsImpl(
                     it as LaunchImpl,
-                    (it.missions ?: emptyList()) as List<MissionImpl>
+                    it.missions as? List<MissionImpl>,
+                    it.links as? LinksImpl
                 )
             )
         }

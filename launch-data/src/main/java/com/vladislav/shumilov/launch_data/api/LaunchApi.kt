@@ -7,7 +7,7 @@ import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-const val LAUNCHES_LIMIT = 40
+const val LAUNCHES_LIMIT = 10
 internal const val LAUNCHES_SORT = LaunchImpl.Columns.FLIGHT_NUMBER
 private const val LAUNCHES_ORDER = "desc"
 private const val LAUNCHES_OFFSET = 0

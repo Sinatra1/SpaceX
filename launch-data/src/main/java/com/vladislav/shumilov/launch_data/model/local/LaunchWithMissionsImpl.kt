@@ -10,6 +10,7 @@ import com.vladislav.shumilov.mission_data.model.local.MissionImpl
 data class LaunchWithMissionsImpl(
     @Embedded
     override val launch: LaunchImpl,
+
     @Relation(
         parentColumn = LaunchImpl.Columns.ID,
         entity = MissionImpl::class,
@@ -19,13 +20,20 @@ data class LaunchWithMissionsImpl(
             parentColumn = LaunchToMissionImpl.Columns.LAUNCH_ID,
             entityColumn = LaunchToMissionImpl.Columns.MISSION_ID
         )
-
     )
-    override val missions: List<MissionImpl>
+    override val missions: List<MissionImpl>?,
+
+    @Relation(
+        parentColumn = LaunchImpl.Columns.ID,
+        entity = LinksImpl::class,
+        entityColumn = LinksImpl.Columns.LAUNCH_ID
+    )
+    override val links: LinksImpl?
+
 ) : LaunchWithMissions {
 
     override val missionName: String
-        get() = if (missions.isNotEmpty()) {
+        get() = if (!missions.isNullOrEmpty()) {
             var missionNames = ""
             missions.forEachIndexed { index, mission ->
                 if (index > 0) {

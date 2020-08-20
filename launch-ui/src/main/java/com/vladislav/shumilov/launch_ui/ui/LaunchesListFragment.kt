@@ -19,7 +19,7 @@ import com.vladislav.shumilov.launch_ui.app
 import javax.inject.Inject
 
 
-private const val LAUNCHES_LIST_POOL_SIZE = 10
+private const val LAUNCHES_LIST_POOL_SIZE = 15
 
 @FragmentScope
 class LaunchesListFragment : Fragment() {
