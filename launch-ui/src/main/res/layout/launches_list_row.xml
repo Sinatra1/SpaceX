@@ -22,7 +22,7 @@
             android:layout_height="@dimen/launch_mission_icon_size"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            fresco:placeholderImage="@drawable/black_rocket_icon" />
+            fresco:placeholderImage="@drawable/ic_black_rocket_icon" />
 
         <TextView
             android:id="@+id/missionName"

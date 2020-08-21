@@ -1,0 +1,14 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <!-- black background -->
+            <solid android:color="@color/colorVeryLightBlack" />
+        </shape>
+    </item>
+    <!-- launcher icon -->
+    <item
+        android:width="@dimen/starting_screen_icon_size"
+        android:height="@dimen/starting_screen_icon_size"
+        android:drawable="@drawable/ic_black_rocket_icon"
+        android:gravity="center" />
+</layer-list>
