@@ -4,10 +4,10 @@ import androidx.room.Embedded
 import androidx.room.Junction
 import androidx.room.Relation
 import com.vladislav.shumilov.core_data.util.databaseDateToHumanDate
-import com.vladislav.shumilov.launch_domain.model.local.LaunchWithMissions
+import com.vladislav.shumilov.launch_domain.model.local.LaunchForList
 import com.vladislav.shumilov.mission_data.model.local.MissionImpl
 
-data class LaunchWithMissionsImpl(
+data class LaunchForListImpl(
     @Embedded
     override val launch: LaunchImpl,
 
@@ -30,7 +30,7 @@ data class LaunchWithMissionsImpl(
     )
     override val links: LinksImpl?
 
-) : LaunchWithMissions {
+) : LaunchForList {
 
     override val missionName: String
         get() = if (!missions.isNullOrEmpty()) {

@@ -7,13 +7,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.launch_ui.R
 import com.example.launch_ui.databinding.LaunchesListRowBinding
-import com.vladislav.shumilov.launch_domain.model.local.LaunchWithMissions
+import com.vladislav.shumilov.launch_domain.model.local.LaunchForList
 
 
 internal class LaunchesListAdapter(context: Context) :
     RecyclerView.Adapter<LaunchesListViewHolder>() {
 
-    private val items: ArrayList<LaunchWithMissions> = ArrayList()
+    private val items: ArrayList<LaunchForList> = ArrayList()
     private val layoutInflater = LayoutInflater.from(context)
     private lateinit var binding: LaunchesListRowBinding
 
@@ -38,7 +38,7 @@ internal class LaunchesListAdapter(context: Context) :
 
     override fun getItemViewType(position: Int) = LAUNCHES_LIST_VIEW_HOLDER_TYPE
 
-    fun addItems(items: List<LaunchWithMissions>) {
+    fun addItems(items: List<LaunchForList>) {
         this.items.clear()
         this.items.addAll(items)
         notifyDataSetChanged()

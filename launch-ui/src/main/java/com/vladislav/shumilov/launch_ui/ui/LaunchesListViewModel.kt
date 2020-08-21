@@ -6,14 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.vladislav.shumilov.core_data.FragmentScope
 import com.vladislav.shumilov.launch_data.api.LAUNCHES_LIMIT
-import com.vladislav.shumilov.launch_domain.model.local.LaunchWithMissions
+import com.vladislav.shumilov.launch_domain.model.local.LaunchForList
 import com.vladislav.shumilov.launch_ui.common.LaunchInteractorImpl
 import io.reactivex.disposables.CompositeDisposable
 
 @FragmentScope
 class LaunchesListViewModel(private val launchInteractor: LaunchInteractorImpl) : ViewModel() {
 
-    private val launchesWithMissions = MutableLiveData<List<LaunchWithMissions>>().apply {
+    private val launchesWithMissions = MutableLiveData<List<LaunchForList>>().apply {
         value = ArrayList()
     }
 
@@ -25,7 +25,7 @@ class LaunchesListViewModel(private val launchInteractor: LaunchInteractorImpl) 
     private val compositeDisposable = CompositeDisposable()
 
 
-    fun getListWithMissions() {
+    fun getLaunchesForList() {
         if (inProcess.value == true) {
             return
         }
@@ -34,7 +34,7 @@ class LaunchesListViewModel(private val launchInteractor: LaunchInteractorImpl) 
         isShownProgress.set(inProcess.value)
 
         compositeDisposable.add(
-            launchInteractor.getListWithMissions(offset, LAUNCHES_LIMIT)
+            launchInteractor.getLaunchesForList(offset, LAUNCHES_LIMIT)
                 .subscribe({ launches ->
                     onLoadedLaunchesSuccess(launches)
                 }, {
@@ -47,20 +47,20 @@ class LaunchesListViewModel(private val launchInteractor: LaunchInteractorImpl) 
         compositeDisposable.clear()
     }
 
-    val launchesWithMissionsLiveData: LiveData<List<LaunchWithMissions>> = launchesWithMissions
+    val launchesForListLiveData: LiveData<List<LaunchForList>> = launchesWithMissions
 
     val inProcessLiveData: LiveData<Boolean> = inProcess
 
     val isLastPageLiveData: LiveData<Boolean> = isLastPage
 
-    private fun onLoadedLaunchesSuccess(launches: List<LaunchWithMissions>) {
+    private fun onLoadedLaunchesSuccess(launches: List<LaunchForList>) {
         inProcess.postValue(false)
         isShownProgress.set(inProcess.value)
         isShownRefreshingIcon.postValue(inProcess.value)
         offset += LAUNCHES_LIMIT
 
         if (launches.isNotEmpty()) {
-            val allLaunches = launchesWithMissions.value as ArrayList<LaunchWithMissions>
+            val allLaunches = launchesWithMissions.value as ArrayList<LaunchForList>
             allLaunches.addAll(launches)
 
             launchesWithMissions.postValue(allLaunches)

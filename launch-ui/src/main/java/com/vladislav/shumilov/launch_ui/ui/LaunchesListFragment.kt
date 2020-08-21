@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.launch_ui.R
 import com.example.launch_ui.databinding.LaunchesListBinding
 import com.vladislav.shumilov.core_data.FragmentScope
-import com.vladislav.shumilov.launch_domain.model.local.LaunchWithMissions
+import com.vladislav.shumilov.launch_domain.model.local.LaunchForList
 import com.vladislav.shumilov.launch_ui.app
 import javax.inject.Inject
 
@@ -65,13 +65,14 @@ class LaunchesListFragment : Fragment() {
         launchesListAdapter = LaunchesListAdapter(requireContext())
         binding.launchesList.layoutManager = layoutManager
         binding.launchesList.adapter = launchesListAdapter
+        binding.launchesList.addItemDecoration(LaunchesListDecoration(requireActivity().applicationContext))
         binding.launchesList.addOnScrollListener(recyclerViewOnScrollListener)
         binding.launchesList.recycledViewPool.setMaxRecycledViews(
             LAUNCHES_LIST_VIEW_HOLDER_TYPE,
             LAUNCHES_LIST_POOL_SIZE
         )
 
-        viewModel.getListWithMissions()
+        viewModel.getLaunchesForList()
     }
 
     override fun onDestroyView() {
@@ -81,7 +82,7 @@ class LaunchesListFragment : Fragment() {
     }
 
     private fun setListeners() {
-        viewModel.launchesWithMissionsLiveData.observe(this, Observer { launches ->
+        viewModel.launchesForListLiveData.observe(this, Observer { launches ->
             showLaunches(launches)
         })
 
@@ -94,7 +95,7 @@ class LaunchesListFragment : Fragment() {
         })
     }
 
-    private fun showLaunches(launches: List<LaunchWithMissions>) {
+    private fun showLaunches(launches: List<LaunchForList>) {
         launchesListAdapter.addItems(launches)
     }
 
@@ -111,7 +112,7 @@ class LaunchesListFragment : Fragment() {
                     && firstVisibleItemPosition >= 0
                     && totalItemCount >= PAGE_SIZE
                 ) {
-                    viewModel.getListWithMissions()
+                    viewModel.getLaunchesForList()
                 }
             }
         }

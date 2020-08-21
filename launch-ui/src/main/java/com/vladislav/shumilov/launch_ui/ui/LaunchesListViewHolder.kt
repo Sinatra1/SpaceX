@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.launch_ui.databinding.LaunchesListRowBinding
 import com.facebook.imagepipeline.request.ImageRequest.RequestLevel
 import com.facebook.imagepipeline.request.ImageRequestBuilder
-import com.vladislav.shumilov.launch_domain.model.local.LaunchWithMissions
+import com.vladislav.shumilov.launch_domain.model.local.LaunchForList
 
 
 internal const val LAUNCHES_LIST_VIEW_HOLDER_TYPE = 101
@@ -14,9 +14,9 @@ internal const val LAUNCHES_LIST_VIEW_HOLDER_TYPE = 101
 internal class LaunchesListViewHolder(private val binding: LaunchesListRowBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    val launchWithMissions = ObservableField<LaunchWithMissions>()
+    val launchWithMissions = ObservableField<LaunchForList>()
 
-    fun bind(item: LaunchWithMissions) {
+    fun bind(item: LaunchForList) {
         this.launchWithMissions.set(item)
 
         binding.viewHolder = this
@@ -25,7 +25,7 @@ internal class LaunchesListViewHolder(private val binding: LaunchesListRowBindin
         setMissionIcon(item)
     }
 
-    private fun setMissionIcon(item: LaunchWithMissions) =
+    private fun setMissionIcon(item: LaunchForList) =
         if (item.links?.missionPatchSmall != null) {
             val request = ImageRequestBuilder
                 .newBuilderWithSource(Uri.parse(item.links?.missionPatchSmall))

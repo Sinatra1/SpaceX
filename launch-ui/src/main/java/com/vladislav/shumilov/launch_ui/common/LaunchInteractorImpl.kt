@@ -1,7 +1,7 @@
 package com.vladislav.shumilov.launch_ui.common
 
 import com.vladislav.shumilov.core_data.FragmentScope
-import com.vladislav.shumilov.launch_domain.model.local.LaunchWithMissions
+import com.vladislav.shumilov.launch_domain.model.local.LaunchForList
 import com.vladislav.shumilov.launch_domain.repository.LaunchLocalRepository
 import com.vladislav.shumilov.launch_domain.repository.LaunchRemoteRepository
 import com.vladislav.shumilov.launch_domain.ui.LaunchInteractor
@@ -15,11 +15,11 @@ class LaunchInteractorImpl @Inject constructor(
     private val launchLocalRepository: LaunchLocalRepository
 ) : LaunchInteractor {
 
-    override fun getListWithMissions(
+    override fun getLaunchesForList(
         offset: Int,
         limit: Int
-    ): Single<List<LaunchWithMissions>> =
-        launchLocalRepository.getListWithMissions(offset, limit)
+    ): Single<List<LaunchForList>> =
+        launchLocalRepository.getLaunchesForList(offset, limit)
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .flatMap { launchWithMissions ->
