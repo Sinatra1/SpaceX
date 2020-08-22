@@ -1,4 +1,4 @@
-package com.vladislav.shumilov.launch_ui.ui
+package com.vladislav.shumilov.launch_ui.ui.list
 
 import android.net.Uri
 import androidx.databinding.ObservableField
@@ -7,22 +7,27 @@ import com.example.launch_ui.databinding.LaunchesListRowBinding
 import com.facebook.imagepipeline.request.ImageRequest.RequestLevel
 import com.facebook.imagepipeline.request.ImageRequestBuilder
 import com.vladislav.shumilov.launch_domain.model.local.LaunchForList
+import io.reactivex.subjects.Subject
 
 
 internal const val LAUNCHES_LIST_VIEW_HOLDER_TYPE = 101
 
-internal class LaunchesListViewHolder(private val binding: LaunchesListRowBinding) :
+internal class LaunchesListViewHolder(private val binding: LaunchesListRowBinding, private val onClickViewHolderCallback: Subject<LaunchForList>) :
     RecyclerView.ViewHolder(binding.root) {
 
-    val launchWithMissions = ObservableField<LaunchForList>()
+    val launchForList = ObservableField<LaunchForList>()
 
     fun bind(item: LaunchForList) {
-        this.launchWithMissions.set(item)
+        this.launchForList.set(item)
 
         binding.viewHolder = this
         binding.executePendingBindings()
 
         setMissionIcon(item)
+    }
+
+    fun onLaunchClick() {
+        launchForList.get()?.let(onClickViewHolderCallback::onNext)
     }
 
     private fun setMissionIcon(item: LaunchForList) =

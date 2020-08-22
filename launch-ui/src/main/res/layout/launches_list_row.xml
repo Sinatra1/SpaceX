@@ -8,10 +8,11 @@
 
         <variable
             name="viewHolder"
-            type="com.vladislav.shumilov.launch_ui.ui.LaunchesListViewHolder" />
+            type="com.vladislav.shumilov.launch_ui.ui.list.LaunchesListViewHolder" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:onClick="@{() -> viewHolder.onLaunchClick()}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/medium_padding">
@@ -30,7 +31,7 @@
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/medium_padding"
             android:singleLine="true"
-            android:text="@{viewHolder.launchWithMissions.missionName}"
+            android:text="@{viewHolder.launchForList.missionName}"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@id/flightNumber"
@@ -44,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/medium_padding"
-            android:text="@{viewHolder.launchWithMissions.humanDate}"
+            android:text="@{viewHolder.launchForList.humanDate}"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/missionIcon"
             app:layout_constraintEnd_toStartOf="@id/flightNumber"
@@ -57,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/medium_padding"
-            android:text="@{viewHolder.launchWithMissions.flightNumberStr}"
+            android:text="@{viewHolder.launchForList.flightNumberStr}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

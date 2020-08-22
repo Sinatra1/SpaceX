@@ -2,6 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -27,7 +28,6 @@ android {
     dataBinding {
         enabled = true
     }
-
 }
 
 dependencies {
@@ -77,6 +77,10 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
     implementation "androidx.room:room-rxjava2:$room_version"
+
+    //Navigation
+    implementation "android.arch.navigation:navigation-fragment:$navigation_version"
+    implementation "android.arch.navigation:navigation-ui-ktx:$navigation_version"
 
     //Dagger
     kapt "com.google.dagger:dagger-compiler:$dagger_version"

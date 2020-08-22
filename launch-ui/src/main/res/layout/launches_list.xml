@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.vladislav.shumilov.launch_ui.ui.LaunchesListViewModel" />
+            type="com.vladislav.shumilov.launch_ui.ui.list.LaunchesListViewModel" />
     </data>
 
     <ScrollView

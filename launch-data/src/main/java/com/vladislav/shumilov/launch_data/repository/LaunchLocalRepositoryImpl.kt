@@ -54,6 +54,10 @@ class LaunchLocalRepositoryImpl @Inject constructor(
     override fun getLaunchesForList(offset: Int, limit: Int) =
         launchDao.getLaunchesForList(offset, limit) as Single<List<LaunchForList>>
 
+    @Suppress(UNCHECKED_CAST)
+    override fun getLaunchForDetail(launchId: String)  =
+        launchDao.getLaunchForDetail(launchId) as Single<LaunchForDetail>
+
     override fun getListWithMissionsByList(launches: List<Launch>): List<LaunchForList> {
         val launchesWithMissions = mutableListOf<LaunchForListImpl>()
 

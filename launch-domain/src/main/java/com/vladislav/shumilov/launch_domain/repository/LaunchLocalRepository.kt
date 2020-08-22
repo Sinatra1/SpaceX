@@ -1,6 +1,7 @@
 package com.vladislav.shumilov.launch_domain.repository
 
 import com.vladislav.shumilov.launch_domain.model.local.Launch
+import com.vladislav.shumilov.launch_domain.model.local.LaunchForDetail
 import com.vladislav.shumilov.launch_domain.model.local.LaunchForList
 import io.reactivex.Single
 
@@ -13,6 +14,8 @@ interface LaunchLocalRepository {
         offset: Int,
         limit: Int = Int.MAX_VALUE
     ): Single<List<LaunchForList>>
+
+    fun getLaunchForDetail(launchId: String): Single<LaunchForDetail>
 
     fun getListWithMissionsByList(launches: List<Launch>): List<LaunchForList>
 }

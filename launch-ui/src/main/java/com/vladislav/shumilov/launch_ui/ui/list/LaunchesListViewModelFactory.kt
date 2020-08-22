@@ -1,4 +1,4 @@
-package com.vladislav.shumilov.launch_ui.ui
+package com.vladislav.shumilov.launch_ui.ui.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
