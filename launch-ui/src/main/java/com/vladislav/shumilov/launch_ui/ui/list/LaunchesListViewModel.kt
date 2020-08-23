@@ -37,6 +37,7 @@ class LaunchesListViewModel(private val launchInteractor: LaunchInteractorImpl) 
         inProcessLiveData.postValue(true)
         isShownProgress.set(inProcessLiveData.value)
 
+        compositeDisposable.clear()
         compositeDisposable.add(
             launchInteractor.getLaunchesForList(offset, LAUNCHES_LIMIT)
                 .subscribe({ launches ->
@@ -73,6 +74,7 @@ class LaunchesListViewModel(private val launchInteractor: LaunchInteractorImpl) 
 
         if (launches.isNotEmpty()) {
             val allLaunches = launchesLiveData.value as ArrayList<LaunchForList>
+
             allLaunches.addAll(launches)
 
             launchesLiveData.postValue(allLaunches)

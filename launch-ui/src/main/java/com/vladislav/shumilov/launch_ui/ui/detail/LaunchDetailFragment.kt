@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.launch_ui.R
-import com.example.launch_ui.databinding.LaunchesDetailBinding
+import com.example.launch_ui.databinding.LaunchDetailBinding
 import com.vladislav.shumilov.core_data.FragmentScope
 import com.vladislav.shumilov.launch_ui.app
 import javax.inject.Inject
@@ -30,7 +30,7 @@ class LaunchDetailFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: LaunchDetailViewModelFactory
 
-    private lateinit var binding: LaunchesDetailBinding
+    private lateinit var binding: LaunchDetailBinding
 
     private val viewModel: LaunchDetailViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory)
@@ -56,9 +56,9 @@ class LaunchDetailFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? =
-        DataBindingUtil.inflate<LaunchesDetailBinding>(
+        DataBindingUtil.inflate<LaunchDetailBinding>(
             inflater,
-            R.layout.launches_detail,
+            R.layout.launch_detail,
             container,
             false
         ).apply {

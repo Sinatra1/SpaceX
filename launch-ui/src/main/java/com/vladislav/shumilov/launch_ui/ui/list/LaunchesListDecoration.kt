@@ -11,7 +11,7 @@ class LaunchesListDecoration(context: Context) : RecyclerView.ItemDecoration() {
     private val divider = ContextCompat.getDrawable(context, R.drawable.line_divider)
 
     private val marginLeft =
-        context.resources.getDimensionPixelSize(R.dimen.launch_mission_icon_size) +
+        context.resources.getDimensionPixelSize(R.dimen.launches_small_mission_icon_size) +
                 2 * context.resources.getDimensionPixelSize(R.dimen.medium_padding)
 
     override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {

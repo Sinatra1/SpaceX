@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.vladislav.shumilov.launch_ui.ui.detail.LaunchDetailViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/small_padding">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/missionCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/medium_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </androidx.cardview.widget.CardView>
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/missionIcon"
+                android:layout_width="@dimen/launches_big_mission_icon_size"
+                android:layout_height="@dimen/launches_big_mission_icon_size"
+                app:layout_constraintBottom_toBottomOf="@id/launchSite"
+                app:layout_constraintStart_toStartOf="@id/missionCard"
+                app:layout_constraintTop_toTopOf="@id/missionName"
+                fresco:actualImageUri="@{viewModel.launchForDetail.links.missionPatchSmall}"
+                fresco:placeholderImage="@drawable/ic_black_rocket_icon" />
+
+            <TextView
+                android:id="@+id/missionName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:paddingStart="@dimen/medium_padding"
+                android:text="@{viewModel.launchForDetail.missionName}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="@id/missionCard"
+                fresco:layout_constraintStart_toEndOf="@id/missionIcon"
+                tools:text="@string/launches_mission_name" />
+
+            <TextView
+                android:id="@+id/launchDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/medium_padding"
+                android:paddingTop="@dimen/medium_padding"
+                android:text="@{viewModel.launchForDetail.humanDateTime}"
+                fresco:layout_constraintStart_toEndOf="@id/missionIcon"
+                fresco:layout_constraintTop_toBottomOf="@id/missionName"
+                tools:text="@string/launches_launch_date" />
+
+            <TextView
+                android:id="@+id/launchSite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:paddingStart="@dimen/medium_padding"
+                android:paddingTop="@dimen/small_padding"
+                android:layout_marginBottom="@dimen/small_padding"
+                android:text="@{viewModel.launchForDetail.launchSite.name}"
+                fresco:layout_constraintStart_toEndOf="@id/missionIcon"
+                fresco:layout_constraintTop_toBottomOf="@id/launchDate"
+                tools:text="@string/launches_launch_site" />
+
+            <View
+                android:id="@+id/launchDivider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/line_divider"
+                android:layout_marginTop="@dimen/small_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/launchSite" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</layout>

@@ -46,7 +46,7 @@ data class LaunchImpl(
     override var launchYear: Int?,
 
     @ColumnInfo(name = Columns.LAUNCH_DATE_UNIX)
-    override var launchDateUnix: Int?,
+    override var launchDateUnix: Long?,
 
     @ColumnInfo(name = Columns.LAUNCH_DATE_UTC)
     override var launchDateUtc: String?,
@@ -79,7 +79,7 @@ data class LaunchImpl(
     override var staticFireDateUtc: String?,
 
     @ColumnInfo(name = Columns.STATIC_FIRE_DATE_UNIX)
-    override var staticFireDateUnix: Int?
+    override var staticFireDateUnix: Long?
 ) : Launch {
 
     @Ignore

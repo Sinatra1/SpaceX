@@ -11,7 +11,7 @@ interface LaunchForDetail {
     val launchFailureDetails: LaunchFailureDetails?
     val links: Links?
 
-    val missionName: String
-    val flightNumberStr: String
-    val humanDate: String
+    var missionName: String?
+    var flightNumberStr: String?
+    var humanDateTime: String?
 }

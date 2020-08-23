@@ -9,7 +9,7 @@ interface LaunchResponse {
     val mission_id: List<String>?
     val upcoming: Boolean
     val launch_year: Int?
-    val launch_date_unix: Int?
+    val launch_date_unix: Long?
     val launch_date_utc: String?
     val is_tentative: Boolean
     val tentative_max_precision: String?
@@ -23,5 +23,5 @@ interface LaunchResponse {
     val links: LinksResponse?
     val details: String?
     val static_fire_date_utc: String?
-    val static_fire_date_unix: Int?
+    val static_fire_date_unix: Long?
 }

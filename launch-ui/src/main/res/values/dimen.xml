@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="launch_mission_icon_size">48dp</dimen>
+    <dimen name="launches_small_mission_icon_size">48dp</dimen>
+    <dimen name="launches_big_mission_icon_size">64dp</dimen>
 </resources>

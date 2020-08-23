@@ -12,17 +12,18 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:onClick="@{() -> viewHolder.onLaunchClick()}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="@{() -> viewHolder.onLaunchClick()}"
         android:padding="@dimen/medium_padding">
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/missionIcon"
-            android:layout_width="@dimen/launch_mission_icon_size"
-            android:layout_height="@dimen/launch_mission_icon_size"
+            android:layout_width="@dimen/launches_small_mission_icon_size"
+            android:layout_height="@dimen/launches_small_mission_icon_size"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            fresco:actualImageUri="@{viewHolder.launchForList.links.missionPatchSmall}"
             fresco:placeholderImage="@drawable/ic_black_rocket_icon" />
 
         <TextView
@@ -38,20 +39,20 @@
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@id/missionIcon"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Mission name" />
+            tools:text="@string/launches_mission_name" />
 
         <TextView
             android:id="@+id/launchDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/medium_padding"
-            android:text="@{viewHolder.launchForList.humanDate}"
+            android:text="@{viewHolder.launchForList.humanDateTime}"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/missionIcon"
             app:layout_constraintEnd_toStartOf="@id/flightNumber"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@id/missionIcon"
-            tools:text="2020 December 10" />
+            tools:text="@string/launches_launch_date" />
 
         <TextView
             android:id="@+id/flightNumber"

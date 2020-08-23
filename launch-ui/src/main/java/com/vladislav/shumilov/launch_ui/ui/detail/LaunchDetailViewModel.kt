@@ -27,6 +27,10 @@ class LaunchDetailViewModel(private val launchInteractor: LaunchInteractorImpl) 
         )
     }
 
+    override fun onCleared() {
+        compositeDisposable.clear()
+    }
+
     private fun onLoadedLaunchSuccess(launch: LaunchForDetail) {
         launchLiveData.value = launch
         launchForDetail.set(launch)

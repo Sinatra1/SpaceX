@@ -10,7 +10,7 @@ interface Launch {
     var missions: List<Mission>?
     var upcoming: Boolean
     var launchYear: Int?
-    var launchDateUnix: Int?
+    var launchDateUnix: Long?
     var launchDateUtc: String?
     var isTentative: Boolean
     var tentativeMaxPrecision: String?
@@ -26,5 +26,5 @@ interface Launch {
     var links: Links?
     var details: String?
     var staticFireDateUtc: String?
-    var staticFireDateUnix: Int?
+    var staticFireDateUnix: Long?
 }

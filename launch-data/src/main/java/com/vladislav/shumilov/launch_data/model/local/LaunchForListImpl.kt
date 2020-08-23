@@ -3,7 +3,9 @@ package com.vladislav.shumilov.launch_data.model.local
 import androidx.room.Embedded
 import androidx.room.Junction
 import androidx.room.Relation
-import com.vladislav.shumilov.core_data.util.databaseDateToHumanDate
+import com.vladislav.shumilov.core_data.util.unixTimeToHumanDateTime
+import com.vladislav.shumilov.launch_data.util.getFlightNumberStr
+import com.vladislav.shumilov.launch_data.util.getMissionName
 import com.vladislav.shumilov.launch_domain.model.local.LaunchForList
 import com.vladislav.shumilov.mission_data.model.local.MissionImpl
 
@@ -32,22 +34,9 @@ data class LaunchForListImpl(
 
 ) : LaunchForList {
 
-    override val missionName: String
-        get() = if (!missions.isNullOrEmpty()) {
-            var missionNames = ""
-            missions.forEachIndexed { index, mission ->
-                if (index > 0) {
-                    missionNames += " "
-                }
+    override var missionName: String? = getMissionName(missions)
 
-                missionNames += mission.name
-            }
-            missionNames
-        } else ""
+    override var flightNumberStr: String? = getFlightNumberStr(launch.flightNumber)
 
-    override val flightNumberStr: String
-        get() = "#${launch.flightNumber}"
-
-    override val humanDate: String
-        get() = databaseDateToHumanDate(launch.launchDateUtc)
+    override var humanDateTime: String? = unixTimeToHumanDateTime(launch.launchDateUnix)
 }

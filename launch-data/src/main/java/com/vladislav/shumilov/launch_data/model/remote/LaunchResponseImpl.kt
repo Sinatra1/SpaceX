@@ -10,7 +10,7 @@ class LaunchResponseImpl(
     override val mission_id: List<String>?,
     override val upcoming: Boolean,
     override val launch_year: Int?,
-    override val launch_date_unix: Int?,
+    override val launch_date_unix: Long?,
     override val launch_date_utc: String?,
     override val is_tentative: Boolean,
     override val tentative_max_precision: String?,
@@ -24,5 +24,5 @@ class LaunchResponseImpl(
     override val links: LinksResponseImpl?,
     override val details: String?,
     override val static_fire_date_utc: String?,
-    override val static_fire_date_unix: Int?
+    override val static_fire_date_unix: Long?
 ) : LaunchResponse
