@@ -9,6 +9,6 @@
     <item
         android:width="@dimen/starting_screen_icon_size"
         android:height="@dimen/starting_screen_icon_size"
-        android:drawable="@drawable/ic_black_rocket_icon"
+        android:drawable="@drawable/ic_black_rocket"
         android:gravity="center" />
 </layer-list>

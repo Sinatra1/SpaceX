@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">common-ui</string>
+    <string name="calendar_icon_description">Calendar icon</string>
 </resources>

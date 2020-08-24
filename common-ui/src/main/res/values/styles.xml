@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomCardView" parent="CardView">
+        <item name="cardBackgroundColor">?attr/customCardBackgroundColor</item>
+        <item name="cardCornerRadius">?attr/customCardCornerRadius</item>
+        <item name="cardElevation">?attr/customCardElevation</item>
+    </style>
+</resources>

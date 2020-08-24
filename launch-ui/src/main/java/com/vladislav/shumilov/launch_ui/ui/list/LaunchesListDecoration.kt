@@ -3,6 +3,7 @@ package com.vladislav.shumilov.launch_ui.ui.list
 import androidx.recyclerview.widget.RecyclerView
 import android.content.Context
 import android.graphics.Canvas
+import androidx.annotation.Px
 import androidx.core.content.ContextCompat
 import com.example.launch_ui.R
 
@@ -10,6 +11,7 @@ import com.example.launch_ui.R
 class LaunchesListDecoration(context: Context) : RecyclerView.ItemDecoration() {
     private val divider = ContextCompat.getDrawable(context, R.drawable.line_divider)
 
+    @Px
     private val marginLeft =
         context.resources.getDimensionPixelSize(R.dimen.launches_small_mission_icon_size) +
                 2 * context.resources.getDimensionPixelSize(R.dimen.medium_padding)

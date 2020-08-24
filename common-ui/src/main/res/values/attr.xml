@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="customCardBackgroundColor" format="reference|color"/>
+    <attr name="customCardCornerRadius" format="dimension"/>
+    <attr name="customCardElevation" format="dimension"/>
+    <attr name="customCardDividerColor" format="reference|color"/>
+    <attr name="customCalendarIconSize" format="dimension"/>
+</resources>
