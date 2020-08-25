@@ -24,7 +24,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             fresco:actualImageUri="@{viewHolder.launchForList.links.missionPatchSmall}"
-            fresco:placeholderImage="@drawable/ic_black_rocket" />
+            fresco:placeholderImage="@drawable/ic_black_rocket"
+            tools:background="@drawable/ic_black_rocket"/>
 
         <TextView
             android:id="@+id/missionName"

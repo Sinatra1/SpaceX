@@ -9,8 +9,10 @@ import io.reactivex.subjects.Subject
 
 internal const val LAUNCHES_LIST_VIEW_HOLDER_TYPE = 101
 
-internal class LaunchesListViewHolder(private val binding: LaunchesListRowBinding, private val onClickViewHolderCallback: Subject<LaunchForList>) :
-    RecyclerView.ViewHolder(binding.root) {
+internal class LaunchesListViewHolder(
+    private val binding: LaunchesListRowBinding,
+    private val onClickViewHolderCallback: Subject<LaunchForList>
+) : RecyclerView.ViewHolder(binding.root) {
 
     val launchForList = ObservableField<LaunchForList>()
 

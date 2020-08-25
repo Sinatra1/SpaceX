@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="cardWithListViewTheme" format="reference" />
+
+    <declare-styleable name="CardWithListView">
+        <attr name="CardWithListView_title" format="reference|string"/>
+    </declare-styleable>
+</resources>
