@@ -2,6 +2,7 @@ package com.vladislav.shumilov.mytwitter.di
 
 import android.app.Application
 import android.content.Context
+import android.content.res.Resources
 import com.google.gson.Gson
 import com.vladislav.shumilov.app_data.database.AppDatabase
 import com.vladislav.shumilov.core_data.ApplicationContext
@@ -22,4 +23,5 @@ interface AppComponent: LaunchAppComponent {
     fun app(): Application
     fun gson(): Gson
     fun database(): AppDatabase
+    fun resources(): Resources
 }

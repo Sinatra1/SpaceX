@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">launch-data</string>
+    <string name="launches_launch_instantaneous">Instantaneous</string>
 </resources>

@@ -12,7 +12,11 @@
         <item name="customCardElevation">@dimen/card_elevation</item>
         <item name="customCardCornerRadius">@dimen/card_corner_radius</item>
         <item name="customCardDividerColor">@color/colorDarkGray2</item>
-        <item name="customCalendarIconSize">@dimen/calendar_icon_size</item>
+        <item name="customTextIconSize">@dimen/text_icon_size</item>
+        <item name="customCardContentPadding">@dimen/medium_padding</item>
+        <item name="cardWithListViewSuccessColor">@color/colorGreen</item>
+        <item name="cardWithListViewFailColor">@color/colorRed</item>
+        <item name="cardWithListViewDividerMarginTop">@dimen/card_list_divider_margin_top</item>
     </style>
 
     <style name="TextAppearance.AppCompat.Medium">

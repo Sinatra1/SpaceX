@@ -27,7 +27,6 @@
                 style="@style/CustomCardView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:padding="@dimen/medium_padding"
                 app:layout_constraintBottom_toBottomOf="@id/launchDetails"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -39,13 +38,14 @@
                 android:id="@+id/missionIcon"
                 android:layout_width="@dimen/launches_big_mission_icon_size"
                 android:layout_height="@dimen/launches_big_mission_icon_size"
-                android:layout_marginStart="@dimen/medium_padding"
+                android:layout_marginStart="?attr/customCardContentPadding"
                 android:elevation="?attr/customCardElevation"
                 app:layout_constraintBottom_toBottomOf="@id/launchSite"
                 app:layout_constraintStart_toStartOf="@id/missionCard"
                 app:layout_constraintTop_toTopOf="@id/missionName"
                 fresco:actualImageUri="@{viewModel.launchForDetail.links.missionPatchSmall}"
-                fresco:placeholderImage="@drawable/ic_black_rocket" />
+                fresco:placeholderImage="@drawable/ic_black_rocket"
+                tools:layout_marginStart="@dimen/medium_padding" />
 
             <TextView
                 android:id="@+id/missionName"
@@ -67,9 +67,9 @@
 
             <ImageView
                 android:id="@+id/launchCalendarIcon"
-                android:layout_width="?attr/customCalendarIconSize"
-                android:layout_height="?attr/customCalendarIconSize"
-                android:layout_marginStart="@dimen/medium_padding"
+                android:layout_width="?attr/customTextIconSize"
+                android:layout_height="?attr/customTextIconSize"
+                android:layout_marginStart="?attr/customCardContentPadding"
                 android:layout_marginTop="@dimen/medium_padding"
                 android:contentDescription="@string/calendar_icon_description"
                 android:elevation="?attr/customCardElevation"
@@ -79,6 +79,7 @@
                 app:layout_constraintTop_toBottomOf="@id/missionName"
                 app:visibilityEqualsVisible="@{viewModel.launchForDetail.humanDateTime != null}"
                 tools:layout_height="wrap_content"
+                tools:layout_marginStart="@dimen/medium_padding"
                 tools:layout_width="wrap_content" />
 
             <TextView
@@ -99,9 +100,9 @@
 
             <ImageView
                 android:id="@+id/launchPinIcon"
-                android:layout_width="?attr/customCalendarIconSize"
-                android:layout_height="?attr/customCalendarIconSize"
-                android:layout_marginStart="@dimen/medium_padding"
+                android:layout_width="?attr/customTextIconSize"
+                android:layout_height="?attr/customTextIconSize"
+                android:layout_marginStart="?attr/customCardContentPadding"
                 android:layout_marginTop="@dimen/small_padding"
                 android:contentDescription="@string/calendar_icon_description"
                 android:elevation="?attr/customCardElevation"
@@ -111,6 +112,7 @@
                 app:layout_constraintTop_toBottomOf="@id/launchCalendarIcon"
                 app:visibilityEqualsVisible="@{viewModel.launchForDetail.launchSite.name != null}"
                 tools:layout_height="wrap_content"
+                tools:layout_marginStart="@dimen/medium_padding"
                 tools:layout_width="wrap_content" />
 
             <TextView
@@ -152,16 +154,29 @@
                 android:layout_height="wrap_content"
                 android:elevation="?attr/customCardElevation"
                 android:justificationMode="inter_word"
-                android:paddingStart="@dimen/medium_padding"
+                android:paddingStart="?attr/customCardContentPadding"
                 android:paddingTop="@dimen/medium_padding"
-                android:paddingEnd="@dimen/medium_padding"
-                android:paddingBottom="@dimen/medium_padding"
+                android:paddingEnd="?attr/customCardContentPadding"
+                android:paddingBottom="?attr/customCardContentPadding"
                 android:text="@{viewModel.launchForDetail.launch.details}"
                 app:layout_constraintEnd_toEndOf="@id/missionCard"
                 app:layout_constraintStart_toStartOf="@id/missionCard"
                 app:layout_constraintTop_toBottomOf="@id/launchDivider"
                 app:visibilityEqualsVisible="@{viewModel.launchForDetail.launch.details != null}"
+                tools:paddingBottom="@dimen/medium_padding"
+                tools:paddingEnd="@dimen/medium_padding"
+                tools:paddingStart="@dimen/medium_padding"
                 tools:text="@string/launches_launch_details" />
+
+            <com.vladislav.shumilov.common_ui.ui.view.cardview_with_list.CardWithListView
+                android:id="@+id/rocketCard"
+                style="@style/CustomCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium_padding"
+                app:CardWithListView_title="@string/rockets_rocket_title"
+                app:layout_constraintTop_toBottomOf="@id/missionCard"
+                app:items="@{viewModel.rocketDetails}" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

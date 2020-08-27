@@ -33,7 +33,7 @@ data class LaunchForDetailImpl(
         entity = RocketImpl::class,
         entityColumn = RocketImpl.Columns.ID
     )
-    override val rocket: RocketForDetailImpl?,
+    override val rocketForDetail: RocketForDetailImpl?,
 
     @Relation(
         parentColumn = LaunchImpl.Columns.LAUNCH_SITE_ID,

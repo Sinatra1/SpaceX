@@ -1,6 +1,5 @@
 package com.vladislav.shumilov.launch_ui.ui.list
 
-import androidx.databinding.ObservableField
 import androidx.recyclerview.widget.RecyclerView
 import com.example.launch_ui.databinding.LaunchesListRowBinding
 import com.vladislav.shumilov.launch_domain.model.local.LaunchForList
@@ -14,16 +13,16 @@ internal class LaunchesListViewHolder(
     private val onClickViewHolderCallback: Subject<LaunchForList>
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    val launchForList = ObservableField<LaunchForList>()
+    var launchForList: LaunchForList? = null
 
     fun bind(item: LaunchForList) {
-        this.launchForList.set(item)
+        launchForList = item
 
         binding.viewHolder = this
         binding.executePendingBindings()
     }
 
     fun onLaunchClick() {
-        launchForList.get()?.let(onClickViewHolderCallback::onNext)
+        launchForList?.let(onClickViewHolderCallback::onNext)
     }
 }

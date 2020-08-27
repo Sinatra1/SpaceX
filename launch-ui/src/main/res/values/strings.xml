@@ -4,4 +4,10 @@
     <string name="launches_launch_date">2020 December 10 15:30</string>
     <string name="launches_launch_site">CCAFC SLC 40</string>
     <string name="launches_launch_details">This mission will launch the tenth batch of operational Starlink satellites, which are expected to be version 1.0, from LC-39A, Kennedy Space Center.</string>
+    <string name="launches_static_fire">Static fire</string>
+    <string name="launches_launch_window">Launch window</string>
+    <string name="launches_launch_success">Launch success</string>
+    <string name="launches_failure_time">Failure time</string>
+    <string name="launches_failure_time_template">T+%d s</string>
+    <string name="launches_failure_altitude">Failure altitude</string>
 </resources>

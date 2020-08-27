@@ -28,6 +28,8 @@ android {
 
 dependencies {
     implementation project(path: ':core-data')
+    implementation project(path: ':common-domain')
+    implementation project(path: ':common-data')
     implementation project(path: ':rocket-domain')
     implementation project(path: ':rocket-data')
 

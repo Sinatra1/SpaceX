@@ -2,6 +2,7 @@ package com.vladislav.shumilov.core_ui.injection.modules
 
 import android.app.Application
 import android.content.Context
+import android.content.res.Resources
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.imagepipeline.core.ImagePipelineConfig
 import com.facebook.imagepipeline.core.ImageTranscoderType
@@ -30,6 +31,11 @@ class AppModule(private val app: Application) {
     @ApplicationScope
     fun provideApp(): Application = app
 
+    @Provides
+    @ApplicationScope
+    fun provideResources(@ApplicationContext context: Context): Resources =
+        context.resources
+
     private fun initFresco(appContext: Context) {
         Fresco.initialize(
             appContext,
@@ -40,5 +46,4 @@ class AppModule(private val app: Application) {
                 .build()
         )
     }
-
 }

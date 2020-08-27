@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">rocket-ui</string>
+    <string name="rockets_rocket_title">Rocket</string>
+    <string name="rockets_rocket_model">Model</string>
+    <string name="rockets_core_serial">Core serial</string>
+    <string name="rockets_core_model">Model</string>
+    <string name="rockets_reused">Reused</string>
+    <string name="rockets_landing_zone">Landing zone</string>
+    <string name="rockets_landing_success">Landing success</string>
+    <string name="rockets_landing_legs">Landing legs</string>
+    <string name="rockets_gridfins">Gridfins</string>
 </resources>
