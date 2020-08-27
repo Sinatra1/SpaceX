@@ -5,5 +5,7 @@ import com.vladislav.shumilov.common_domain.card_view_with_list.model.CardWithLi
 enum class CardWithListItemTypeImpl : CardWithListItemType {
     TEXT,
     LINK,
-    CHECKBOX
+    CHECKBOX,
+    DESCRIPTION,
+    DIVIDER
 }

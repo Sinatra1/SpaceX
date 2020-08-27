@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <attr name="cardWithListViewTheme" format="reference" />
+    <attr name="cardWithListViewSuccessColor" format="reference|color" />
+    <attr name="cardWithListViewFailColor" format="reference|color" />
+    <attr name="cardWithListViewDividerMarginTop" format="dimension" />
 
     <declare-styleable name="CardWithListView">
-        <attr name="CardWithListView_title" format="reference|string"/>
+        <attr name="CardWithListView_title" format="reference|string" />
     </declare-styleable>
 </resources>

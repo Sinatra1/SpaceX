@@ -3,5 +3,6 @@
     <dimen name="line_divider_height">1dp</dimen>
     <dimen name="card_corner_radius">10dp</dimen>
     <dimen name="card_elevation">8dp</dimen>
-    <dimen name="calendar_icon_size">18dp</dimen>
+    <dimen name="text_icon_size">18dp</dimen>
+    <dimen name="card_list_divider_margin_top">12dp</dimen>
 </resources>

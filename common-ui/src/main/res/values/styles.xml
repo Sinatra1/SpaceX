@@ -4,5 +4,6 @@
         <item name="cardBackgroundColor">?attr/customCardBackgroundColor</item>
         <item name="cardCornerRadius">?attr/customCardCornerRadius</item>
         <item name="cardElevation">?attr/customCardElevation</item>
+        <item name="contentPadding">?attr/customCardContentPadding</item>
     </style>
 </resources>

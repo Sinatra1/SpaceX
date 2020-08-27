@@ -1,19 +1,30 @@
 package com.vladislav.shumilov.common_ui.ui.view.cardview_with_list
 
-import androidx.databinding.ObservableField
+import androidx.annotation.DrawableRes
 import com.vladislav.shumilov.common_domain.card_view_with_list.model.CardWithListItemCheckbox
 import com.vladislav.shumilov.common_domain.card_view_with_list.model.CardWithListItemModel
+import com.vladislav.shumilov.common_ui.R
 import com.vladislav.shumilov.common_ui.databinding.CardWithListViewCheckboxRowBinding
 
 internal class CardWithListViewCheckboxHolder(private val binding: CardWithListViewCheckboxRowBinding) :
     CardWithListViewHolder(binding.root) {
 
-    val itemCheckbox = ObservableField<CardWithListItemCheckbox>()
+    var itemCheckbox: CardWithListItemCheckbox? = null
+
+    @DrawableRes
+    var checkboxIconRes: Int? = null
 
     override fun bind(item: CardWithListItemModel) {
-        itemCheckbox.set(item as CardWithListItemCheckbox)
+        if (item is CardWithListItemCheckbox) {
+            itemCheckbox = item
+            checkboxIconRes = getCheckboxIconRes(item.isChecked)
+        }
 
         binding.viewHolder = this
         binding.executePendingBindings()
     }
+
+    @DrawableRes
+    private fun getCheckboxIconRes(value: Boolean): Int =
+        if (value) R.drawable.ic_checked else R.drawable.ic_blocked
 }

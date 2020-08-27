@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewHolder"
+            type="com.vladislav.shumilov.common_ui.ui.view.cardview_with_list.CardWithListViewDescriptionHolder" />
+    </data>
+
+    <View
+        android:id="@+id/launchDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_divider_height"
+        android:background="?attr/customCardDividerColor"
+        android:layout_marginTop="?attr/cardWithListViewDividerMarginTop"
+        tools:background="@color/colorDarkGray2" />
+</layout>

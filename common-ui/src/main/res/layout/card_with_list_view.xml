@@ -13,16 +13,18 @@
             android:id="@+id/cardTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:textAllCaps="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:paddingBottom="@dimen/medium_padding"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="Title" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/cardItemsList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/card_with_list_view_text_row"/>
 
     </LinearLayout>
 

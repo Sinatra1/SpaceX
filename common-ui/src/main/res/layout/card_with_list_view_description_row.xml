@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewHolder"
+            type="com.vladislav.shumilov.common_ui.ui.view.cardview_with_list.CardWithListViewDescriptionHolder" />
+    </data>
+
+    <TextView
+        android:id="@+id/cardItemLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:paddingTop="@dimen/small_padding"
+        android:text="@{viewHolder.itemDescription.description}"
+        tools:text="Description" />
+</layout>

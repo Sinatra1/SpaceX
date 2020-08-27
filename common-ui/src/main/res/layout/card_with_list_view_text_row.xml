@@ -11,24 +11,25 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/small_padding">
 
         <TextView
-            android:id="@+id/cardItemTitle"
+            android:id="@+id/cardItemLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:paddingEnd="@dimen/medium_padding"
-            android:text="@{viewHolder.itemText.title}"
+            android:text="@{viewHolder.itemText.labelRes}"
             android:textColor="?android:attr/textColorSecondary"
-            tools:text="Title" />
+            tools:text="Label" />
 
         <TextView
-            android:id="@+id/cardItemText"
+            android:id="@+id/cardItemChecked"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_toEndOf="@id/cardItemTitle"
+            android:layout_toEndOf="@id/cardItemLabel"
             android:gravity="end"
             android:text="@{viewHolder.itemText.text}"
             tools:text="Text" />

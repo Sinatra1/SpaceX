@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -11,24 +12,30 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/small_padding">
 
         <TextView
-            android:id="@+id/cardItemTitle"
+            android:id="@+id/cardItemLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
+            android:layout_toStartOf="@id/cardItemChecked"
             android:paddingEnd="@dimen/medium_padding"
+            android:text="@{viewHolder.itemCheckbox.labelRes}"
             android:textColor="?android:attr/textColorSecondary"
-            tools:text="Title" />
+            tools:text="Label" />
 
-        <TextView
-            android:id="@+id/cardItemText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/cardItemChecked"
+            android:layout_width="?attr/customTextIconSize"
+            android:layout_height="?attr/customTextIconSize"
             android:layout_alignParentEnd="true"
-            android:layout_toEndOf="@id/cardItemTitle"
+            android:contentDescription="@string/is_checked"
             android:gravity="end"
-            tools:text="Link" />
+            app:imageResource="@{viewHolder.checkboxIconRes}"
+            tools:background="@drawable/ic_checked"
+            tools:layout_height="@dimen/text_icon_size"
+            tools:layout_width="@dimen/text_icon_size" />
     </RelativeLayout>
 </layout>
