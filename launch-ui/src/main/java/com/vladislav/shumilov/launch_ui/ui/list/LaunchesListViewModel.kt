@@ -1,26 +1,27 @@
 package com.vladislav.shumilov.launch_ui.ui.list
 
-import androidx.databinding.ObservableField
+import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.vladislav.shumilov.core_data.FragmentScope
+import com.vladislav.shumilov.core_data.util.plusAssign
 import com.vladislav.shumilov.core_ui.utils.navigate
 import com.vladislav.shumilov.launch_data.api.LAUNCHES_LIMIT
 import com.vladislav.shumilov.launch_domain.model.local.LaunchForList
-import com.vladislav.shumilov.launch_ui.common.LaunchInteractorImpl
+import com.vladislav.shumilov.launch_domain.ui.LaunchInteractor
 import com.vladislav.shumilov.launch_ui.ui.detail.LaunchDetailFragment
 import io.reactivex.disposables.CompositeDisposable
 
 @FragmentScope
-class LaunchesListViewModel(private val launchInteractor: LaunchInteractorImpl) : ViewModel() {
+internal class LaunchesListViewModel(private val launchInteractor: LaunchInteractor) : ViewModel() {
 
     private val launchesLiveData = MutableLiveData<List<LaunchForList>>().apply {
         value = mutableListOf()
     }
 
-    val isShownProgress = ObservableField<Boolean>().apply { set(false) }
+    val isShownProgress = ObservableBoolean(false)
     private var offset = 0
     private val inProcessLiveData = MutableLiveData<Boolean>().apply { value = false }
     private val isLastPageLiveData = MutableLiveData<Boolean>().apply { value = false }
@@ -28,24 +29,22 @@ class LaunchesListViewModel(private val launchInteractor: LaunchInteractorImpl) 
     private val compositeDisposable = CompositeDisposable()
     private lateinit var navController: NavController
 
-
     fun getLaunchesForList() {
         if (inProcessLiveData.value == true) {
             return
         }
 
         inProcessLiveData.postValue(true)
-        isShownProgress.set(inProcessLiveData.value)
+        isShownProgress.set(false)
 
         compositeDisposable.clear()
-        compositeDisposable.add(
-            launchInteractor.getLaunchesForList(offset, LAUNCHES_LIMIT)
-                .subscribe({ launches ->
-                    onLoadedLaunchesSuccess(launches)
-                }, {
-                    onLoadedLaunchesError()
-                })
-        )
+
+        compositeDisposable += launchInteractor.getLaunchesForList(offset, LAUNCHES_LIMIT)
+            .subscribe({ launches ->
+                onLoadedLaunchesSuccess(launches)
+            }, {
+                onLoadedLaunchesError()
+            })
     }
 
     override fun onCleared() {
@@ -55,7 +54,7 @@ class LaunchesListViewModel(private val launchInteractor: LaunchInteractorImpl) 
     fun getInProcess(): LiveData<Boolean> = inProcessLiveData
 
     fun getIsLastPage(): LiveData<Boolean> = isLastPageLiveData
-    
+
     fun getLaunches(): LiveData<List<LaunchForList>> = launchesLiveData
 
     fun setNavController(navController: NavController) {
@@ -63,12 +62,15 @@ class LaunchesListViewModel(private val launchInteractor: LaunchInteractorImpl) 
     }
 
     fun showLaunchDetail(launchId: String) {
-        navController.navigate(LaunchDetailFragment::class.java, LaunchDetailFragment.getBundle(launchId))
+        navController.navigate(
+            LaunchDetailFragment::class.java,
+            LaunchDetailFragment.getBundle(launchId)
+        )
     }
 
     private fun onLoadedLaunchesSuccess(launches: List<LaunchForList>) {
         inProcessLiveData.postValue(false)
-        isShownProgress.set(inProcessLiveData.value)
+        isShownProgress.set(false)
         isShownRefreshingIcon.postValue(inProcessLiveData.value)
         offset += LAUNCHES_LIMIT
 
@@ -87,7 +89,7 @@ class LaunchesListViewModel(private val launchInteractor: LaunchInteractorImpl) 
 
     private fun onLoadedLaunchesError() {
         inProcessLiveData.postValue(false)
-        isShownProgress.set(inProcessLiveData.value)
+        isShownProgress.set(false)
         isShownRefreshingIcon.postValue(inProcessLiveData.value)
     }
 }

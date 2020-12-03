@@ -12,7 +12,7 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 @FragmentScope
-class LaunchInteractorImpl @Inject constructor(
+internal class LaunchInteractorImpl @Inject constructor(
     private val launchRemoteRepository: LaunchRemoteRepository,
     private val launchLocalRepository: LaunchLocalRepository
 ) : LaunchInteractor {

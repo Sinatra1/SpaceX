@@ -2,14 +2,10 @@ package com.vladislav.shumilov.mytwitter
 
 import android.app.Application
 import com.vladislav.shumilov.launch_ui.di.LaunchComponent
-import com.vladislav.shumilov.launch_ui.di.LaunchModule
 import com.vladislav.shumilov.core_ui.injection.modules.AppModule
 import com.vladislav.shumilov.launch_ui.LaunchApp
 import com.vladislav.shumilov.mytwitter.di.AppComponent
 import com.vladislav.shumilov.mytwitter.di.DaggerAppComponent
-import com.vladislav.shumilov.rocket_ui.di.RocketModule
-import com.vladislav.shumilov.ship_ui.di.ShipModule
-import com.vladislav.shumiov.mission_ui.di.MissionModule
 import timber.log.Timber
 import vladislav.shumilov.mytwitter.BuildConfig
 import kotlin.properties.Delegates
@@ -30,7 +26,7 @@ class App : Application(), LaunchApp {
     override fun createLaunchComponent(): LaunchComponent {
         if (launchComponent == null) {
             launchComponent =
-                appComponent.plusLaunchComponent(LaunchModule(), MissionModule(), RocketModule(), ShipModule())
+                appComponent.plusLaunchComponent()
         }
 
         return launchComponent!!

@@ -1,5 +1,6 @@
 package com.vladislav.shumilov.launch_data.repository
 
+import androidx.annotation.WorkerThread
 import com.example.rocket_domain.model.local.Rocket
 import com.example.rocket_domain.repository.RocketLocalRepository
 import com.vladislav.shumilov.core_data.FragmentScope
@@ -48,13 +49,16 @@ class LaunchLocalRepositoryImpl @Inject constructor(
     }
 
     @Suppress(UNCHECKED_CAST)
+    @WorkerThread
     override fun getList(limit: Int) = launchDao.getList(limit) as Single<List<Launch>>
 
     @Suppress(UNCHECKED_CAST)
+    @WorkerThread
     override fun getLaunchesForList(offset: Int, limit: Int) =
         launchDao.getLaunchesForList(offset, limit) as Single<List<LaunchForList>>
 
     @Suppress(UNCHECKED_CAST)
+    @WorkerThread
     override fun getLaunchForDetail(launchId: String)  =
         launchDao.getLaunchForDetail(launchId) as Single<LaunchForDetail>
 

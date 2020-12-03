@@ -70,7 +70,7 @@ fun getRocketDetailCardViewItemsForLaunch(
         }
     }
 
-    launchForDetail.rocketForDetail?.firstStage?.cores?.get(0)?.let {
+    launchForDetail.rocketForDetail?.firstStage?.cores?.first()?.let {
         details.add(CardWithListItemDividerImpl())
         details.addAll(getCoreCardViewItems(it))
     }

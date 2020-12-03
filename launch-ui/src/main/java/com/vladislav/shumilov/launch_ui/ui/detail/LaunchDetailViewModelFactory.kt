@@ -5,12 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.vladislav.shumilov.core_data.FragmentScope
 import com.vladislav.shumilov.core_data.util.UNCHECKED_CAST
-import com.vladislav.shumilov.launch_ui.common.LaunchInteractorImpl
+import com.vladislav.shumilov.launch_domain.ui.LaunchInteractor
 import javax.inject.Inject
 
 @FragmentScope
 class LaunchDetailViewModelFactory @Inject constructor(
-    private val launchInteractor: LaunchInteractorImpl,
+    private val launchInteractor: LaunchInteractor,
     private val resources: Resources
 ) :
     ViewModelProvider.Factory {

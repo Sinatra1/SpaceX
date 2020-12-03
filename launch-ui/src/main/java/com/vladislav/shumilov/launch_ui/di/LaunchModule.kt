@@ -7,6 +7,8 @@ import com.vladislav.shumilov.launch_data.api.LaunchApi
 import com.vladislav.shumilov.launch_data.database.*
 import com.vladislav.shumilov.launch_data.repository.*
 import com.vladislav.shumilov.launch_domain.repository.*
+import com.vladislav.shumilov.launch_domain.ui.LaunchInteractor
+import com.vladislav.shumilov.launch_ui.common.LaunchInteractorImpl
 import com.vladislav.shumilov.mission_data.database.MissionDao
 import com.vladislav.shumilov.ship_data.database.ShipDao
 import dagger.Module
@@ -15,7 +17,14 @@ import retrofit2.Retrofit
 
 @Module
 @FragmentScope
-class LaunchModule {
+internal class LaunchModule {
+
+    @Provides
+    @FragmentScope
+    fun provideLaunchInteractor(
+        launchRemoteRepository: LaunchRemoteRepository,
+        launchLocalRepository: LaunchLocalRepository
+    ): LaunchInteractor = LaunchInteractorImpl(launchRemoteRepository, launchLocalRepository)
 
     @Provides
     @FragmentScope

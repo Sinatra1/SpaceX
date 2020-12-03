@@ -6,14 +6,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.vladislav.shumilov.common_domain.card_view_with_list.model.CardWithListItemModel
 import com.vladislav.shumilov.core_data.FragmentScope
+import com.vladislav.shumilov.core_data.util.plusAssign
 import com.vladislav.shumilov.launch_domain.model.local.LaunchForDetail
-import com.vladislav.shumilov.launch_ui.common.LaunchInteractorImpl
+import com.vladislav.shumilov.launch_domain.ui.LaunchInteractor
 import com.vladislav.shumilov.launch_ui.util.getRocketDetailCardViewItemsForLaunch
 import io.reactivex.disposables.CompositeDisposable
 
 @FragmentScope
 class LaunchDetailViewModel(
-    private val launchInteractor: LaunchInteractorImpl,
+    private val launchInteractor: LaunchInteractor,
     private val resources: Resources
 ) : ViewModel() {
 
@@ -24,14 +25,14 @@ class LaunchDetailViewModel(
     private val compositeDisposable = CompositeDisposable()
 
     fun getLaunchForDetail(launchId: String) {
-        compositeDisposable.add(
-            launchInteractor.getLaunchForDetail(launchId)
-                .subscribe({ launch ->
-                    onLoadedLaunchSuccess(launch)
-                }, {
-                    onLoadedLaunchError()
-                })
-        )
+
+        compositeDisposable += launchInteractor.getLaunchForDetail(launchId)
+            .subscribe({ launch ->
+                onLoadedLaunchSuccess(launch)
+            }, {
+                onLoadedLaunchError()
+            })
+
     }
 
     override fun onCleared() {
