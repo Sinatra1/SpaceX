@@ -28,7 +28,10 @@ import com.vladislav.shumilov.ship_domain.model.local.Ship
     indices = [
         Index(value = [LaunchImpl.Columns.ROCKET_ID]),
         Index(value = [LaunchImpl.Columns.LAUNCH_SITE_ID]),
-        Index(value = [LaunchImpl.Columns.FLIGHT_NUMBER], unique = true)
+        Index(
+            value = [LaunchImpl.Columns.FLIGHT_NUMBER, LaunchImpl.Columns.LAUNCH_DATE_UNIX],
+            unique = true
+        )
     ]
 )
 data class LaunchImpl(

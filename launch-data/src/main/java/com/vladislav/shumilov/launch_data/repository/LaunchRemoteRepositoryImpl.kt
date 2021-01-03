@@ -41,7 +41,7 @@ class LaunchRemoteRepositoryImpl @Inject constructor(
 
     override fun responseToModel(launchResponse: LaunchResponse): Launch {
 
-        val launchId = generateId()
+        val launchId = generateId(launchResponse)
 
         return LaunchImpl(
             launchId,
@@ -75,7 +75,7 @@ class LaunchRemoteRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun generateId() = generateRandomId()
+    override fun generateId(launchResponse: LaunchResponse) = "${launchResponse.flight_number}_${launchResponse.launch_date_unix}"
 
     private fun prepareMissions(launchResponse: LaunchResponse) =
         launchResponse.mission_name?.let { missionName ->

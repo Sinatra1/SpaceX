@@ -11,5 +11,5 @@ interface LaunchRemoteRepository {
 
     fun responseToModel(launchResponse: LaunchResponse): Launch
 
-    fun generateId(): String
+    fun generateId(launchResponse: LaunchResponse): String
 }
