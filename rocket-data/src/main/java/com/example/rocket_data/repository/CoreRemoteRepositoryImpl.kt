@@ -5,8 +5,9 @@ import com.example.rocket_domain.model.local.Core
 import com.example.rocket_domain.model.remote.CoreResponse
 import com.example.rocket_domain.repository.CoreRemoteRepository
 import com.vladislav.shumilov.core_data.util.generateRandomId
+import javax.inject.Inject
 
-class CoreRemoteRepositoryImpl : CoreRemoteRepository {
+class CoreRemoteRepositoryImpl @Inject constructor(): CoreRemoteRepository {
 
     override fun responseToModels(coreResponses: List<CoreResponse>): List<Core> {
         val cores = mutableListOf<Core>()

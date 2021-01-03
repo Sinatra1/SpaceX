@@ -16,9 +16,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
 @ApplicationScope
-class HttpModule {
+object HttpModule {
 
     @Provides
+    @JvmStatic
     @ApplicationScope
     fun provideClient(): OkHttpClient =
         with(OkHttpClient().newBuilder()) {
@@ -32,6 +33,7 @@ class HttpModule {
         }
 
     @Provides
+    @JvmStatic
     @ApplicationScope
     fun provideRetrofit(gson: Gson, client: OkHttpClient): Retrofit =
         Retrofit.Builder()
@@ -40,6 +42,4 @@ class HttpModule {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
-
-
 }

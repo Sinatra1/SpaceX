@@ -4,8 +4,9 @@ import com.vladislav.shumilov.core_data.util.generateRandomId
 import com.vladislav.shumilov.launch_data.model.local.LinksImpl
 import com.vladislav.shumilov.launch_domain.model.remote.LinksResponse
 import com.vladislav.shumilov.launch_domain.repository.LinksRemoteRepository
+import javax.inject.Inject
 
-class LinksRemoteRepositoryImpl : LinksRemoteRepository {
+class LinksRemoteRepositoryImpl @Inject constructor() : LinksRemoteRepository {
 
     override fun responseToModel(
         linksResponse: LinksResponse,

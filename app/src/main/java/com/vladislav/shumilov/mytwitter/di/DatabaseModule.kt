@@ -16,9 +16,10 @@ private const val DATABASE_NAME = "spacex_database"
 
 @Module
 @ApplicationScope
-class DatabaseModule {
+internal object DatabaseModule {
 
     @Provides
+    @JvmStatic
     @ApplicationScope
     fun provideDatabase(@ApplicationContext context: Context): AppDatabase =
         Room.databaseBuilder(
@@ -28,87 +29,104 @@ class DatabaseModule {
         ).build()
 
     @Provides
+    @JvmStatic
     @ApplicationScope
     fun provideLaunchDao(appDatabase: AppDatabase): LaunchDao =
         appDatabase.getLaunchDao()
 
     @Provides
+    @JvmStatic
     @ApplicationScope
     fun provideLaunchSiteDao(appDatabase: AppDatabase): LaunchSiteDao =
         appDatabase.getLaunchSiteDao()
 
     @Provides
+    @JvmStatic
     @ApplicationScope
     fun provideLaunchFailureDetailsDao(appDatabase: AppDatabase): LaunchFailureDetailsDao =
         appDatabase.getLaunchFailureDetailsDao()
 
     @Provides
+    @JvmStatic
     @ApplicationScope
     fun provideLinksDao(appDatabase: AppDatabase): LinksDao =
         appDatabase.getLinksDao()
 
     @Provides
+    @JvmStatic
     @ApplicationScope
     fun provideLaunchToMissionDao(appDatabase: AppDatabase): LaunchToMissionDao =
         appDatabase.getLaunchToMissionDao()
 
     @Provides
+    @JvmStatic
     @ApplicationScope
     fun provideLaunchToShipDao(appDatabase: AppDatabase): LaunchToShipDao =
         appDatabase.getLaunchToShipDao()
 
     @Provides
+    @JvmStatic
     @ApplicationScope
     fun provideRocketDao(@ApplicationScope appDatabase: AppDatabase): RocketDao =
         appDatabase.getRocketDao()
 
     @Provides
+    @JvmStatic
     @ApplicationScope
     fun provideFirstStageDao(@ApplicationScope appDatabase: AppDatabase): FirstStageDao =
         appDatabase.getFirstStageDao()
 
     @Provides
+    @JvmStatic
     @ApplicationScope
     fun provideSecondStageDao(@ApplicationScope appDatabase: AppDatabase): SecondStageDao =
         appDatabase.getSecondStageDao()
 
     @Provides
+    @JvmStatic
     @ApplicationScope
     fun provideCoreDao(@ApplicationScope appDatabase: AppDatabase): CoreDao =
         appDatabase.getCoreDao()
 
     @Provides
+    @JvmStatic
     @ApplicationScope
     fun provideFirstStageToCoreDao(@ApplicationScope appDatabase: AppDatabase): FirstStageToCoreDao =
         appDatabase.getFirstStageToCoreDao()
 
     @Provides
+    @JvmStatic
     @ApplicationScope
     fun provideSecondStageToPayloadDao(@ApplicationScope appDatabase: AppDatabase): SecondStageToPayloadDao =
         appDatabase.getSecondStageToPayloadDao()
 
     @Provides
+    @JvmStatic
     @ApplicationScope
     fun providePayloadDao(@ApplicationScope appDatabase: AppDatabase): PayloadDao =
         appDatabase.getPayloadDao()
 
 
     @Provides
+    @JvmStatic
     @ApplicationScope
     fun provideOrbitParamsDao(@ApplicationScope appDatabase: AppDatabase): OrbitParamsDao =
         appDatabase.getOrbitParamsDao()
 
     @Provides
+    @JvmStatic
     @ApplicationScope
     fun provideFairingsDao(@ApplicationScope appDatabase: AppDatabase): FairingsDao =
         appDatabase.getFairingsDao()
 
     @Provides
+    @JvmStatic
     @ApplicationScope
     fun provideMissionDao(@ApplicationScope appDatabase: AppDatabase): MissionDao =
         appDatabase.getMissionDao()
 
     @Provides
+    @JvmStatic
     @ApplicationScope
     fun provideShipDao(@ApplicationScope appDatabase: AppDatabase): ShipDao =
         appDatabase.getShipDao()

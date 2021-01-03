@@ -5,7 +5,7 @@ import dagger.Module
 
 @Module
 @FragmentScope
-class ShipModule {
+object ShipModule {
 
 
 }

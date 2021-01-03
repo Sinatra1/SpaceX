@@ -4,8 +4,9 @@ import com.example.rocket_data.model.local.FairingsImpl
 import com.example.rocket_domain.model.remote.FairingsResponse
 import com.example.rocket_domain.repository.FairingsRemoteRepository
 import com.vladislav.shumilov.core_data.util.generateRandomId
+import javax.inject.Inject
 
-class FairingsRemoteRepositoryImpl :
+class FairingsRemoteRepositoryImpl @Inject constructor():
     FairingsRemoteRepository {
 
     override fun responseToModel(fairingsResponse: FairingsResponse, rocketId: String) =

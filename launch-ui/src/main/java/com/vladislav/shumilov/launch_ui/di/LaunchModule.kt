@@ -11,80 +11,86 @@ import com.vladislav.shumilov.launch_domain.ui.LaunchInteractor
 import com.vladislav.shumilov.launch_ui.common.LaunchInteractorImpl
 import com.vladislav.shumilov.mission_data.database.MissionDao
 import com.vladislav.shumilov.ship_data.database.ShipDao
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
 
 @Module
 @FragmentScope
-internal class LaunchModule {
+internal abstract class LaunchModule {
 
-    @Provides
+    @Module
     @FragmentScope
-    fun provideLaunchInteractor(
-        launchRemoteRepository: LaunchRemoteRepository,
-        launchLocalRepository: LaunchLocalRepository
-    ): LaunchInteractor = LaunchInteractorImpl(launchRemoteRepository, launchLocalRepository)
+    companion object {
+        @Provides
+        @JvmStatic
+        @FragmentScope
+        fun provideLaunchInteractor(
+            launchRemoteRepository: LaunchRemoteRepository,
+            launchLocalRepository: LaunchLocalRepository
+        ): LaunchInteractor = LaunchInteractorImpl(launchRemoteRepository, launchLocalRepository)
 
-    @Provides
+        @Provides
+        @JvmStatic
+        @FragmentScope
+        fun provideLaunchRemoteRepository(
+            launchApi: LaunchApi,
+            rocketRemoteRepository: RocketRemoteRepository,
+            launchSiteRemoteRepository: LaunchSiteRemoteRepository,
+            launchFailureDetailsRemoteRepository: LaunchFailureDetailsRemoteRepository,
+            linksRemoteRepository: LinksRemoteRepository
+        ): LaunchRemoteRepository =
+            LaunchRemoteRepositoryImpl(
+                launchApi,
+                rocketRemoteRepository,
+                launchSiteRemoteRepository,
+                launchFailureDetailsRemoteRepository,
+                linksRemoteRepository
+            )
+
+        @Provides
+        @JvmStatic
+        @FragmentScope
+        fun provideLaunchLocalRepository(
+            launchDao: LaunchDao,
+            missionDao: MissionDao,
+            rocketLocalRepository: RocketLocalRepository,
+            shipDao: ShipDao,
+            launchSiteDao: LaunchSiteDao,
+            launchFailureDetailsDao: LaunchFailureDetailsDao,
+            linksDao: LinksDao,
+            launchToMissionDao: LaunchToMissionDao,
+            launchToShipDao: LaunchToShipDao
+        ): LaunchLocalRepository =
+            LaunchLocalRepositoryImpl(
+                launchDao,
+                missionDao,
+                rocketLocalRepository,
+                shipDao,
+                launchSiteDao,
+                launchFailureDetailsDao,
+                linksDao,
+                launchToMissionDao,
+                launchToShipDao
+            )
+
+        @Provides
+        @JvmStatic
+        @FragmentScope
+        fun provideLaunchApi(retrofit: Retrofit): LaunchApi =
+            retrofit.create<LaunchApi>(LaunchApi::class.java)
+    }
+
+    @Binds
     @FragmentScope
-    fun provideLaunchRemoteRepository(
-        launchApi: LaunchApi,
-        rocketRemoteRepository: RocketRemoteRepository,
-        launchSiteRemoteRepository: LaunchSiteRemoteRepository,
-        launchFailureDetailsRemoteRepository: LaunchFailureDetailsRemoteRepository,
-        linksRemoteRepository: LinksRemoteRepository
-    ): LaunchRemoteRepository =
-        LaunchRemoteRepositoryImpl(
-            launchApi,
-            rocketRemoteRepository,
-            launchSiteRemoteRepository,
-            launchFailureDetailsRemoteRepository,
-            linksRemoteRepository
-        )
+    abstract fun bindLaunchSiteRemoteRepository(impl: LaunchSiteRemoteRepositoryImpl): LaunchSiteRemoteRepository
 
-    @Provides
+    @Binds
     @FragmentScope
-    fun provideLaunchLocalRepository(
-        launchDao: LaunchDao,
-        missionDao: MissionDao,
-        rocketLocalRepository: RocketLocalRepository,
-        shipDao: ShipDao,
-        launchSiteDao: LaunchSiteDao,
-        launchFailureDetailsDao: LaunchFailureDetailsDao,
-        linksDao: LinksDao,
-        launchToMissionDao: LaunchToMissionDao,
-        launchToShipDao: LaunchToShipDao
-    ): LaunchLocalRepository =
-        LaunchLocalRepositoryImpl(
-            launchDao,
-            missionDao,
-            rocketLocalRepository,
-            shipDao,
-            launchSiteDao,
-            launchFailureDetailsDao,
-            linksDao,
-            launchToMissionDao,
-            launchToShipDao
-        )
+    abstract fun bindLaunchFailureDetailsRemoteRepository(impl: LaunchFailureDetailsRemoteRepositoryImpl): LaunchFailureDetailsRemoteRepository
 
-    @Provides
+    @Binds
     @FragmentScope
-    fun provideLaunchSiteRemoteRepository(): LaunchSiteRemoteRepository =
-        LaunchSiteRemoteRepositoryImpl()
-
-    @Provides
-    @FragmentScope
-    fun provideLaunchFailureDetailsRemoteRepository(): LaunchFailureDetailsRemoteRepository =
-        LaunchFailureDetailsRemoteRepositoryImpl()
-
-
-    @Provides
-    @FragmentScope
-    fun provideLinksRemoteRepository(): LinksRemoteRepository = LinksRemoteRepositoryImpl()
-
-    @Provides
-    @FragmentScope
-    fun provideLaunchApi(retrofit: Retrofit): LaunchApi =
-        retrofit.create<LaunchApi>(LaunchApi::class.java)
+    abstract fun bindLinksRemoteRepository(impl: LinksRemoteRepositoryImpl): LinksRemoteRepository
 }

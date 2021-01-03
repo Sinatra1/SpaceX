@@ -5,8 +5,9 @@ import com.example.rocket_domain.model.local.OrbitParams
 import com.example.rocket_domain.model.remote.OrbitParamsResponse
 import com.example.rocket_domain.repository.OrbitParamsRemoteRepository
 import com.vladislav.shumilov.core_data.util.generateRandomId
+import javax.inject.Inject
 
-class OrbitParamsRemoteRepositoryImpl :
+class OrbitParamsRemoteRepositoryImpl @Inject constructor():
     OrbitParamsRemoteRepository {
 
     override fun responseToModels(

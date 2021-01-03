@@ -8,9 +8,10 @@ import dagger.Provides
 
 @Module
 @ApplicationScope
-class GsonModule {
+object GsonModule {
 
     @Provides
+    @JvmStatic
     @ApplicationScope
     fun provideGson(): Gson =
         GsonBuilder()
