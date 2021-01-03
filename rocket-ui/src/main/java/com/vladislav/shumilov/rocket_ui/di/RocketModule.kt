@@ -9,11 +9,9 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-@FragmentScope
 class RocketModule {
 
     @Provides
-    @FragmentScope
     fun provideRocketRemoteRepository(
         firstStageRemoteRepository: FirstStageRemoteRepository,
         secondStageRemoteRepository: SecondStageRemoteRepository,
@@ -25,7 +23,6 @@ class RocketModule {
     )
 
     @Provides
-    @FragmentScope
     fun provideRocketLocalRepository(
         rocketDao: RocketDao,
         firstStageLocalRepository: FirstStageLocalRepository,
@@ -40,14 +37,12 @@ class RocketModule {
         )
 
     @Provides
-    @FragmentScope
     fun provideFirstStageRemoteRepository(
         coreRemoteRepository: CoreRemoteRepository
     ): FirstStageRemoteRepository =
         FirstStageRemoteRepositoryImpl(coreRemoteRepository)
 
     @Provides
-    @FragmentScope
     fun provideFirstStageLocalRepository(
         firstStageDao: FirstStageDao,
         coreDao: CoreDao,
@@ -60,14 +55,12 @@ class RocketModule {
         )
 
     @Provides
-    @FragmentScope
     fun provideSecondStageRemoteRepository(
         payloadRemoteRepository: PayloadRemoteRepository
     ): SecondStageRemoteRepository =
         SecondStageRemoteRepositoryImpl(payloadRemoteRepository)
 
     @Provides
-    @FragmentScope
     fun provideSecondStageLocalRepository(
         secondStageDao: SecondStageDao,
         payloadLocalRepository: PayloadLocalRepository,
@@ -80,23 +73,19 @@ class RocketModule {
         )
 
     @Provides
-    @FragmentScope
     fun provideFairingsRemoteRepository(): FairingsRemoteRepository =
         FairingsRemoteRepositoryImpl()
 
     @Provides
-    @FragmentScope
     fun provideCoreRemoteRepository(): CoreRemoteRepository = CoreRemoteRepositoryImpl()
 
     @Provides
-    @FragmentScope
     fun providePayloadRemoteRepository(
         orbitParamsRemoteRepository: OrbitParamsRemoteRepository
     ): PayloadRemoteRepository =
         PayloadRemoteRepositoryImpl(orbitParamsRemoteRepository)
 
     @Provides
-    @FragmentScope
     fun providePayloadLocalRepository(
         payloadDao: PayloadDao,
         orbitParamsLocalRepository: OrbitParamsLocalRepository
@@ -107,12 +96,10 @@ class RocketModule {
         )
 
     @Provides
-    @FragmentScope
     fun provideOrbitParamsRemoteRepository(): OrbitParamsRemoteRepository =
         OrbitParamsRemoteRepositoryImpl()
 
     @Provides
-    @FragmentScope
     fun provideOrbitParamsLocalRepository(
         orbitParamsDao: OrbitParamsDao
     ): OrbitParamsLocalRepository =

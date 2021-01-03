@@ -10,12 +10,26 @@ import com.vladislav.shumilov.core_data.ApplicationScope
 import com.vladislav.shumilov.core_ui.injection.modules.AppModule
 import com.vladislav.shumilov.core_ui.injection.modules.GsonModule
 import com.vladislav.shumilov.core_ui.injection.modules.HttpModule
+import com.vladislav.shumilov.launch_ui.di.FragmentLaunchInjectors
 import com.vladislav.shumilov.launch_ui.di.LaunchAppComponent
+import com.vladislav.shumilov.launch_ui.di.LaunchComponent
+import com.vladislav.shumilov.mytwitter.App
+import dagger.BindsInstance
 import dagger.Component
+import dagger.android.AndroidInjectionModule
 
-@Component(modules = [AppModule::class, GsonModule::class, HttpModule::class, DatabaseModule::class])
+@Component(
+    dependencies = [LaunchComponent::class],
+    modules = [
+    AppModule::class,
+    GsonModule::class,
+    HttpModule::class,
+    DatabaseModule::class,
+    AndroidInjectionModule::class,
+    ActivityAppInjector::class
+])
 @ApplicationScope
-interface AppComponent: LaunchAppComponent {
+interface AppComponent {
 
     @ApplicationContext
     fun context(): Context
@@ -24,4 +38,20 @@ interface AppComponent: LaunchAppComponent {
     fun gson(): Gson
     fun database(): AppDatabase
     fun resources(): Resources
+
+    fun inject(application: App)
+
+    val launchComponentFactory: LaunchComponent.Factory
+
+    /**
+     * @SelfDocumented
+     */
+    @Component.Factory
+    interface Factory {
+
+        /**
+         * @SelfDocumented
+         */
+        fun create(appModule: AppModule): AppComponent
+    }
 }

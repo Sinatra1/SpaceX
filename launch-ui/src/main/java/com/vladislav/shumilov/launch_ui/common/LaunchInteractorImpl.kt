@@ -11,7 +11,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-@FragmentScope
 internal class LaunchInteractorImpl @Inject constructor(
     private val launchRemoteRepository: LaunchRemoteRepository,
     private val launchLocalRepository: LaunchLocalRepository

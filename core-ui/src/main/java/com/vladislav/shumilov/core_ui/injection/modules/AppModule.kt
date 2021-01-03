@@ -13,7 +13,6 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-@ApplicationScope
 class AppModule(private val app: Application) {
 
     private val appContext: Context

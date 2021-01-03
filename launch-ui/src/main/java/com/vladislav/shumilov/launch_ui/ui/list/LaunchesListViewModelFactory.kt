@@ -7,7 +7,6 @@ import com.vladislav.shumilov.core_data.util.UNCHECKED_CAST
 import com.vladislav.shumilov.launch_domain.ui.LaunchInteractor
 import javax.inject.Inject
 
-@FragmentScope
 class LaunchesListViewModelFactory @Inject constructor(private val launchInteractor: LaunchInteractor) :
     ViewModelProvider.Factory {
 

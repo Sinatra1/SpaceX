@@ -46,8 +46,6 @@ class LaunchesListFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        app()?.createLaunchComponent()?.inject(this)
-
         viewModel.getLaunchesForList()
     }
 
@@ -97,7 +95,6 @@ class LaunchesListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
 
-        app()?.clearLaunchComponent()
     }
 
     private fun setListAdapter() {

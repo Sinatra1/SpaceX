@@ -1,5 +1,6 @@
 package com.vladislav.shumilov.launch_ui.ui.detail
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,11 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.launch_ui.R
 import com.example.launch_ui.databinding.LaunchDetailBinding
-import com.vladislav.shumilov.core_data.FragmentScope
 import com.vladislav.shumilov.launch_ui.app
+import dagger.android.AndroidInjection
+import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
-@FragmentScope
 class LaunchDetailFragment : Fragment() {
 
     companion object {
@@ -37,19 +38,19 @@ class LaunchDetailFragment : Fragment() {
             .get(LaunchDetailViewModel::class.java)
     }
 
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        app()?.createLaunchComponent()?.inject(this)
-
-        val launchId = arguments?.getString(LAUNCH_ID_KEY)
-
-        checkNotNull(launchId) {
-            "launchId is required"
-        }
-
-        viewModel.getLaunchForDetail(launchId)
+        lifecycle.addObserver(viewModel)
     }
+
+    fun getLaunchDetailId() =
+        arguments?.getString(LAUNCH_ID_KEY) ?: IllegalArgumentException("launchId is required")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,6 +70,5 @@ class LaunchDetailFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
 
-        app()?.clearLaunchComponent()
     }
 }

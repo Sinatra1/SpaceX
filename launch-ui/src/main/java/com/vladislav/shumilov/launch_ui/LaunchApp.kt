@@ -9,7 +9,5 @@ fun Fragment.app() = this.activity?.app()
 
 interface LaunchApp {
 
-    fun createLaunchComponent(): LaunchComponent
 
-    fun clearLaunchComponent()
 }

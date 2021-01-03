@@ -2,7 +2,6 @@ package com.vladislav.shumilov.launch_ui.di
 
 import com.example.rocket_domain.repository.RocketLocalRepository
 import com.example.rocket_domain.repository.RocketRemoteRepository
-import com.vladislav.shumilov.core_data.FragmentScope
 import com.vladislav.shumilov.launch_data.api.LaunchApi
 import com.vladislav.shumilov.launch_data.database.*
 import com.vladislav.shumilov.launch_data.repository.*
@@ -16,18 +15,15 @@ import dagger.Provides
 import retrofit2.Retrofit
 
 @Module
-@FragmentScope
 internal class LaunchModule {
 
     @Provides
-    @FragmentScope
     fun provideLaunchInteractor(
         launchRemoteRepository: LaunchRemoteRepository,
         launchLocalRepository: LaunchLocalRepository
     ): LaunchInteractor = LaunchInteractorImpl(launchRemoteRepository, launchLocalRepository)
 
     @Provides
-    @FragmentScope
     fun provideLaunchRemoteRepository(
         launchApi: LaunchApi,
         rocketRemoteRepository: RocketRemoteRepository,
@@ -44,7 +40,6 @@ internal class LaunchModule {
         )
 
     @Provides
-    @FragmentScope
     fun provideLaunchLocalRepository(
         launchDao: LaunchDao,
         missionDao: MissionDao,
@@ -69,22 +64,18 @@ internal class LaunchModule {
         )
 
     @Provides
-    @FragmentScope
     fun provideLaunchSiteRemoteRepository(): LaunchSiteRemoteRepository =
         LaunchSiteRemoteRepositoryImpl()
 
     @Provides
-    @FragmentScope
     fun provideLaunchFailureDetailsRemoteRepository(): LaunchFailureDetailsRemoteRepository =
         LaunchFailureDetailsRemoteRepositoryImpl()
 
 
     @Provides
-    @FragmentScope
     fun provideLinksRemoteRepository(): LinksRemoteRepository = LinksRemoteRepositoryImpl()
 
     @Provides
-    @FragmentScope
     fun provideLaunchApi(retrofit: Retrofit): LaunchApi =
         retrofit.create<LaunchApi>(LaunchApi::class.java)
 }

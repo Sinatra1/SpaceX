@@ -1,39 +1,39 @@
 package com.vladislav.shumilov.mytwitter
 
 import android.app.Application
+import com.vladislav.shumilov.core_data.ApplicationScope
 import com.vladislav.shumilov.launch_ui.di.LaunchComponent
 import com.vladislav.shumilov.core_ui.injection.modules.AppModule
 import com.vladislav.shumilov.launch_ui.LaunchApp
 import com.vladislav.shumilov.mytwitter.di.AppComponent
 import com.vladislav.shumilov.mytwitter.di.DaggerAppComponent
+import com.vladislav.shumilov.mytwitter.di.DaggerAppComponent.factory
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
+import dagger.internal.MapFactory.builder
 import timber.log.Timber
 import vladislav.shumilov.mytwitter.BuildConfig
+import javax.inject.Inject
 import kotlin.properties.Delegates
 
-class App : Application(), LaunchApp {
+@ApplicationScope
+class App : Application(), LaunchApp, HasAndroidInjector {
 
     private var appComponent: AppComponent by Delegates.notNull()
-    private var launchComponent: LaunchComponent? = null
+
+    @Inject
+    lateinit var childFragmentInjector: DispatchingAndroidInjector<Any>
+
+    override fun androidInjector(): AndroidInjector<Any> = childFragmentInjector
 
     override fun onCreate() {
         super.onCreate()
 
-        appComponent = DaggerAppComponent.builder().appModule(AppModule(this)).build()
+        appComponent = DaggerAppComponent.factory().create(AppModule(this))
+        appComponent.inject(this)
 
         initLogs()
-    }
-
-    override fun createLaunchComponent(): LaunchComponent {
-        if (launchComponent == null) {
-            launchComponent =
-                appComponent.plusLaunchComponent()
-        }
-
-        return launchComponent!!
-    }
-
-    override fun clearLaunchComponent() {
-        launchComponent = null
     }
 
     private fun initLogs() {

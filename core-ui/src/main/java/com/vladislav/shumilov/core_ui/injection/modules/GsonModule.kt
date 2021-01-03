@@ -7,7 +7,6 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-@ApplicationScope
 class GsonModule {
 
     @Provides
