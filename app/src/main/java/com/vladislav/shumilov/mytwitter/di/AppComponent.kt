@@ -11,11 +11,23 @@ import com.vladislav.shumilov.core_ui.injection.modules.AppModule
 import com.vladislav.shumilov.core_ui.injection.modules.GsonModule
 import com.vladislav.shumilov.core_ui.injection.modules.HttpModule
 import com.vladislav.shumilov.launch_ui.di.LaunchAppComponent
+import com.vladislav.shumilov.mytwitter.App
 import dagger.Component
+import dagger.android.AndroidInjector
+import dagger.android.support.AndroidSupportInjectionModule
 
-@Component(modules = [AppModule::class, GsonModule::class, HttpModule::class, DatabaseModule::class])
+@Component(
+    modules = [
+        AndroidSupportInjectionModule::class,
+        AppModule::class,
+        GsonModule::class,
+        HttpModule::class,
+        DatabaseModule::class,
+        ActivityBindersModule::class
+    ]
+)
 @ApplicationScope
-interface AppComponent: LaunchAppComponent {
+interface AppComponent : AndroidInjector<App>, LaunchAppComponent {
 
     @ApplicationContext
     fun context(): Context
@@ -24,4 +36,12 @@ interface AppComponent: LaunchAppComponent {
     fun gson(): Gson
     fun database(): AppDatabase
     fun resources(): Resources
+
+    @Component.Builder
+    interface Builder {
+
+        fun appModule(appModule: AppModule): Builder
+
+        fun build(): AppComponent
+    }
 }

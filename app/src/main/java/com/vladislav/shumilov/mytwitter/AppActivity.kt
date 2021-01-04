@@ -1,13 +1,13 @@
 package vladislav.shumilov.mytwitter
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
+import dagger.android.support.DaggerAppCompatActivity
 
-class AppActivity : AppCompatActivity() {
+internal class AppActivity : DaggerAppCompatActivity() {
 
     private val navController: NavController by lazy {
         Navigation.findNavController(this, R.id.nav_host_fragment)
