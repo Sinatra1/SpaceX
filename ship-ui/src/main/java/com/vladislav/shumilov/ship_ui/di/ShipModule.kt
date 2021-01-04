@@ -4,7 +4,6 @@ import com.vladislav.shumilov.core_data.FragmentScope
 import dagger.Module
 
 @Module
-@FragmentScope
 object ShipModule {
 
 

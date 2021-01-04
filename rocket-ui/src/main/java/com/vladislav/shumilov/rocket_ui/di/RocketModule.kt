@@ -10,11 +10,9 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-@FragmentScope
 abstract class RocketModule {
 
     @Module
-    @FragmentScope
     companion object {
         @Provides
         @JvmStatic

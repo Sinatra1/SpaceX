@@ -17,11 +17,9 @@ import dagger.Provides
 import retrofit2.Retrofit
 
 @Module
-@FragmentScope
 internal abstract class LaunchModule {
 
     @Module
-    @FragmentScope
     companion object {
         @Provides
         @JvmStatic

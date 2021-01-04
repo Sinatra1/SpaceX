@@ -15,7 +15,6 @@ import dagger.Provides
 private const val DATABASE_NAME = "spacex_database"
 
 @Module
-@ApplicationScope
 internal object DatabaseModule {
 
     @Provides
