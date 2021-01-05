@@ -2,6 +2,7 @@ package com.vladislav.shumilov.launch_ui.di
 
 import com.example.rocket_domain.repository.RocketLocalRepository
 import com.example.rocket_domain.repository.RocketRemoteRepository
+import com.vladislav.shumilov.app_data.database.AppDatabase
 import com.vladislav.shumilov.core_data.FragmentScope
 import com.vladislav.shumilov.launch_data.api.LaunchApi
 import com.vladislav.shumilov.launch_data.database.*
@@ -78,6 +79,42 @@ internal abstract class LaunchModule {
         @FragmentScope
         fun provideLaunchApi(retrofit: Retrofit): LaunchApi =
             retrofit.create<LaunchApi>(LaunchApi::class.java)
+
+        @Provides
+        @JvmStatic
+        @FragmentScope
+        fun provideLaunchDao(appDatabase: AppDatabase): LaunchDao =
+            appDatabase.getLaunchDao()
+
+        @Provides
+        @JvmStatic
+        @FragmentScope
+        fun provideLaunchSiteDao(appDatabase: AppDatabase): LaunchSiteDao =
+            appDatabase.getLaunchSiteDao()
+
+        @Provides
+        @JvmStatic
+        @FragmentScope
+        fun provideLaunchFailureDetailsDao(appDatabase: AppDatabase): LaunchFailureDetailsDao =
+            appDatabase.getLaunchFailureDetailsDao()
+
+        @Provides
+        @JvmStatic
+        @FragmentScope
+        fun provideLinksDao(appDatabase: AppDatabase): LinksDao =
+            appDatabase.getLinksDao()
+
+        @Provides
+        @JvmStatic
+        @FragmentScope
+        fun provideLaunchToMissionDao(appDatabase: AppDatabase): LaunchToMissionDao =
+            appDatabase.getLaunchToMissionDao()
+
+        @Provides
+        @JvmStatic
+        @FragmentScope
+        fun provideLaunchToShipDao(appDatabase: AppDatabase): LaunchToShipDao =
+            appDatabase.getLaunchToShipDao()
     }
 
     @Binds

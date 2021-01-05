@@ -4,6 +4,8 @@ import com.example.payload_data.repository.PayloadLocalRepositoryImpl
 import com.example.rocket_data.database.*
 import com.example.rocket_data.repository.*
 import com.example.rocket_domain.repository.*
+import com.vladislav.shumilov.app_data.database.AppDatabase
+import com.vladislav.shumilov.core_data.ApplicationScope
 import com.vladislav.shumilov.core_data.FragmentScope
 import dagger.Binds
 import dagger.Module
@@ -107,7 +109,6 @@ abstract class RocketModule {
                 orbitParamsLocalRepository
             )
 
-
         @Provides
         @JvmStatic
         @FragmentScope
@@ -115,6 +116,61 @@ abstract class RocketModule {
             orbitParamsDao: OrbitParamsDao
         ): OrbitParamsLocalRepository =
             OrbitParamsLocalRepositoryImpl(orbitParamsDao)
+
+        @Provides
+        @JvmStatic
+        @FragmentScope
+        fun provideRocketDao(@ApplicationScope appDatabase: AppDatabase): RocketDao =
+            appDatabase.getRocketDao()
+
+        @Provides
+        @JvmStatic
+        @FragmentScope
+        fun provideFirstStageDao(@ApplicationScope appDatabase: AppDatabase): FirstStageDao =
+            appDatabase.getFirstStageDao()
+
+        @Provides
+        @JvmStatic
+        @FragmentScope
+        fun provideSecondStageDao(@ApplicationScope appDatabase: AppDatabase): SecondStageDao =
+            appDatabase.getSecondStageDao()
+
+        @Provides
+        @JvmStatic
+        @FragmentScope
+        fun provideCoreDao(@ApplicationScope appDatabase: AppDatabase): CoreDao =
+            appDatabase.getCoreDao()
+
+        @Provides
+        @JvmStatic
+        @FragmentScope
+        fun provideFirstStageToCoreDao(@ApplicationScope appDatabase: AppDatabase): FirstStageToCoreDao =
+            appDatabase.getFirstStageToCoreDao()
+
+        @Provides
+        @JvmStatic
+        @FragmentScope
+        fun provideSecondStageToPayloadDao(@ApplicationScope appDatabase: AppDatabase): SecondStageToPayloadDao =
+            appDatabase.getSecondStageToPayloadDao()
+
+        @Provides
+        @JvmStatic
+        @FragmentScope
+        fun providePayloadDao(@ApplicationScope appDatabase: AppDatabase): PayloadDao =
+            appDatabase.getPayloadDao()
+
+
+        @Provides
+        @JvmStatic
+        @FragmentScope
+        fun provideOrbitParamsDao(@ApplicationScope appDatabase: AppDatabase): OrbitParamsDao =
+            appDatabase.getOrbitParamsDao()
+
+        @Provides
+        @JvmStatic
+        @FragmentScope
+        fun provideFairingsDao(@ApplicationScope appDatabase: AppDatabase): FairingsDao =
+            appDatabase.getFairingsDao()
     }
 
     @Binds
