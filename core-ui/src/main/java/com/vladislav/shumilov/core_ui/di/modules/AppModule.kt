@@ -8,7 +8,7 @@ import com.facebook.imagepipeline.core.ImagePipelineConfig
 import com.facebook.imagepipeline.core.ImageTranscoderType
 import com.facebook.imagepipeline.core.MemoryChunkType
 import com.vladislav.shumilov.core_data.ApplicationContext
-import com.vladislav.shumilov.core_data.ApplicationScope
+import com.vladislav.shumilov.core_data.CoreScope
 import dagger.Module
 import dagger.Provides
 
@@ -27,11 +27,11 @@ class AppModule(private val app: Application) {
     fun provideContext(): Context = appContext
 
     @Provides
-    @ApplicationScope
+    @CoreScope
     fun provideApp(): Application = app
 
     @Provides
-    @ApplicationScope
+    @CoreScope
     fun provideResources(@ApplicationContext context: Context): Resources =
         context.resources
 

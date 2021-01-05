@@ -3,10 +3,10 @@ package com.vladislav.shumilov.core_ui.injection.modules
 import com.google.gson.Gson
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import com.vladislav.shumilov.core_data.BuildConfig.API_URL
+import com.vladislav.shumilov.core_data.CoreScope
 import com.vladislav.shumilov.core_data.api.ApiKeyInterceptor
 import com.vladislav.shumilov.core_ui.BuildConfig
 import com.vladislav.shumilov.core_ui.BuildConfig.RELEASE
-import com.vladislav.shumilov.core_data.ApplicationScope
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -19,7 +19,7 @@ object HttpModule {
 
     @Provides
     @JvmStatic
-    @ApplicationScope
+    @CoreScope
     fun provideClient(): OkHttpClient =
         with(OkHttpClient().newBuilder()) {
             addInterceptor(ApiKeyInterceptor())
@@ -33,7 +33,7 @@ object HttpModule {
 
     @Provides
     @JvmStatic
-    @ApplicationScope
+    @CoreScope
     fun provideRetrofit(gson: Gson, client: OkHttpClient): Retrofit =
         Retrofit.Builder()
             .baseUrl(API_URL)

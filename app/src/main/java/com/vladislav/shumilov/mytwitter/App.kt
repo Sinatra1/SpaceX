@@ -1,5 +1,6 @@
 package com.vladislav.shumilov.mytwitter
 
+import com.vladislav.shumilov.core_ui.DaggerCoreComponent
 import com.vladislav.shumilov.core_ui.injection.modules.AppModule
 import com.vladislav.shumilov.launch_ui.LaunchApp
 import com.vladislav.shumilov.launch_ui.di.LaunchComponent
@@ -36,8 +37,9 @@ class App : DaggerApplication(), LaunchApp {
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+        val coreComponent = DaggerCoreComponent.builder().setAppModule(AppModule(this)).build()
         appComponent =
-            DaggerAppComponent.builder().appModule(AppModule(this)).build()
+            DaggerAppComponent.builder().setCoreComponent(coreComponent).build()
 
         return appComponent
     }

@@ -1,5 +1,5 @@
 package com.vladislav.shumilov.launch_ui.di
 
-interface LaunchAppComponent {
+interface LaunchComponentHolder {
     fun plusLaunchComponent(): LaunchComponent
 }
