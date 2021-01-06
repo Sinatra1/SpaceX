@@ -1,10 +1,12 @@
 package vladislav.shumilov.mytwitter
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
+import com.vladislav.shumilov.core_ui.utils.isTabletDevice
 import dagger.android.support.DaggerAppCompatActivity
 
 internal class AppActivity : DaggerAppCompatActivity() {
@@ -16,6 +18,10 @@ internal class AppActivity : DaggerAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.app_activity)
+
+        if (!isTabletDevice(this)) {
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        }
 
         NavigationUI.setupActionBarWithNavController(this, navController)
     }
