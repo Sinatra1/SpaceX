@@ -30,11 +30,9 @@ interface CoreComponent {
     fun getResources(): Resources
     fun getRetrofit(): Retrofit
 
-    @Component.Builder
-    interface Builder {
-
-        fun setAppModule(appModule: AppModule): Builder
-
-        fun build(): CoreComponent
+    @Component.Factory
+    interface Factory {
+        
+        fun create(appModule: AppModule): CoreComponent
     }
 }

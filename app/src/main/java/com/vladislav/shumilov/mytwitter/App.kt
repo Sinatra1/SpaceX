@@ -6,16 +6,19 @@ import com.vladislav.shumilov.launch_ui.LaunchApp
 import com.vladislav.shumilov.launch_ui.di.LaunchComponent
 import com.vladislav.shumilov.mytwitter.di.AppComponent
 import com.vladislav.shumilov.mytwitter.di.DaggerAppComponent
+import com.vladislav.shumilov.rocket_ui.RocketApp
+import com.vladislav.shumilov.rocket_ui.di.RocketComponent
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import timber.log.Timber
 import vladislav.shumilov.mytwitter.BuildConfig
 import kotlin.properties.Delegates
 
-class App : DaggerApplication(), LaunchApp {
+class App : DaggerApplication(), LaunchApp, RocketApp {
 
     private var appComponent: AppComponent by Delegates.notNull()
     private var launchComponent: LaunchComponent? = null
+    private var rocketComponent: RocketComponent? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -36,10 +39,23 @@ class App : DaggerApplication(), LaunchApp {
         launchComponent = null
     }
 
+    override fun createRocketComponent(): RocketComponent {
+        if (rocketComponent == null) {
+            rocketComponent =
+                appComponent.plusRocketComponent()
+        }
+
+        return rocketComponent!!
+    }
+
+    override fun clearRocketComponent() {
+        rocketComponent = null
+    }
+
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        val coreComponent = DaggerCoreComponent.builder().setAppModule(AppModule(this)).build()
+        val coreComponent = DaggerCoreComponent.factory().create(AppModule(this))
         appComponent =
-            DaggerAppComponent.builder().setCoreComponent(coreComponent).build()
+            DaggerAppComponent.factory().create(coreComponent)
 
         return appComponent
     }

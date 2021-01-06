@@ -5,6 +5,7 @@ import com.vladislav.shumilov.core_data.ApplicationScope
 import com.vladislav.shumilov.core_ui.CoreComponent
 import com.vladislav.shumilov.launch_ui.di.LaunchComponentHolder
 import com.vladislav.shumilov.mytwitter.App
+import com.vladislav.shumilov.rocket_ui.di.RocketComponentHolder
 import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
@@ -18,15 +19,13 @@ import dagger.android.support.AndroidSupportInjectionModule
     ]
 )
 @ApplicationScope
-interface AppComponent : AndroidInjector<App>, LaunchComponentHolder {
+interface AppComponent : AndroidInjector<App>, LaunchComponentHolder, RocketComponentHolder {
 
     fun database(): AppDatabase
 
-    @Component.Builder
-    interface Builder {
+    @Component.Factory
+    interface Factory {
 
-        fun setCoreComponent(component: CoreComponent): Builder
-
-        fun build(): AppComponent
+        fun create(component: CoreComponent): AppComponent
     }
 }
