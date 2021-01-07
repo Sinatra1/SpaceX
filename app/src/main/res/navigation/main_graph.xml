@@ -7,10 +7,10 @@
     <fragment
         android:id="@+id/launchesListFragment"
         android:name="com.vladislav.shumilov.launch_ui.ui.list.LaunchesListFragment"
-        android:label="@string/app_name" />
+        android:label="@string/launches_app_name" />
 
     <fragment
         android:id="@+id/launchDetailFragment"
         android:name="com.vladislav.shumilov.launch_ui.ui.detail.LaunchDetailFragment"
-        android:label="@string/app_name" />
+        android:label="@string/launches_app_name" />
 </navigation>

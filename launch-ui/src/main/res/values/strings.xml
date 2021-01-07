@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">launch-ui</string>
+    <string name="launches_app_name">launch-ui</string>
     <string name="launches_mission_name">Mission name</string>
     <string name="launches_launch_date">2020 December 10 15:30</string>
     <string name="launches_launch_site">CCAFC SLC 40</string>

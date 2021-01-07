@@ -7,4 +7,5 @@
     <attr name="customCardContentPadding" format="dimension" />
 
     <attr name="customTextIconSize" format="dimension" />
+    <attr name="customProgressBarColor" format="dimension" />
 </resources>

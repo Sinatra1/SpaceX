@@ -17,6 +17,7 @@
         <item name="cardWithListViewSuccessColor">@color/colorGreen</item>
         <item name="cardWithListViewFailColor">@color/colorRed</item>
         <item name="cardWithListViewDividerMarginTop">@dimen/card_list_divider_margin_top</item>
+        <item name="customProgressBarColor">@color/colorOrange</item>
     </style>
 
     <style name="TextAppearance.AppCompat.Medium">

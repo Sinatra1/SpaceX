@@ -21,8 +21,10 @@ internal class LaunchesListViewModel(private val launchInteractor: LaunchInterac
         value = mutableListOf()
     }
 
-    val isShownProgress = ObservableBoolean(false)
-    private var offset = 0
+    val isShownCenterProgress = ObservableBoolean(true)
+    val isShownBottomProgress = ObservableBoolean(false)
+
+    private var offset = START_OFFSET
     private val inProcessLiveData = MutableLiveData<Boolean>().apply { value = false }
     private val isLastPageLiveData = MutableLiveData<Boolean>().apply { value = false }
     private val isShownRefreshingIcon = MutableLiveData<Boolean>()
@@ -30,12 +32,12 @@ internal class LaunchesListViewModel(private val launchInteractor: LaunchInterac
     private lateinit var navController: NavController
 
     fun getLaunchesForList() {
-        if (inProcessLiveData.value == true) {
+        if (inProcessLiveData.value == true || isLastPageLiveData.value == true) {
             return
         }
 
         inProcessLiveData.postValue(true)
-        isShownProgress.set(false)
+        setIsShownProgress(true)
 
         compositeDisposable.clear()
 
@@ -69,8 +71,8 @@ internal class LaunchesListViewModel(private val launchInteractor: LaunchInterac
     }
 
     private fun onLoadedLaunchesSuccess(launches: List<LaunchForList>) {
+        setIsShownProgress(false)
         inProcessLiveData.postValue(false)
-        isShownProgress.set(false)
         isShownRefreshingIcon.postValue(inProcessLiveData.value)
         offset += LAUNCHES_LIMIT
 
@@ -82,14 +84,25 @@ internal class LaunchesListViewModel(private val launchInteractor: LaunchInterac
             launchesLiveData.postValue(allLaunches)
 
             if (isLastPageLiveData.value != true) {
-                isLastPageLiveData.postValue(launches.last().launch.flightNumber == 0)
+                isLastPageLiveData.postValue(isFirstFlight(launches.last()))
             }
         }
     }
 
     private fun onLoadedLaunchesError() {
+        setIsShownProgress(false)
         inProcessLiveData.postValue(false)
-        isShownProgress.set(false)
         isShownRefreshingIcon.postValue(inProcessLiveData.value)
     }
+
+    private fun setIsShownProgress(showProgress: Boolean) {
+        isShownCenterProgress.set(showProgress && offset == START_OFFSET)
+        isShownBottomProgress.set(showProgress && offset > START_OFFSET)
+    }
+
+    private fun isFirstFlight(launchForList: LaunchForList) =
+        launchForList.launch.flightNumber == FIRST_FLIGHT_NUMBER
 }
+
+private const val FIRST_FLIGHT_NUMBER = 1
+private const val START_OFFSET = 0
