@@ -7,7 +7,13 @@
     <fragment
         android:id="@+id/launchesListFragment"
         android:name="com.vladislav.shumilov.launch_ui.ui.list.LaunchesListFragment"
-        android:label="@string/launches_app_name" />
+        android:label="@string/launches_app_name" >
+        <action
+            android:id="@id/action_launchesListFragment_to_launchDetailFragment"
+            app:destination="@id/launchDetailFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/launchDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/launchDetailFragment"

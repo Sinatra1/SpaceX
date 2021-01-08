@@ -2,6 +2,7 @@ package com.vladislav.shumilov.launch_ui.ui.list
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -12,11 +13,10 @@ import com.vladislav.shumilov.launch_domain.model.local.LaunchForList
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
 
-
 internal class LaunchesListAdapter(context: Context) :
-    RecyclerView.Adapter<LaunchesListViewHolder>(), OnClickViewHolder<LaunchForList> {
+    RecyclerView.Adapter<LaunchesListViewHolder>(), OnClickViewHolder<Pair<View, LaunchForList>> {
 
-    override var onClickViewHolderCallback: Subject<LaunchForList> = PublishSubject.create()
+    override var onClickViewHolderCallback: Subject<Pair<View, LaunchForList>> = PublishSubject.create()
 
     private val items: ArrayList<LaunchForList> = ArrayList()
     private val layoutInflater = LayoutInflater.from(context)

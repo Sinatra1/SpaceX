@@ -10,4 +10,5 @@
     <string name="launches_failure_time">Failure time</string>
     <string name="launches_failure_time_template">T+%d s</string>
     <string name="launches_failure_altitude">Failure altitude</string>
+    <string name="launches_mission_icon_transition_name">missionIcon</string>
 </resources>

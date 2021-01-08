@@ -40,6 +40,7 @@
                 android:layout_height="@dimen/launches_big_mission_icon_size"
                 android:layout_marginStart="?attr/customCardContentPadding"
                 android:elevation="?attr/customCardElevation"
+                android:transitionName="@string/launches_mission_icon_transition_name"
                 app:layout_constraintBottom_toBottomOf="@id/launchSite"
                 app:layout_constraintStart_toStartOf="@id/missionCard"
                 app:layout_constraintTop_toTopOf="@id/missionName"
@@ -175,8 +176,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/medium_padding"
                 app:CardWithListView_title="@string/rockets_rocket_title"
-                app:layout_constraintTop_toBottomOf="@id/missionCard"
-                app:items="@{viewModel.rocketDetails}" />
+                app:items="@{viewModel.rocketDetails}"
+                app:layout_constraintTop_toBottomOf="@id/missionCard" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

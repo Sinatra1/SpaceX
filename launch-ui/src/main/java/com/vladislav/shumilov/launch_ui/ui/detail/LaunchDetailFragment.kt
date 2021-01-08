@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.transition.TransitionInflater
 import com.example.launch_ui.R
 import com.example.launch_ui.databinding.LaunchDetailBinding
 import com.vladislav.shumilov.core_data.FragmentScope
@@ -18,6 +19,7 @@ class LaunchDetailFragment : Fragment() {
 
     companion object {
         private const val LAUNCH_ID_KEY = "launchId"
+        internal const val ANIMATION_DURATION = 400L
 
         fun getBundle(launchId: String): Bundle {
             val bundle = Bundle()
@@ -39,6 +41,8 @@ class LaunchDetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        setAnimation()
 
         app()?.createLaunchComponent()?.inject(this)
 
@@ -70,5 +74,14 @@ class LaunchDetailFragment : Fragment() {
         super.onDestroyView()
 
         app()?.clearLaunchComponent()
+    }
+
+    private fun setAnimation() {
+        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.fade).apply {
+            duration = ANIMATION_DURATION
+        }
+        enterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.fade).apply {
+            duration = ANIMATION_DURATION
+        }
     }
 }

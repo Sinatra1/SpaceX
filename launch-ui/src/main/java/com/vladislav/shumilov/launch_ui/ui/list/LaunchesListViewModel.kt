@@ -1,13 +1,16 @@
 package com.vladislav.shumilov.launch_ui.ui.list
 
+import android.content.res.Resources
+import android.view.View
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import com.example.launch_ui.R
 import com.vladislav.shumilov.core_data.FragmentScope
 import com.vladislav.shumilov.core_data.util.plusAssign
-import com.vladislav.shumilov.core_ui.utils.navigate
 import com.vladislav.shumilov.launch_data.api.LAUNCHES_LIMIT
 import com.vladislav.shumilov.launch_domain.model.local.LaunchForList
 import com.vladislav.shumilov.launch_domain.ui.LaunchInteractor
@@ -15,7 +18,10 @@ import com.vladislav.shumilov.launch_ui.ui.detail.LaunchDetailFragment
 import io.reactivex.disposables.CompositeDisposable
 
 @FragmentScope
-internal class LaunchesListViewModel(private val launchInteractor: LaunchInteractor) : ViewModel() {
+internal class LaunchesListViewModel(
+    private val launchInteractor: LaunchInteractor,
+    resources: Resources
+) : ViewModel() {
 
     private val launchesLiveData = MutableLiveData<List<LaunchForList>>().apply {
         value = mutableListOf()
@@ -30,6 +36,7 @@ internal class LaunchesListViewModel(private val launchInteractor: LaunchInterac
     private val isShownRefreshingIcon = MutableLiveData<Boolean>()
     private val compositeDisposable = CompositeDisposable()
     private lateinit var navController: NavController
+    private val missionIconTransitionName: String = resources.getString(R.string.launches_mission_icon_transition_name)
 
     fun getLaunchesForList() {
         if (inProcessLiveData.value == true || isLastPageLiveData.value == true) {
@@ -63,10 +70,14 @@ internal class LaunchesListViewModel(private val launchInteractor: LaunchInterac
         this.navController = navController
     }
 
-    fun showLaunchDetail(launchId: String) {
+    fun showLaunchDetail(view: View, launchId: String) {
+        val extras = FragmentNavigatorExtras(view to missionIconTransitionName)
+
         navController.navigate(
-            LaunchDetailFragment::class.java,
-            LaunchDetailFragment.getBundle(launchId)
+            R.id.action_launchesListFragment_to_launchDetailFragment,
+            LaunchDetailFragment.getBundle(launchId),
+            null,
+            extras
         )
     }
 

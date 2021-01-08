@@ -13,11 +13,13 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.TransitionInflater
 import com.example.launch_ui.R
 import com.example.launch_ui.databinding.LaunchesListBinding
 import com.vladislav.shumilov.core_data.FragmentScope
 import com.vladislav.shumilov.launch_domain.model.local.LaunchForList
 import com.vladislav.shumilov.launch_ui.app
+import com.vladislav.shumilov.launch_ui.ui.detail.LaunchDetailFragment
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
@@ -45,6 +47,8 @@ class LaunchesListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        setAnimation()
 
         app()?.createLaunchComponent()?.inject(this)
 
@@ -82,8 +86,8 @@ class LaunchesListFragment : Fragment() {
 
         compositeDisposable = CompositeDisposable()
 
-        compositeDisposable?.add(launchesListAdapter.onClickViewHolderCallback.subscribe {
-            viewModel.showLaunchDetail(it.launch.id)
+        compositeDisposable?.add(launchesListAdapter.onClickViewHolderCallback.subscribe { (view, launchList) ->
+            viewModel.showLaunchDetail(view, launchList.launch.id)
         })
     }
 
@@ -98,6 +102,15 @@ class LaunchesListFragment : Fragment() {
         super.onDestroyView()
 
         app()?.clearLaunchComponent()
+    }
+
+    private fun setAnimation() {
+        sharedElementReturnTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.slide_bottom).apply {
+            duration = LaunchDetailFragment.ANIMATION_DURATION
+        }
+        exitTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.fade).apply {
+            duration = LaunchDetailFragment.ANIMATION_DURATION
+        }
     }
 
     private fun setListAdapter() {
