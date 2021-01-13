@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="CustomCardView" parent="CardView">
-        <item name="cardBackgroundColor">?attr/customCardBackgroundColor</item>
-        <item name="cardCornerRadius">?attr/customCardCornerRadius</item>
-        <item name="cardElevation">?attr/customCardElevation</item>
-        <item name="contentPadding">?attr/customCardContentPadding</item>
+    <style name="CommonCustomCardView" parent="CardView">
+        <item name="cardBackgroundColor">?attr/commonCardBackgroundColor</item>
+        <item name="cardCornerRadius">?attr/commonCardCornerRadius</item>
+        <item name="cardElevation">?attr/commonCardElevation</item>
+        <item name="contentPadding">?attr/commonCardContentPadding</item>
     </style>
 </resources>

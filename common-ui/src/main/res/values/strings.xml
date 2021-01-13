@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">common-ui</string>
-    <string name="calendar_icon_description">Calendar icon</string>
-    <string name="is_checked">is checked</string>
+    <string name="common_app_name">common-ui</string>
+    <string name="common_calendar_icon_description">Calendar icon</string>
+    <string name="common_is_checked">is checked</string>
 </resources>

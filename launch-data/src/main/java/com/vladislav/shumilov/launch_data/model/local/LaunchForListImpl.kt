@@ -1,6 +1,7 @@
 package com.vladislav.shumilov.launch_data.model.local
 
 import androidx.room.Embedded
+import androidx.room.Ignore
 import androidx.room.Junction
 import androidx.room.Relation
 import com.vladislav.shumilov.core_data.util.unixTimeToHumanDateTime
@@ -34,9 +35,15 @@ data class LaunchForListImpl(
 
 ) : LaunchForList {
 
-    override var missionName: String? = getMissionName(missions)
+    @Ignore
+    override val missionName: String? = getMissionName(missions)
 
-    override var flightNumberStr: String? = getFlightNumberStr(launch.flightNumber)
+    @Ignore
+    override val flightNumberStr: String? = getFlightNumberStr(launch.flightNumber)
 
-    override var humanDateTime: String? = unixTimeToHumanDateTime(launch.launchDateUnix)
+    @Ignore
+    override val humanDateTime: String? = unixTimeToHumanDateTime(launch.launchDateUnix)
+
+    @Ignore
+    override var selected = false
 }

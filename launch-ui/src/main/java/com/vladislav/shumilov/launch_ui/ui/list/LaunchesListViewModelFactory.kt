@@ -9,7 +9,7 @@ import com.vladislav.shumilov.launch_domain.ui.LaunchInteractor
 import javax.inject.Inject
 
 @FragmentScope
-class LaunchesListViewModelFactory @Inject constructor(
+internal class LaunchesListViewModelFactory @Inject constructor(
     private val launchInteractor: LaunchInteractor,
     private val resources: Resources
 ) : ViewModelProvider.Factory {

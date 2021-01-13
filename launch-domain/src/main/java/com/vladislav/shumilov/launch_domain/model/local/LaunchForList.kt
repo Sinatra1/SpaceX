@@ -6,7 +6,8 @@ interface LaunchForList {
     val launch: Launch
     val missions: List<Mission>?
     val links: Links?
-    var missionName: String?
-    var flightNumberStr: String?
-    var humanDateTime: String?
+    val missionName: String?
+    val flightNumberStr: String?
+    val humanDateTime: String?
+    var selected: Boolean
 }

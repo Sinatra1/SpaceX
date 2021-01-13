@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="viewHolder"
-            type="com.vladislav.shumilov.common_ui.ui.view.cardview_with_list.CardWithListViewTextHolder" />
+            type="com.vladislav.shumilov.common_ui.ui.view.cardview_with_list.CardWithListViewLinkHolder" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/small_padding">
+        android:paddingTop="@dimen/core_small_padding">
 
         <TextView
             android:id="@+id/cardItemLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:paddingEnd="@dimen/medium_padding"
-            android:text="@{viewHolder.itemText.labelRes}"
+            android:paddingEnd="@dimen/core_medium_padding"
+            android:text="@{viewHolder.itemLink.labelRes}"
             android:textColor="?android:attr/textColorSecondary"
             tools:text="Label" />
 
@@ -30,8 +31,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_toEndOf="@id/cardItemLabel"
+            android:autoLink="all"
+            android:clickable="true"
             android:gravity="end"
-            android:text="@{viewHolder.itemText.text}"
-            tools:text="Text" />
+            app:textLink="@{viewHolder.itemLink.text}"
+            tools:text="Link" />
     </RelativeLayout>
 </layout>

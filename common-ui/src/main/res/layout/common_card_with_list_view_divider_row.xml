@@ -12,8 +12,8 @@
     <View
         android:id="@+id/launchDivider"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/line_divider_height"
-        android:background="?attr/customCardDividerColor"
-        android:layout_marginTop="?attr/cardWithListViewDividerMarginTop"
+        android:layout_height="@dimen/common_line_divider_height"
+        android:background="?attr/commonCardDividerColor"
+        android:layout_marginTop="?attr/commonCardWithListViewDividerMarginTop"
         tools:background="@color/colorDarkGray2" />
 </layout>

@@ -6,10 +6,12 @@ import android.view.MenuItem
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
+import com.vladislav.shumilov.core_ui.ui.activity.SingleActivity
 import com.vladislav.shumilov.core_ui.utils.isTabletDevice
 import dagger.android.support.DaggerAppCompatActivity
 
-internal class AppActivity : DaggerAppCompatActivity() {
+internal class AppActivity : DaggerAppCompatActivity(),
+    SingleActivity {
 
     private val navController: NavController by lazy {
         Navigation.findNavController(this, R.id.nav_host_fragment)
@@ -29,11 +31,15 @@ internal class AppActivity : DaggerAppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         item?.itemId?.let { itemId ->
             if (itemId == android.R.id.home) {
-                navController.popBackStack()
-                return true
+                popBackStack()
+                return false
             }
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun popBackStack() {
+        navController.popBackStack()
     }
 }

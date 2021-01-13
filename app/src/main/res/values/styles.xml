@@ -8,16 +8,19 @@
         <item name="android:windowBackground">@drawable/starting_screen</item>
         <item name="android:textColorTertiary">@color/colorLightGray</item>
         <item name="android:textColorSecondary">@color/colorWhite</item>
-        <item name="customCardBackgroundColor">@color/colorVeryDarkGray</item>
-        <item name="customCardElevation">@dimen/card_elevation</item>
-        <item name="customCardCornerRadius">@dimen/card_corner_radius</item>
-        <item name="customCardDividerColor">@color/colorDarkGray2</item>
-        <item name="customTextIconSize">@dimen/text_icon_size</item>
-        <item name="customCardContentPadding">@dimen/medium_padding</item>
-        <item name="cardWithListViewSuccessColor">@color/colorGreen</item>
-        <item name="cardWithListViewFailColor">@color/colorRed</item>
-        <item name="cardWithListViewDividerMarginTop">@dimen/card_list_divider_margin_top</item>
-        <item name="customProgressBarColor">@color/colorOrange</item>
+        <item name="commonCardBackgroundColor">@color/colorVeryDarkGray</item>
+        <item name="commonCardElevation">@dimen/common_card_elevation</item>
+        <item name="commonCardCornerRadius">@dimen/common_card_corner_radius</item>
+        <item name="commonCardDividerColor">@color/colorDarkGray2</item>
+        <item name="commonTextIconSize">@dimen/common_text_icon_size</item>
+        <item name="commonCardContentPadding">@dimen/core_medium_padding</item>
+        <item name="commonCardWithListViewSuccessColor">@color/colorGreen</item>
+        <item name="commonCardWithListViewFailColor">@color/colorRed</item>
+        <item name="commonCardWithListViewDividerMarginTop">@dimen/common_card_list_divider_margin_top</item>
+        <item name="commonProgressBarColor">@color/colorOrange</item>
+        <item name="coreListContainerWidth">@dimen/common_list_container_width</item>
+        <item name="commonListBackgroundColor">@color/colorPrimary</item>
+        <item name="commonListSelectedRowColor">@color/colorVeryDarkGray</item>
     </style>
 
     <style name="TextAppearance.AppCompat.Medium">

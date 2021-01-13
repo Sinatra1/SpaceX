@@ -3,8 +3,8 @@
     android:shape="rectangle">
 
     <size
-        android:width="@dimen/line_divider_height"
-        android:height="@dimen/line_divider_height" />
+        android:width="@dimen/common_line_divider_height"
+        android:height="@dimen/common_line_divider_height" />
 
     <solid android:color="@color/colorDarkGray"/>
 

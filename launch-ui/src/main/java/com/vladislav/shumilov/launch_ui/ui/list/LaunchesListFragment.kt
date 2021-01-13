@@ -2,6 +2,7 @@ package com.vladislav.shumilov.launch_ui.ui.list
 
 import android.nfc.tech.MifareUltralight.PAGE_SIZE
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionInflater
 import com.example.launch_ui.R
 import com.example.launch_ui.databinding.LaunchesListBinding
+import com.vladislav.shumilov.core_ui.ui.list_with_detail.BaseListFragment
+import com.vladislav.shumilov.core_ui.ui.list_with_detail.BaseListWithDetail
 import com.vladislav.shumilov.core_data.FragmentScope
 import com.vladislav.shumilov.launch_domain.model.local.LaunchForList
 import com.vladislav.shumilov.launch_ui.app
@@ -27,10 +30,14 @@ import javax.inject.Inject
 private const val LAUNCHES_LIST_POOL_SIZE = 15
 
 @FragmentScope
-class LaunchesListFragment : Fragment() {
+class LaunchesListFragment : Fragment(), BaseListFragment {
+
+    companion object {
+        fun newInstance() = LaunchesListFragment()
+    }
 
     @Inject
-    lateinit var viewModelFactory: LaunchesListViewModelFactory
+    internal lateinit var viewModelFactory: LaunchesListViewModelFactory
 
     private lateinit var binding: LaunchesListBinding
 
@@ -39,10 +46,11 @@ class LaunchesListFragment : Fragment() {
             .get(LaunchesListViewModel::class.java)
     }
 
-    private lateinit var launchesListAdapter: LaunchesListAdapter
+    private var launchesListAdapter: LaunchesListAdapter? = null
     private var inProcess = false
     private var isLastPage = false
     private var compositeDisposable: CompositeDisposable? = null
+    private val handler = Handler()
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,6 +85,10 @@ class LaunchesListFragment : Fragment() {
         viewModel.setNavController(navController)
 
         setListAdapter()
+    }
+
+    override fun onStart() {
+        super.onStart()
 
         setLiveDataListeners()
     }
@@ -86,9 +98,11 @@ class LaunchesListFragment : Fragment() {
 
         compositeDisposable = CompositeDisposable()
 
-        compositeDisposable?.add(launchesListAdapter.onClickViewHolderCallback.subscribe { (view, launchList) ->
-            viewModel.showLaunchDetail(view, launchList.launch.id)
-        })
+        launchesListAdapter?.let {
+            compositeDisposable?.add(it.onClickViewHolderCallback.subscribe { (view, launchList) ->
+                transmitSelectedItemId(launchList.launch.id, view)
+            })
+        }
     }
 
     override fun onPause() {
@@ -104,18 +118,30 @@ class LaunchesListFragment : Fragment() {
         app()?.clearLaunchComponent()
     }
 
-    private fun setAnimation() {
-        sharedElementReturnTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.slide_bottom).apply {
-            duration = LaunchDetailFragment.ANIMATION_DURATION
-        }
-        exitTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.fade).apply {
-            duration = LaunchDetailFragment.ANIMATION_DURATION
+    override fun showDetailFragment(itemId: String, transitionView: View?) {
+        handler.post {
+            viewModel.showLaunchDetailFragment(itemId, transitionView)
         }
     }
 
+    override fun selectListRow(itemId: String) {
+        launchesListAdapter?.selectItem(itemId)
+    }
+
+    private fun setAnimation() {
+        sharedElementReturnTransition =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.slide_bottom)
+                .apply {
+                    duration = LaunchDetailFragment.ANIMATION_DURATION
+                }
+        exitTransition =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.fade).apply {
+                duration = LaunchDetailFragment.ANIMATION_DURATION
+            }
+    }
+
     private fun setListAdapter() {
-        launchesListAdapter =
-            LaunchesListAdapter(requireContext())
+        launchesListAdapter = LaunchesListAdapter(requireContext())
         binding.launchesList.layoutManager = LinearLayoutManager(activity)
         binding.launchesList.adapter = launchesListAdapter
         binding.launchesList.addItemDecoration(
@@ -145,8 +171,33 @@ class LaunchesListFragment : Fragment() {
     }
 
     private fun showLaunches(launches: List<LaunchForList>) {
-        launchesListAdapter.addItems(launches)
+        if (getSelectedLaunchId() == null && launches.isNotEmpty()) {
+            initializeSelectedItemId(launches.first().launch.id)
+        }
+
+        launchesListAdapter?.setItems(launches)
+
+        getSelectedLaunchId()?.let {
+            launchesListAdapter?.selectItem(it)
+        }
     }
+
+    private fun transmitSelectedItemId(launchId: String, transitionView: View? = null) {
+        (parentFragment as? BaseListWithDetail)?.transmitSelectedItemId(
+            launchId,
+            transitionView
+        )
+    }
+
+    private fun initializeSelectedItemId(launchId: String, transitionView: View? = null) {
+        (parentFragment as? BaseListWithDetail)?.initializeSelectedItemId(
+            launchId,
+            transitionView
+        )
+    }
+
+    private fun getSelectedLaunchId(): String? =
+        (parentFragment as? BaseListWithDetail)?.getSelectedItemId()
 
     private val recyclerViewOnScrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

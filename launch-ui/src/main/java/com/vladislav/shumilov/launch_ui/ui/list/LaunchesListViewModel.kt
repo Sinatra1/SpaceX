@@ -1,5 +1,6 @@
 package com.vladislav.shumilov.launch_ui.ui.list
 
+import android.content.Context
 import android.content.res.Resources
 import android.view.View
 import androidx.databinding.ObservableBoolean
@@ -11,6 +12,7 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import com.example.launch_ui.R
 import com.vladislav.shumilov.core_data.FragmentScope
 import com.vladislav.shumilov.core_data.util.plusAssign
+import com.vladislav.shumilov.core_ui.utils.isLandscape
 import com.vladislav.shumilov.launch_data.api.LAUNCHES_LIMIT
 import com.vladislav.shumilov.launch_domain.model.local.LaunchForList
 import com.vladislav.shumilov.launch_domain.ui.LaunchInteractor
@@ -30,13 +32,14 @@ internal class LaunchesListViewModel(
     val isShownCenterProgress = ObservableBoolean(true)
     val isShownBottomProgress = ObservableBoolean(false)
 
-    private var offset = START_OFFSET
     private val inProcessLiveData = MutableLiveData<Boolean>().apply { value = false }
     private val isLastPageLiveData = MutableLiveData<Boolean>().apply { value = false }
     private val isShownRefreshingIcon = MutableLiveData<Boolean>()
+    private var offset = START_OFFSET
     private val compositeDisposable = CompositeDisposable()
     private lateinit var navController: NavController
-    private val missionIconTransitionName: String = resources.getString(R.string.launches_mission_icon_transition_name)
+    private val missionIconTransitionName: String =
+        resources.getString(R.string.launches_mission_icon_transition_name)
 
     fun getLaunchesForList() {
         if (inProcessLiveData.value == true || isLastPageLiveData.value == true) {
@@ -70,11 +73,14 @@ internal class LaunchesListViewModel(
         this.navController = navController
     }
 
-    fun showLaunchDetail(view: View, launchId: String) {
-        val extras = FragmentNavigatorExtras(view to missionIconTransitionName)
+    fun showLaunchDetailFragment(launchId: String, transitionView: View?) {
+        val extras =
+            if (transitionView != null)
+                FragmentNavigatorExtras(transitionView to missionIconTransitionName)
+            else null
 
         navController.navigate(
-            R.id.action_launchesListFragment_to_launchDetailFragment,
+            R.id.common_action_launchesListWithDetailFragment_to_launchDetailFragment,
             LaunchDetailFragment.getBundle(launchId),
             null,
             extras

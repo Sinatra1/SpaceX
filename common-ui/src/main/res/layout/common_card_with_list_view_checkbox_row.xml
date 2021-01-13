@@ -7,34 +7,35 @@
 
         <variable
             name="viewHolder"
-            type="com.vladislav.shumilov.common_ui.ui.view.cardview_with_list.CardWithListViewLinkHolder" />
+            type="com.vladislav.shumilov.common_ui.ui.view.cardview_with_list.CardWithListViewCheckboxHolder" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/small_padding">
+        android:paddingTop="@dimen/core_small_padding">
 
         <TextView
             android:id="@+id/cardItemLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:paddingEnd="@dimen/medium_padding"
-            android:text="@{viewHolder.itemLink.labelRes}"
+            android:layout_toStartOf="@id/cardItemChecked"
+            android:paddingEnd="@dimen/core_medium_padding"
+            android:text="@{viewHolder.itemCheckbox.labelRes}"
             android:textColor="?android:attr/textColorSecondary"
             tools:text="Label" />
 
-        <TextView
+        <ImageView
             android:id="@+id/cardItemChecked"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="?attr/commonTextIconSize"
+            android:layout_height="?attr/commonTextIconSize"
             android:layout_alignParentEnd="true"
-            android:layout_toEndOf="@id/cardItemLabel"
-            android:autoLink="all"
-            android:clickable="true"
+            android:contentDescription="@string/common_is_checked"
             android:gravity="end"
-            app:textLink="@{viewHolder.itemLink.text}"
-            tools:text="Link" />
+            app:imageResource="@{viewHolder.checkboxIconRes}"
+            tools:background="@drawable/common_ic_checked"
+            tools:layout_height="@dimen/common_text_icon_size"
+            tools:layout_width="@dimen/common_text_icon_size" />
     </RelativeLayout>
 </layout>

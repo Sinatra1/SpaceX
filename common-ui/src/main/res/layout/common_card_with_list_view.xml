@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/card_with_list_view_text_row"/>
+            tools:listitem="@layout/common_card_with_list_view_text_row"/>
 
     </LinearLayout>
 

@@ -4,9 +4,9 @@ import androidx.annotation.DrawableRes
 import com.vladislav.shumilov.common_domain.card_view_with_list.model.CardWithListItemCheckbox
 import com.vladislav.shumilov.common_domain.card_view_with_list.model.CardWithListItemModel
 import com.vladislav.shumilov.common_ui.R
-import com.vladislav.shumilov.common_ui.databinding.CardWithListViewCheckboxRowBinding
+import com.vladislav.shumilov.common_ui.databinding.CommonCardWithListViewCheckboxRowBinding
 
-internal class CardWithListViewCheckboxHolder(private val binding: CardWithListViewCheckboxRowBinding) :
+internal class CardWithListViewCheckboxHolder(private val binding: CommonCardWithListViewCheckboxRowBinding) :
     CardWithListViewHolder(binding.root) {
 
     var itemCheckbox: CardWithListItemCheckbox? = null
@@ -26,5 +26,5 @@ internal class CardWithListViewCheckboxHolder(private val binding: CardWithListV
 
     @DrawableRes
     private fun getCheckboxIconRes(value: Boolean): Int =
-        if (value) R.drawable.ic_checked else R.drawable.ic_blocked
+        if (value) R.drawable.common_ic_checked else R.drawable.common_ic_blocked
 }

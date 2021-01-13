@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr name="customCardBackgroundColor" format="reference|color" />
-    <attr name="customCardCornerRadius" format="dimension" />
-    <attr name="customCardElevation" format="dimension" />
-    <attr name="customCardDividerColor" format="reference|color" />
-    <attr name="customCardContentPadding" format="dimension" />
+    <attr name="commonCardBackgroundColor" format="reference|color" />
+    <attr name="commonCardCornerRadius" format="dimension" />
+    <attr name="commonCardElevation" format="dimension" />
+    <attr name="commonCardDividerColor" format="reference|color" />
+    <attr name="commonCardContentPadding" format="dimension" />
 
-    <attr name="customTextIconSize" format="dimension" />
-    <attr name="customProgressBarColor" format="dimension" />
+    <attr name="commonTextIconSize" format="dimension" />
+    <attr name="commonProgressBarColor" format="dimension" />
+
+    <attr name="commonListBackgroundColor" format="reference|color" />
+    <attr name="commonListSelectedRowColor" format="reference|color" />
 </resources>

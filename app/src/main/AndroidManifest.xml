@@ -10,8 +10,8 @@
     <application
         android:name="com.vladislav.shumilov.mytwitter.App"
         android:allowBackup="false"
-        android:icon="@drawable/ic_black_rocket"
-        android:roundIcon="@drawable/ic_black_rocket"
+        android:icon="@drawable/common_ic_black_rocket"
+        android:roundIcon="@drawable/common_ic_black_rocket"
         android:label="@string/launches_app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >

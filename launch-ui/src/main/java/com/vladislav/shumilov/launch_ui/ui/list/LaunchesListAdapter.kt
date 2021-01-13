@@ -18,7 +18,7 @@ internal class LaunchesListAdapter(context: Context) :
 
     override var onClickViewHolderCallback: Subject<Pair<View, LaunchForList>> = PublishSubject.create()
 
-    private val items: ArrayList<LaunchForList> = ArrayList()
+    private val items = mutableListOf<LaunchForList>()
     private val layoutInflater = LayoutInflater.from(context)
     private lateinit var binding: LaunchesListRowBinding
 
@@ -46,9 +46,23 @@ internal class LaunchesListAdapter(context: Context) :
 
 
 
-    fun addItems(items: List<LaunchForList>) {
+    fun setItems(items: List<LaunchForList>) {
         this.items.clear()
         this.items.addAll(items)
+        notifyDataSetChanged()
+    }
+
+    fun selectItem(itemId: String) {
+        items.apply {
+            forEach {
+                it.selected = false
+            }
+
+            firstOrNull {
+                it.launch.id == itemId
+            }?.selected = true
+        }
+
         notifyDataSetChanged()
     }
 }

@@ -7,14 +7,13 @@ import androidx.annotation.Px
 import androidx.core.content.ContextCompat
 import com.example.launch_ui.R
 
-
 class LaunchesListDecoration(context: Context) : RecyclerView.ItemDecoration() {
-    private val divider = ContextCompat.getDrawable(context, R.drawable.line_divider)
+    private val divider = ContextCompat.getDrawable(context, R.drawable.common_line_divider)
 
     @Px
     private val marginLeft =
         context.resources.getDimensionPixelSize(R.dimen.launches_small_mission_icon_size) +
-                2 * context.resources.getDimensionPixelSize(R.dimen.medium_padding)
+                2 * context.resources.getDimensionPixelSize(R.dimen.core_medium_padding)
 
     override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         if (divider == null) {

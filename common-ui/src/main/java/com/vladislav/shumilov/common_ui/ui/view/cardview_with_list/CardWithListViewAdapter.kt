@@ -28,15 +28,15 @@ internal class CardWithListViewAdapter(context: Context) : CardWithListViewAbstr
 
         return when (viewType) {
             CARD_WITH_LIST_TYPE_TEXT ->
-                CardWithListViewTextHolder(binding as CardWithListViewTextRowBinding)
+                CardWithListViewTextHolder(binding as CommonCardWithListViewTextRowBinding)
             CARD_WITH_LIST_TYPE_LINK ->
-                CardWithListViewLinkHolder(binding as CardWithListViewLinkRowBinding)
+                CardWithListViewLinkHolder(binding as CommonCardWithListViewLinkRowBinding)
             CARD_WITH_LIST_TYPE_CHECKBOX ->
-                CardWithListViewCheckboxHolder(binding as CardWithListViewCheckboxRowBinding)
+                CardWithListViewCheckboxHolder(binding as CommonCardWithListViewCheckboxRowBinding)
             CARD_WITH_LIST_TYPE_DESCRIPTION ->
-                CardWithListViewDescriptionHolder(binding as CardWithListViewDescriptionRowBinding)
+                CardWithListViewDescriptionHolder(binding as CommonCardWithListViewDescriptionRowBinding)
             CARD_WITH_LIST_TYPE_DIVIDER ->
-                CardWithListViewDividerHolder(binding as CardWithListViewDividerRowBinding)
+                CardWithListViewDividerHolder(binding as CommonCardWithListViewDividerRowBinding)
             else -> throw IllegalArgumentException("Illegal card with list item viewType")
         }
     }
@@ -68,11 +68,11 @@ internal class CardWithListViewAdapter(context: Context) : CardWithListViewAbstr
     @LayoutRes
     private fun getContentRes(viewType: Int) =
         when (viewType) {
-            CARD_WITH_LIST_TYPE_TEXT -> R.layout.card_with_list_view_text_row
-            CARD_WITH_LIST_TYPE_LINK -> R.layout.card_with_list_view_link_row
-            CARD_WITH_LIST_TYPE_CHECKBOX -> R.layout.card_with_list_view_checkbox_row
-            CARD_WITH_LIST_TYPE_DESCRIPTION -> R.layout.card_with_list_view_description_row
-            CARD_WITH_LIST_TYPE_DIVIDER -> R.layout.card_with_list_view_divider_row
+            CARD_WITH_LIST_TYPE_TEXT -> R.layout.common_card_with_list_view_text_row
+            CARD_WITH_LIST_TYPE_LINK -> R.layout.common_card_with_list_view_link_row
+            CARD_WITH_LIST_TYPE_CHECKBOX -> R.layout.common_card_with_list_view_checkbox_row
+            CARD_WITH_LIST_TYPE_DESCRIPTION -> R.layout.common_card_with_list_view_description_row
+            CARD_WITH_LIST_TYPE_DIVIDER -> R.layout.common_card_with_list_view_divider_row
             else -> throw IllegalArgumentException("Illegal card with list item viewType")
         }
 }
