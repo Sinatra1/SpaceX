@@ -20,7 +20,7 @@ fun visibilityEqualsVisible(view: View, visible: Boolean) {
 fun showTextLink(view: TextView, text: String?) {
     text?.let {
         view.text = HtmlCompat.fromHtml(
-            view.context.resources.getString(R.string.text_link, text),
+            view.context.resources.getString(R.string.core_text_link, text),
             HtmlCompat.FROM_HTML_MODE_LEGACY
         )
     }

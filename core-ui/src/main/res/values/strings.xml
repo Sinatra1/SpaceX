@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">core-ui</string>
-    <string name="text_link">&lt;u&gt;%s&lt;/u&gt;</string>
+    <string name="core_app_name">core-ui</string>
+    <string name="core_text_link">&lt;u&gt;%s&lt;/u&gt;</string>
 </resources>

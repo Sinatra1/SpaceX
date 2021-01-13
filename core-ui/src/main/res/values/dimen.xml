@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="small_padding">8dp</dimen>
-    <dimen name="medium_padding">16dp</dimen>
+    <dimen name="core_small_padding">8dp</dimen>
+    <dimen name="core_medium_padding">16dp</dimen>
+
+    <item name="core_match_constraint" format="integer" type="dimen">0</item>
+    <item name="core_match_parent" format="integer" type="dimen">-1</item>
+    <item name="core_wrap_content" format="integer" type="dimen">-2</item>
 </resources>
