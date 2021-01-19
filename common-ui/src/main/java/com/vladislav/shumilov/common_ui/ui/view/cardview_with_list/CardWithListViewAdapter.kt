@@ -11,13 +11,11 @@ import com.vladislav.shumilov.common_domain.card_view_with_list.model.CardWithLi
 import com.vladislav.shumilov.common_ui.R
 import com.vladislav.shumilov.common_ui.databinding.*
 
-internal class CardWithListViewAdapter(context: Context) : CardWithListViewAbstractAdapter() {
+internal class CardWithListViewAdapter(context: Context) : CardWithListViewAdapterAbstract(context) {
 
-    private val items: ArrayList<CardWithListItemModel> = ArrayList()
-    private val layoutInflater = LayoutInflater.from(context)
     private lateinit var binding: ViewDataBinding
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardWithListViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardWithListViewHolderAbstract {
         binding =
             DataBindingUtil.inflate(
                 layoutInflater,
@@ -41,12 +39,8 @@ internal class CardWithListViewAdapter(context: Context) : CardWithListViewAbstr
         }
     }
 
-    override fun getItemCount() = items.size
-
-    override fun onBindViewHolder(holder: CardWithListViewHolder, position: Int) {
-        val item = items[position]
-
-        holder.bind(item)
+    override fun onBindViewHolder(holder: CardWithListViewHolderAbstract, position: Int) {
+        holder.bind(items[position])
     }
 
     override fun getItemViewType(position: Int) =

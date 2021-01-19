@@ -4,7 +4,7 @@ import com.vladislav.shumilov.common_domain.card_view_with_list.model.CardWithLi
 import com.vladislav.shumilov.common_ui.databinding.CommonCardWithListViewDividerRowBinding
 
 class CardWithListViewDividerHolder(binding: CommonCardWithListViewDividerRowBinding) :
-    CardWithListViewHolder(binding.root) {
+    CardWithListViewHolderAbstract(binding.root) {
 
     override fun bind(item: CardWithListItemModel) {
         // not implemented

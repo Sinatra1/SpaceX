@@ -5,7 +5,7 @@ import com.vladislav.shumilov.common_domain.card_view_with_list.model.CardWithLi
 import com.vladislav.shumilov.common_ui.databinding.CommonCardWithListViewTextRowBinding
 
 internal class CardWithListViewTextHolder(private val binding: CommonCardWithListViewTextRowBinding) :
-    CardWithListViewHolder(binding.root) {
+    CardWithListViewHolderAbstract(binding.root) {
 
     var itemText: CardWithListItemText? = null
 

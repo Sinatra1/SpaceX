@@ -12,7 +12,7 @@ class CardWithListView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = R.attr.commonCardWithListViewTheme,
-    private val adapter: CardWithListViewAbstractAdapter = CardWithListViewAdapter(context)
+    private val adapter: CardWithListViewAdapterAbstract = CardWithListViewAdapter(context)
 ) : CardView(
     context,
     attrs,

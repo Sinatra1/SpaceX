@@ -7,7 +7,7 @@ import com.vladislav.shumilov.common_ui.R
 import com.vladislav.shumilov.common_ui.databinding.CommonCardWithListViewCheckboxRowBinding
 
 internal class CardWithListViewCheckboxHolder(private val binding: CommonCardWithListViewCheckboxRowBinding) :
-    CardWithListViewHolder(binding.root) {
+    CardWithListViewHolderAbstract(binding.root) {
 
     var itemCheckbox: CardWithListItemCheckbox? = null
 
