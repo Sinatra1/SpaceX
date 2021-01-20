@@ -21,6 +21,7 @@
         <item name="coreListContainerWidth">@dimen/common_list_container_width</item>
         <item name="commonListBackgroundColor">@color/colorPrimary</item>
         <item name="commonListSelectedRowColor">@color/colorVeryDarkGray</item>
+        <item name="commonCarouselHeight">@dimen/common_carousel_height</item>
     </style>
 
     <style name="TextAppearance.AppCompat.Medium">

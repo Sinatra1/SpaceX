@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewHolder"
+            type="com.vladislav.shumilov.design_ui.views.carousel.view.CarouselViewHolderAbstract"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/designCarouselImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            fresco:actualImageUri="@{viewHolder.item.imageUrl}"
+            fresco:placeholderImage="@{viewHolder.item.placeholderImageRes}"
+            tools:background="@drawable/design_carousel_image_placeholder"/>
+
+        <TextView
+            android:id="@+id/designCarouselTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{viewHolder.item.title}"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="Title"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

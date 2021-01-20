@@ -3,6 +3,7 @@ package com.vladislav.shumilov.core_ui.utils
 import android.net.Uri
 import android.view.View
 import android.widget.TextView
+import androidx.annotation.DrawableRes
 import androidx.core.text.HtmlCompat
 import androidx.databinding.BindingAdapter
 import com.facebook.drawee.view.SimpleDraweeView
@@ -40,4 +41,9 @@ fun SimpleDraweeView.setActualImageUriByBinding(imageUrl: String?) {
 
         setImageRequest(request)
     }
+}
+
+@BindingAdapter("fresco:placeholderImage")
+fun SimpleDraweeView.setPlaceholderImage(@DrawableRes placeholderImageRes: Int?) {
+    placeholderImageRes?.let(hierarchy::setPlaceholderImage)
 }

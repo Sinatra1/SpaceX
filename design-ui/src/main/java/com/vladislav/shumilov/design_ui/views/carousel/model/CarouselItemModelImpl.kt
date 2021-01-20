@@ -1,9 +1,11 @@
 package com.vladislav.shumilov.design_ui.views.carousel.model
 
-import android.net.Uri
+import androidx.annotation.DrawableRes
 
 data class CarouselItemModelImpl(
-    override val imageUri: Uri,
-    override val title: String,
-    override val selected: Boolean
+    override val imageUrl: String,
+    @DrawableRes
+    override val placeholderImageRes: Int? = null,
+    override val title: String? = null,
+    override val selected: Boolean = false
 ) : CarouselItemModel

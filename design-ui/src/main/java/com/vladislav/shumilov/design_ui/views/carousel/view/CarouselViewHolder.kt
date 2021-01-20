@@ -1,12 +1,16 @@
 package com.vladislav.shumilov.design_ui.views.carousel.view
 
-import android.view.View
-import com.vladislav.shumilov.design_ui.databinding.DesignCarouselViewRowBinding
+import com.vladislav.shumilov.design_ui.databinding.DesignCarouselViewPageBinding
 import com.vladislav.shumilov.design_ui.views.carousel.model.CarouselItemModel
 
-class CarouselViewHolder(private val binding: DesignCarouselViewRowBinding): CarouselViewHolderAbstract(binding.root) {
+class CarouselViewHolder(
+    private val binding: DesignCarouselViewPageBinding
+) : CarouselViewHolderAbstract(binding.root) {
 
     override fun bind(item: CarouselItemModel) {
-        TODO("Not yet implemented")
+        this.item = item
+
+        binding.viewHolder = this
+        binding.executePendingBindings()
     }
 }

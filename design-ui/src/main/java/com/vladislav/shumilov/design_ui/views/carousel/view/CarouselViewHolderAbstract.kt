@@ -7,5 +7,7 @@ import com.vladislav.shumilov.design_ui.views.carousel.model.CarouselItemModel
 abstract class CarouselViewHolderAbstract(view: View) :
     RecyclerView.ViewHolder(view) {
 
+    var item: CarouselItemModel? = null
+
     abstract fun bind(item: CarouselItemModel)
 }

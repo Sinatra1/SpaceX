@@ -4,18 +4,18 @@ import android.content.Context
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.vladislav.shumilov.design_ui.R
-import com.vladislav.shumilov.design_ui.databinding.DesignCarouselViewRowBinding
+import com.vladislav.shumilov.design_ui.databinding.DesignCarouselViewPageBinding
 import com.vladislav.shumilov.design_ui.views.carousel.model.CarouselItemModel
 
-class CarouselAdapter(context: Context): CarouselAdapterAbstract(context) {
+class CarouselAdapter(context: Context) : CarouselAdapterAbstract(context) {
 
-    private lateinit var binding: DesignCarouselViewRowBinding
+    private lateinit var binding: DesignCarouselViewPageBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarouselViewHolderAbstract {
         binding =
             DataBindingUtil.inflate(
                 layoutInflater,
-                R.layout.design_carousel_view_row,
+                R.layout.design_carousel_view_page,
                 parent,
                 false
             )

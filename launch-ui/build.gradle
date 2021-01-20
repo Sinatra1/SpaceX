@@ -34,6 +34,7 @@ dependencies {
     implementation project(path: ':app-data')
     implementation project(path: ':core-data')
     implementation project(path: ':core-ui')
+    implementation project(path: ':design-ui')
     implementation project(path: ':common-domain')
     implementation project(path: ':common-data')
     implementation project(path: ':common-ui')

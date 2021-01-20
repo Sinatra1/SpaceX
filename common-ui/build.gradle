@@ -32,6 +32,7 @@ dependencies {
     implementation project(path: ':common-domain')
     implementation project(path: ':common-data')
     implementation project(path: ':core-ui')
+    implementation project(path: ':design-ui')
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

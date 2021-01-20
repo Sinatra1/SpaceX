@@ -38,6 +38,8 @@ android {
 
 dependencies {
 
+    implementation project(path: ':core-ui')
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "androidx.core:core-ktx:$core_ktx_version"
@@ -48,5 +50,13 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$ext_junit_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
 
-    implementation project(path: ':core-ui')
+    //Fresco
+    implementation("com.facebook.fresco:fresco:$fresco_version") {
+        exclude group: 'com.facebook.soloader', module: 'soloader'
+        exclude group: 'com.facebook.fresco', module: 'soloader'
+        exclude group: 'com.facebook.fresco', module: 'nativeimagefilters'
+        exclude group: 'com.facebook.fresco', module: 'nativeimagetranscoder'
+        exclude group: 'com.facebook.fresco', module: 'memory-type-native'
+        exclude group: 'com.facebook.fresco', module: 'imagepipeline-native'
+    }
 }

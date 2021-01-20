@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="viewHolder"
-            type="com.vladislav.shumilov.launch_ui.ui.list.LaunchesListViewHolder" />
+            type="com.vladislav.shumilov.launch_ui.ui.list.LaunchesListViewHolder"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,7 +28,7 @@
             app:layout_constraintTop_toTopOf="parent"
             fresco:actualImageUri="@{viewHolder.launchForList.links.missionPatchSmall}"
             fresco:placeholderImage="@drawable/common_ic_black_rocket"
-            tools:background="@drawable/common_ic_black_rocket" />
+            tools:background="@drawable/common_ic_black_rocket"/>
 
         <TextView
             android:id="@+id/missionName"
@@ -43,7 +43,7 @@
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@id/missionIcon"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/launches_mission_name" />
+            tools:text="@string/launches_mission_name"/>
 
         <TextView
             android:id="@+id/launchDate"
@@ -56,7 +56,7 @@
             app:layout_constraintEnd_toStartOf="@id/flightNumber"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@id/missionIcon"
-            tools:text="@string/launches_launch_date" />
+            tools:text="@string/launches_launch_date"/>
 
         <TextView
             android:id="@+id/flightNumber"
@@ -67,7 +67,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="#99" />
+            tools:text="#99"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
