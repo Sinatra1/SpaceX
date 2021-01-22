@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.viewpager2.widget.ViewPager2.OffscreenPageLimit
+import androidx.viewpager2.widget.ViewPager2
 import com.vladislav.shumilov.core_ui.utils.getDataFromAttrOrNull
 import com.vladislav.shumilov.design_ui.R
 import com.vladislav.shumilov.design_ui.views.carousel.model.CarouselItemModel
@@ -24,10 +24,21 @@ class CarouselView @JvmOverloads constructor(
         context.getDataFromAttrOrNull(defStyleAttr) ?: R.style.DesignCarouselView
     ), attrs, defStyleAttr
 ) {
+    private lateinit var onPageSelectedListener: (position: Int) -> Unit
+
     init {
         View.inflate(context, R.layout.design_carousel_view, this)
 
         designCarouseViewPager.adapter = adapter
+
+        designCarouseViewPager.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+
+                onPageSelectedListener(position)
+            }
+        })
 
         val attributes =
             context.theme.obtainStyledAttributes(attrs, R.styleable.DesignCarouselView, 0, 0)
@@ -42,5 +53,13 @@ class CarouselView @JvmOverloads constructor(
 
     fun setItems(items: List<CarouselItemModel>?) {
         items?.let(adapter::setItems)
+    }
+
+    fun setCurrentItem(itemIndex: Int) {
+        designCarouseViewPager.setCurrentItem(itemIndex, true)
+    }
+
+    fun setOnPageSelectedListener(listener: (position: Int) -> Unit) {
+        onPageSelectedListener = listener
     }
 }

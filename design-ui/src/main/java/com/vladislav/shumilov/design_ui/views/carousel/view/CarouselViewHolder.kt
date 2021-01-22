@@ -3,7 +3,7 @@ package com.vladislav.shumilov.design_ui.views.carousel.view
 import com.vladislav.shumilov.design_ui.databinding.DesignCarouselViewPageBinding
 import com.vladislav.shumilov.design_ui.views.carousel.model.CarouselItemModel
 
-class CarouselViewHolder(
+internal class CarouselViewHolder(
     private val binding: DesignCarouselViewPageBinding
 ) : CarouselViewHolderAbstract(binding.root) {
 

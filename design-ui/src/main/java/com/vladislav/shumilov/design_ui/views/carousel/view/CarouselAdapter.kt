@@ -7,7 +7,7 @@ import com.vladislav.shumilov.design_ui.R
 import com.vladislav.shumilov.design_ui.databinding.DesignCarouselViewPageBinding
 import com.vladislav.shumilov.design_ui.views.carousel.model.CarouselItemModel
 
-class CarouselAdapter(context: Context) : CarouselAdapterAbstract(context) {
+internal class CarouselAdapter(context: Context) : CarouselAdapterAbstract(context) {
 
     private lateinit var binding: DesignCarouselViewPageBinding
 

@@ -5,11 +5,13 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.vladislav.shumilov.common_domain.card_view_with_list.model.CardWithListItemModel
+import com.vladislav.shumilov.common_ui.ui.util.CAROUSEL_DELAY
 import com.vladislav.shumilov.common_ui.ui.util.prepareCarouselItems
 import com.vladislav.shumilov.core_data.FragmentScope
 import com.vladislav.shumilov.core_data.util.plusAssign
 import com.vladislav.shumilov.design_ui.views.carousel.model.CarouselItemModel
-import com.vladislav.shumilov.design_ui.views.carousel.model.CarouselItemModelImpl
+import com.vladislav.shumilov.design_ui.views.carousel.viewModel.CarouselViewModel
+import com.vladislav.shumilov.design_ui.views.carousel.viewModel.START_CAROUSEL_INDEX
 import com.vladislav.shumilov.launch_domain.model.local.LaunchForDetail
 import com.vladislav.shumilov.launch_domain.ui.LaunchInteractor
 import com.vladislav.shumilov.launch_ui.util.getRocketDetailCardViewItemsForLaunch
@@ -18,7 +20,8 @@ import io.reactivex.disposables.CompositeDisposable
 @FragmentScope
 class LaunchDetailViewModel(
     private val launchInteractor: LaunchInteractor,
-    private val resources: Resources
+    private val resources: Resources,
+    val carouselVM: CarouselViewModel
 ) : ViewModel() {
 
     private val launchLiveData = MutableLiveData<LaunchForDetail>()
@@ -36,10 +39,10 @@ class LaunchDetailViewModel(
             }, {
                 onLoadedLaunchError()
             })
-
     }
 
     override fun onCleared() {
+        carouselVM.stopCarousel()
         compositeDisposable.clear()
     }
 
@@ -52,6 +55,10 @@ class LaunchDetailViewModel(
         rocketDetails.set(details)
 
         launchCarouselImages.set(prepareCarouselItems(launch.links?.flickrImages))
+
+        launchCarouselImages.get()?.size?.let {
+            carouselVM.startCarousel(START_CAROUSEL_INDEX, it, CAROUSEL_DELAY)
+        }
     }
 
     private fun onLoadedLaunchError() {
