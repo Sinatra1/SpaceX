@@ -1,5 +1,7 @@
 package com.vladislav.shumilov.design_ui.views.carousel.viewModel
 
+import android.os.Handler
+import android.os.Looper
 import androidx.databinding.ObservableInt
 import com.vladislav.shumilov.core_data.util.plusAssign
 import io.reactivex.Observable
@@ -12,15 +14,25 @@ internal class CarouselViewModelImpl @Inject constructor() : CarouselViewModel {
 
     private val currentItemIndex = ObservableInt(START_CAROUSEL_INDEX)
     private var isCarouselStarted = false
+    private var delay = 0L
+    private var count = 0
     private val compositeDisposable = CompositeDisposable()
+    private val handler = Handler(Looper.getMainLooper())
 
     override val onPageSelectedListener = { position: Int ->
         if (currentItemIndex.get() != position) {
+            pauseCarousel()
             currentItemIndex.set(position)
+
+            handler.postDelayed({
+                resumeCarousel()
+            }, delay)
         }
     }
 
     override fun startCarousel(start: Int, count: Int, delay: Long) {
+        this.delay = delay
+        this.count = count
         currentItemIndex.set(start)
         isCarouselStarted = true
 

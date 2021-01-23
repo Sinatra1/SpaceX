@@ -30,6 +30,7 @@
                 app:items="@{viewModel.launchCarouselImages}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:setOnPageSelectedListener="@{viewModel.carouselVM.onPageSelectedListener}"
+                app:visibilityEqualsVisible="@{viewModel.isCarouselVisible}"
                 tools:layout_height="@dimen/common_carousel_height" />
 
             <androidx.cardview.widget.CardView

@@ -55,6 +55,8 @@ class LaunchDetailFragment : BaseDetailFragment() {
             "launchId is required"
         }
 
+        lifecycle.addObserver(viewModel)
+
         viewModel.getLaunchForDetail(launchId)
     }
 

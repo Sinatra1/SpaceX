@@ -1,9 +1,9 @@
 package com.vladislav.shumilov.launch_ui.ui.detail
 
 import android.content.res.Resources
+import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.vladislav.shumilov.common_domain.card_view_with_list.model.CardWithListItemModel
 import com.vladislav.shumilov.common_ui.ui.util.CAROUSEL_DELAY
 import com.vladislav.shumilov.common_ui.ui.util.prepareCarouselItems
@@ -22,14 +22,25 @@ class LaunchDetailViewModel(
     private val launchInteractor: LaunchInteractor,
     private val resources: Resources,
     val carouselVM: CarouselViewModel
-) : ViewModel() {
+) : ViewModel(), LifecycleObserver {
 
     private val launchLiveData = MutableLiveData<LaunchForDetail>()
     val launchForDetail = ObservableField<LaunchForDetail>()
     val rocketDetails = ObservableField<List<CardWithListItemModel>>()
     val launchCarouselImages = ObservableField<List<CarouselItemModel>>()
+    val isCarouselVisible = ObservableBoolean(false)
 
     private val compositeDisposable = CompositeDisposable()
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    fun onResume() {
+        carouselVM.resumeCarousel()
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    fun onPause() {
+        carouselVM.pauseCarousel()
+    }
 
     fun getLaunchForDetail(launchId: String) {
 
@@ -57,7 +68,10 @@ class LaunchDetailViewModel(
         launchCarouselImages.set(prepareCarouselItems(launch.links?.flickrImages))
 
         launchCarouselImages.get()?.size?.let {
-            carouselVM.startCarousel(START_CAROUSEL_INDEX, it, CAROUSEL_DELAY)
+            if (it > 0) {
+                carouselVM.startCarousel(START_CAROUSEL_INDEX, it, CAROUSEL_DELAY)
+                isCarouselVisible.set(true)
+            }
         }
     }
 
