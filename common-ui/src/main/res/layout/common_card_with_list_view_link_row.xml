@@ -26,7 +26,7 @@
             tools:text="Label" />
 
         <TextView
-            android:id="@+id/cardItemChecked"
+            android:id="@+id/cardItemLink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"

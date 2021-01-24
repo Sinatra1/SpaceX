@@ -44,7 +44,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/launchDetails"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/launchCarouselImages" />
+                app:layout_constraintTop_toTopOf="@id/missionName" />
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/missionIcon"
@@ -75,7 +75,7 @@
                 app:layout_constraintEnd_toEndOf="@id/missionCard"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toEndOf="@id/missionIcon"
-                app:layout_constraintTop_toTopOf="@id/missionCard"
+                app:layout_constraintTop_toBottomOf="@id/launchCarouselImages"
                 tools:text="@string/launches_mission_name" />
 
             <ImageView
