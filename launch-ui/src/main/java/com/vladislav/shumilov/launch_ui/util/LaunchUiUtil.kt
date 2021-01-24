@@ -2,10 +2,7 @@ package com.vladislav.shumilov.launch_ui.util
 
 import android.content.res.Resources
 import com.example.launch_ui.R
-import com.vladislav.shumilov.common_data.model.card_view_with_list.CardWithListItemCheckboxImpl
-import com.vladislav.shumilov.common_data.model.card_view_with_list.CardWithListItemDescriptionImpl
-import com.vladislav.shumilov.common_data.model.card_view_with_list.CardWithListItemDividerImpl
-import com.vladislav.shumilov.common_data.model.card_view_with_list.CardWithListItemTextImpl
+import com.vladislav.shumilov.common_data.model.card_view_with_list.*
 import com.vladislav.shumilov.common_domain.card_view_with_list.model.CardWithListItemModel
 import com.vladislav.shumilov.core_data.util.strFirstKeyToUpper
 import com.vladislav.shumilov.core_data.util.unixTimeToHumanDateTime
@@ -22,7 +19,7 @@ fun getRocketDetailCardViewItemsForLaunch(
 
     rocket ?: return details
 
-    details.add(CardWithListItemTextImpl(R.string.rockets_rocket_model, rocket.name ?: ""))
+    details.add(CardWithListItemLinkImpl(R.string.rockets_rocket_model, rocket.name ?: ""))
 
     launchForDetail.launch.staticFireDateUnix?.let {
         details.add(
