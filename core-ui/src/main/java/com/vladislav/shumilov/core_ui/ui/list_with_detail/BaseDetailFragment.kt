@@ -19,11 +19,14 @@ abstract class BaseDetailFragment : Fragment(), LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreateActivity() {
         context?.let {
-            if (isLandscape(it) && parentFragment !is BaseListWithDetailFragment<*, *>) {
+            if (isLandscape(it) && !isShownInListWithDetail()) {
                 (activity as? SingleActivity)?.popBackStack()
             }
         }
     }
+
+    protected fun isShownInListWithDetail() =
+        parentFragment is BaseListWithDetailFragment<*, *>
 
     override fun onDetach() {
         activity?.lifecycle?.removeObserver(this)

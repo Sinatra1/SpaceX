@@ -42,4 +42,6 @@ internal class AppActivity : DaggerAppCompatActivity(),
     override fun popBackStack() {
         navController.popBackStack()
     }
+
+    override fun getNavigationController() = navController
 }

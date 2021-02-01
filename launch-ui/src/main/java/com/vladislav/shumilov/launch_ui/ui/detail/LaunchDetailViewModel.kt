@@ -29,6 +29,7 @@ class LaunchDetailViewModel(
     val rocketDetails = ObservableField<List<CardWithListItemModel>>()
     val launchCarouselImages = ObservableField<List<CarouselItemModel>>()
     val isCarouselVisible = ObservableBoolean(false)
+    private val title = MutableLiveData<String>()
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -51,6 +52,8 @@ class LaunchDetailViewModel(
                 onLoadedLaunchError()
             })
     }
+
+    fun getTitle(): LiveData<String> = title
 
     override fun onCleared() {
         carouselVM.stopCarousel()
