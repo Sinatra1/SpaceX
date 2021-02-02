@@ -15,13 +15,13 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionInflater
-import com.example.launch_ui.R
-import com.example.launch_ui.databinding.LaunchesListBinding
 import com.vladislav.shumilov.core_ui.ui.list_with_detail.BaseListFragment
 import com.vladislav.shumilov.core_ui.ui.list_with_detail.BaseListWithDetail
 import com.vladislav.shumilov.core_data.FragmentScope
 import com.vladislav.shumilov.launch_domain.model.local.LaunchForList
+import com.vladislav.shumilov.launch_ui.R
 import com.vladislav.shumilov.launch_ui.app
+import com.vladislav.shumilov.launch_ui.databinding.LaunchesListBinding
 import com.vladislav.shumilov.launch_ui.ui.detail.LaunchDetailFragment
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject

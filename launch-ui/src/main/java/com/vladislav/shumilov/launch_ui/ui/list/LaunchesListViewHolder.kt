@@ -2,8 +2,8 @@ package com.vladislav.shumilov.launch_ui.ui.list
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.example.launch_ui.databinding.LaunchesListRowBinding
 import com.vladislav.shumilov.launch_domain.model.local.LaunchForList
+import com.vladislav.shumilov.launch_ui.databinding.LaunchesListRowBinding
 import io.reactivex.subjects.Subject
 
 internal const val LAUNCHES_LIST_VIEW_HOLDER_TYPE = 101

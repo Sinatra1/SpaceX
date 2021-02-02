@@ -1,12 +1,12 @@
 package com.vladislav.shumilov.launch_ui.util
 
 import android.content.res.Resources
-import com.example.launch_ui.R
 import com.vladislav.shumilov.common_data.model.card_view_with_list.*
 import com.vladislav.shumilov.common_domain.card_view_with_list.model.CardWithListItemModel
 import com.vladislav.shumilov.core_data.util.strFirstKeyToUpper
 import com.vladislav.shumilov.core_data.util.unixTimeToHumanDateTime
 import com.vladislav.shumilov.launch_domain.model.local.LaunchForDetail
+import com.vladislav.shumilov.launch_ui.R
 import com.vladislav.shumilov.rocket_ui.util.getCoreCardViewItems
 
 fun getRocketDetailCardViewItemsForLaunch(

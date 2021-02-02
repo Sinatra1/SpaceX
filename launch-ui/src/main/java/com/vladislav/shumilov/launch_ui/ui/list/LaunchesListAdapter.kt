@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.launch_ui.R
-import com.example.launch_ui.databinding.LaunchesListRowBinding
 import com.vladislav.shumilov.core_ui.utils.OnClickViewHolder
 import com.vladislav.shumilov.launch_domain.model.local.LaunchForList
+import com.vladislav.shumilov.launch_ui.R
+import com.vladislav.shumilov.launch_ui.databinding.LaunchesListRowBinding
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
 

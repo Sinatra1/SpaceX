@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:binding="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.vladislav.shumilov.launch_ui.ui.detail.LaunchDetailViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:fitsSystemWindows="true">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="?attr/commonCarouselHeight"
+                android:fitsSystemWindows="true"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+                <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:id="@+id/launchDetailToolbarLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fitsSystemWindows="true"
+                    app:contentScrim="?attr/colorPrimary"
+                    app:statusBarScrim="@android:color/transparent"
+                    app:title="@{viewModel.launchForDetail.missionName}">
+
+                    <com.vladislav.shumilov.design_ui.views.carousel.view.CarouselView
+                        android:id="@+id/launchCarouselImages"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fitsSystemWindows="true"
+                        app:DesignCarouselView_off_screen_page_limit="@integer/common_off_screen_page_limit"
+                        app:currentItem="@{viewModel.carouselVM.getCurrentItemIndex()}"
+                        app:items="@{viewModel.launchCarouselImages}"
+                        app:setOnPageSelectedListener="@{viewModel.carouselVM.onPageSelectedListener}"
+                        app:visibilityEqualsVisible="@{viewModel.isCarouselVisible}"
+                        tools:layout_height="@dimen/common_carousel_height" />
+
+                    <androidx.appcompat.widget.Toolbar
+                        android:id="@+id/launchDetailToolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:fitsSystemWindows="false"
+                        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                        app:title="@{viewModel.launchForDetail.missionName}" />
+
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <include
+                android:id="@+id/launchDescription"
+                layout="@layout/launch_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                binding:viewModel="@{viewModel}" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</layout>

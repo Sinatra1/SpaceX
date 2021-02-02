@@ -2,14 +2,15 @@ package com.vladislav.shumilov.design_ui.views.carousel.view
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.View
+import android.view.LayoutInflater
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.databinding.DataBindingUtil
 import androidx.viewpager2.widget.ViewPager2
 import com.vladislav.shumilov.core_ui.utils.getDataFromAttrOrNull
 import com.vladislav.shumilov.design_ui.R
+import com.vladislav.shumilov.design_ui.databinding.DesignCarouselViewBinding
 import com.vladislav.shumilov.design_ui.views.carousel.model.CarouselItemModel
-import kotlinx.android.synthetic.main.design_carousel_view.view.*
 
 private const val OFF_SCREEN_PAGE_LIMIT = 1
 
@@ -25,13 +26,19 @@ class CarouselView @JvmOverloads constructor(
     ), attrs, defStyleAttr
 ) {
     private lateinit var onPageSelectedListener: (position: Int) -> Unit
+    private val binding: DesignCarouselViewBinding
 
     init {
-        View.inflate(context, R.layout.design_carousel_view, this)
+        binding = DataBindingUtil.inflate(
+            LayoutInflater.from(getContext()),
+            R.layout.design_carousel_view,
+            this,
+            true
+        )
 
-        designCarouseViewPager.adapter = adapter
+        binding.designCarouseViewPager.adapter = adapter
 
-        designCarouseViewPager.registerOnPageChangeCallback(object :
+        binding.designCarouseViewPager.registerOnPageChangeCallback(object :
             ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
@@ -43,7 +50,7 @@ class CarouselView @JvmOverloads constructor(
         val attributes =
             context.theme.obtainStyledAttributes(attrs, R.styleable.DesignCarouselView, 0, 0)
 
-        designCarouseViewPager.offscreenPageLimit = attributes.getInt(
+        binding.designCarouseViewPager.offscreenPageLimit = attributes.getInt(
             R.styleable.DesignCarouselView_DesignCarouselView_off_screen_page_limit,
             OFF_SCREEN_PAGE_LIMIT
         )
@@ -56,7 +63,7 @@ class CarouselView @JvmOverloads constructor(
     }
 
     fun setCurrentItem(itemIndex: Int) {
-        designCarouseViewPager.setCurrentItem(itemIndex, true)
+        binding.designCarouseViewPager.setCurrentItem(itemIndex, true)
     }
 
     fun setOnPageSelectedListener(listener: (position: Int) -> Unit) {

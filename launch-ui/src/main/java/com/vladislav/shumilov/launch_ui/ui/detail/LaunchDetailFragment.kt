@@ -6,18 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.observe
 import androidx.navigation.ui.NavigationUI
 import androidx.transition.TransitionInflater
-import com.example.launch_ui.R
-import com.example.launch_ui.databinding.LaunchDetailBinding
 import com.vladislav.shumilov.core_data.FragmentScope
 import com.vladislav.shumilov.core_ui.ui.activity.SingleActivity
 import com.vladislav.shumilov.core_ui.ui.list_with_detail.BaseDetailFragment
 import com.vladislav.shumilov.core_ui.utils.isLandscape
+import com.vladislav.shumilov.launch_ui.R
 import com.vladislav.shumilov.launch_ui.app
+import com.vladislav.shumilov.launch_ui.databinding.LaunchDetailBinding
 import kotlinx.android.synthetic.main.launch_detail.*
 import javax.inject.Inject
 
@@ -90,28 +88,22 @@ class LaunchDetailFragment : BaseDetailFragment() {
                 (activity as? AppCompatActivity)?.supportActionBar?.hide()
 
                 (activity as? SingleActivity)?.getNavigationController()?.let {
-                    NavigationUI.setupWithNavController(launchDetailToolbarLayout, launchDetailToolbar, it)
+                    NavigationUI.setupWithNavController(
+                        launchDetailToolbarLayout,
+                        launchDetailToolbar,
+                        it
+                    )
                 }
+            } else {
+                (activity as? AppCompatActivity)?.supportActionBar?.show()
             }
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        setLiveDataListeners()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
 
         app()?.clearLaunchComponent()
-    }
-
-    private fun setLiveDataListeners() {
-        viewModel.getTitle().observe(viewLifecycleOwner, Observer {
-            launchDetailToolbar.contentDescription = it
-        })
     }
 
     private fun setAnimation() {
