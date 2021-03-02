@@ -25,12 +25,12 @@ abstract class BaseDetailFragment : Fragment(), LifecycleObserver {
         }
     }
 
-    protected fun isShownInListWithDetail() =
-        parentFragment is BaseListWithDetailFragment<*, *>
-
     override fun onDetach() {
         activity?.lifecycle?.removeObserver(this)
 
         super.onDetach()
     }
+
+    protected fun isShownInListWithDetail() =
+        parentFragment is BaseListWithDetailFragment<*, *>
 }

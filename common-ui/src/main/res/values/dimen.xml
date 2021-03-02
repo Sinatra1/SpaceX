@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="common_app_bar_elevation">4dp</dimen>
     <dimen name="common_line_divider_height">1dp</dimen>
     <dimen name="common_card_corner_radius">10dp</dimen>
     <dimen name="common_card_elevation">8dp</dimen>
@@ -8,5 +9,5 @@
 
     <dimen name="common_list_container_width">@dimen/core_match_parent</dimen>
 
-    <dimen name="common_carousel_height">200dp</dimen>
+    <dimen name="common_carousel_height">400dp</dimen>
 </resources>

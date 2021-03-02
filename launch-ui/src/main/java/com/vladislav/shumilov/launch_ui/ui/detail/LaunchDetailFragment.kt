@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.ui.NavigationUI
@@ -69,7 +68,7 @@ class LaunchDetailFragment : BaseDetailFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? =
+    ): View =
         DataBindingUtil.inflate<LaunchDetailBinding>(
             inflater,
             R.layout.launch_detail,
@@ -85,8 +84,6 @@ class LaunchDetailFragment : BaseDetailFragment() {
 
         context?.let { context ->
             if (!isLandscape(context) && !isShownInListWithDetail()) {
-                (activity as? AppCompatActivity)?.supportActionBar?.hide()
-
                 (activity as? SingleActivity)?.getNavigationController()?.let {
                     NavigationUI.setupWithNavController(
                         launchDetailToolbarLayout,
@@ -94,8 +91,6 @@ class LaunchDetailFragment : BaseDetailFragment() {
                         it
                     )
                 }
-            } else {
-                (activity as? AppCompatActivity)?.supportActionBar?.show()
             }
         }
     }

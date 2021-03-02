@@ -19,6 +19,8 @@ abstract class BaseListWithDetailFragment<ListFragment : Fragment, DetailFragmen
         }
     }
 
+    protected open val layoutId = R.layout.core_base_list_with_detail
+
     private var commonDetailContainerView: FrameLayout? = null
     private var selectedItemId: String? = null
     private var canShowDetailFragment = true
@@ -39,7 +41,7 @@ abstract class BaseListWithDetailFragment<ListFragment : Fragment, DetailFragmen
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.core_base_list_with_detail, container, false)
+    ): View? = inflater.inflate(layoutId, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

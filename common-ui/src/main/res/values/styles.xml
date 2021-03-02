@@ -6,4 +6,9 @@
         <item name="cardElevation">?attr/commonCardElevation</item>
         <item name="contentPadding">?attr/commonCardContentPadding</item>
     </style>
+
+    <style name="CommonActionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:elevation">@dimen/common_app_bar_elevation</item>
+    </style>
 </resources>

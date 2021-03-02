@@ -13,9 +13,7 @@ import dagger.android.support.DaggerAppCompatActivity
 internal class AppActivity : DaggerAppCompatActivity(),
     SingleActivity {
 
-    private val navController: NavController by lazy {
-        Navigation.findNavController(this, R.id.nav_host_fragment)
-    }
+    lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +23,7 @@ internal class AppActivity : DaggerAppCompatActivity(),
             requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         }
 
-        NavigationUI.setupActionBarWithNavController(this, navController)
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
