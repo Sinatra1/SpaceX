@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
-    package="vladislav.shumilov.mytwitter" >
+    package="com.vladislav.shumilov.spacex" >
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <dist:module dist:instant="true" />
 
     <application
-        android:name="com.vladislav.shumilov.mytwitter.App"
+        android:name="com.vladislav.shumilov.spacex.App"
         android:allowBackup="false"
         android:icon="@drawable/common_ic_black_rocket"
         android:roundIcon="@drawable/common_ic_black_rocket"
         android:label="@string/launches_app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-        <activity android:name=".AppActivity" >
+        <activity android:name="vladislav.shumilov.spacex.AppActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

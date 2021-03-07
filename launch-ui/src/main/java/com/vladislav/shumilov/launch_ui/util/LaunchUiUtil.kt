@@ -78,7 +78,7 @@ fun getRocketDetailCardViewItemsForLaunch(
 
 private fun formatLaunchWindow(launchWindow: Int, resources: Resources) =
     if (launchWindow == 0)
-        resources.getString(com.example.launch_data.R.string.launches_launch_instantaneous)
+        resources.getString(com.vladislav.shumilov.launch_data.R.string.launches_launch_instantaneous)
     else launchWindow.toString()
 
 private fun formatFailureTime(failureTime: Int, resources: Resources) =

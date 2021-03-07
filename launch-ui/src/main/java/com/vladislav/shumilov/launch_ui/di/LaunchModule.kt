@@ -1,7 +1,7 @@
 package com.vladislav.shumilov.launch_ui.di
 
-import com.example.rocket_domain.repository.RocketLocalRepository
-import com.example.rocket_domain.repository.RocketRemoteRepository
+import com.vladislav.shumilov.rocket_domain.repository.RocketLocalRepository
+import com.vladislav.shumilov.rocket_domain.repository.RocketRemoteRepository
 import com.vladislav.shumilov.app_data.database.AppDatabase
 import com.vladislav.shumilov.core_data.FragmentScope
 import com.vladislav.shumilov.launch_data.api.LaunchApi

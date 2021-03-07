@@ -1,6 +1,6 @@
 package com.vladislav.shumilov.rocket_ui.util
 
-import com.example.rocket_domain.model.local.Core
+import com.vladislav.shumilov.rocket_domain.model.local.Core
 import com.vladislav.shumilov.common_data.model.card_view_with_list.CardWithListItemCheckboxImpl
 import com.vladislav.shumilov.common_data.model.card_view_with_list.CardWithListItemLinkImpl
 import com.vladislav.shumilov.common_data.model.card_view_with_list.CardWithListItemTextImpl

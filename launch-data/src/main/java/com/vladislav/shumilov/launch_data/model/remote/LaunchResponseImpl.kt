@@ -1,6 +1,6 @@
 package com.vladislav.shumilov.launch_data.model.remote
 
-import com.example.rocket_data.model.remote.RocketResponseImpl
+import com.vladislav.shumilov.rocket_data.model.remote.RocketResponseImpl
 import com.vladislav.shumilov.launch_domain.model.remote.LaunchResponse
 
 

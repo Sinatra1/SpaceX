@@ -7,11 +7,12 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
-        applicationId "vladislav.shumilov.mytwitter"
+        applicationId "com.vladislav.shumilov.spacex"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+        setProperty("archivesBaseName", "spacex-$versionName-$versionCode")
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

@@ -1,9 +1,9 @@
 package com.vladislav.shumilov.rocket_ui.di
 
-import com.example.payload_data.repository.PayloadLocalRepositoryImpl
-import com.example.rocket_data.database.*
-import com.example.rocket_data.repository.*
-import com.example.rocket_domain.repository.*
+import com.vladislav.shumilov.payload_data.repository.PayloadLocalRepositoryImpl
+import com.vladislav.shumilov.rocket_data.database.*
+import com.vladislav.shumilov.rocket_data.repository.*
+import com.vladislav.shumilov.rocket_domain.repository.*
 import com.vladislav.shumilov.app_data.database.AppDatabase
 import com.vladislav.shumilov.core_data.ApplicationScope
 import com.vladislav.shumilov.core_data.FragmentScope

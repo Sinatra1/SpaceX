@@ -1,6 +1,6 @@
 package com.vladislav.shumilov.launch_data.repository
 
-import com.example.rocket_domain.repository.RocketRemoteRepository
+import com.vladislav.shumilov.rocket_domain.repository.RocketRemoteRepository
 import com.vladislav.shumilov.core_data.FragmentScope
 import com.vladislav.shumilov.core_data.util.UNCHECKED_CAST
 import com.vladislav.shumilov.core_data.util.generateRandomId

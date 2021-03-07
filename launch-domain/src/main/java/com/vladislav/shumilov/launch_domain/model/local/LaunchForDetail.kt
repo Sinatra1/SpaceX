@@ -1,6 +1,6 @@
 package com.vladislav.shumilov.launch_domain.model.local
 
-import com.example.rocket_domain.model.local.RocketForDetail
+import com.vladislav.shumilov.rocket_domain.model.local.RocketForDetail
 import com.vladislav.shumilov.mission_domain.model.local.Mission
 
 interface LaunchForDetail {

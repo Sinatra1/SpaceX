@@ -1,4 +1,4 @@
-package com.example.auth_data
+package com.vladislav.shumilov.auth_data
 
 import org.junit.Test
 

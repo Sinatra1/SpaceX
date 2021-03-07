@@ -1,8 +1,8 @@
 package com.vladislav.shumilov.launch_data.repository
 
 import androidx.annotation.WorkerThread
-import com.example.rocket_domain.model.local.Rocket
-import com.example.rocket_domain.repository.RocketLocalRepository
+import com.vladislav.shumilov.rocket_domain.model.local.Rocket
+import com.vladislav.shumilov.rocket_domain.repository.RocketLocalRepository
 import com.vladislav.shumilov.core_data.FragmentScope
 import com.vladislav.shumilov.core_data.util.UNCHECKED_CAST
 import com.vladislav.shumilov.launch_data.database.*

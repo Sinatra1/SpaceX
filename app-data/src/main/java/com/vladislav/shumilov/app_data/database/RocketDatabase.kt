@@ -1,6 +1,6 @@
 package com.vladislav.shumilov.app_data.database
 
-import com.example.rocket_data.database.*
+import com.vladislav.shumilov.rocket_data.database.*
 
 interface RocketDatabase {
 

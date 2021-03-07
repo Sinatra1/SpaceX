@@ -1,6 +1,6 @@
 package com.vladislav.shumilov.launch_domain.model.remote
 
-import com.example.rocket_domain.model.remote.RocketResponse
+import com.vladislav.shumilov.rocket_domain.model.remote.RocketResponse
 
 interface LaunchResponse {
 

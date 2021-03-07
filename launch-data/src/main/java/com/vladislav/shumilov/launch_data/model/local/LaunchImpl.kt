@@ -1,8 +1,8 @@
 package com.vladislav.shumilov.launch_data.model.local
 
 import androidx.room.*
-import com.example.rocket_data.model.local.RocketImpl
-import com.example.rocket_domain.model.local.Rocket
+import com.vladislav.shumilov.rocket_data.model.local.RocketImpl
+import com.vladislav.shumilov.rocket_domain.model.local.Rocket
 import com.vladislav.shumilov.launch_data.model.local.LaunchImpl.Companion.TABLE_NAME
 import com.vladislav.shumilov.launch_domain.model.local.Launch
 import com.vladislav.shumilov.launch_domain.model.local.LaunchFailureDetails

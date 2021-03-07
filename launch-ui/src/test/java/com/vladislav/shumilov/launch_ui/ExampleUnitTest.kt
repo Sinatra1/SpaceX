@@ -1,4 +1,4 @@
-package com.example.launch_ui
+package com.vladislav.shumilov.launch_ui
 
 import org.junit.Test
 

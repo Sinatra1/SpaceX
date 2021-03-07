@@ -3,8 +3,8 @@ package com.vladislav.shumilov.launch_data.model.local
 import androidx.room.Embedded
 import androidx.room.Junction
 import androidx.room.Relation
-import com.example.rocket_data.model.local.RocketForDetailImpl
-import com.example.rocket_data.model.local.RocketImpl
+import com.vladislav.shumilov.rocket_data.model.local.RocketForDetailImpl
+import com.vladislav.shumilov.rocket_data.model.local.RocketImpl
 import com.vladislav.shumilov.core_data.util.unixTimeToHumanDateTime
 import com.vladislav.shumilov.launch_data.util.getFlightNumberStr
 import com.vladislav.shumilov.launch_data.util.getMissionName
