@@ -3,10 +3,22 @@ package com.vladislav.shumilov.app_data.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.vladislav.shumilov.rocket_data.model.local.*
+import com.vladislav.shumilov.rocket_data.model.local.RocketImpl
+import com.vladislav.shumilov.rocket_data.model.local.FirstStageImpl
+import com.vladislav.shumilov.rocket_data.model.local.SecondStageImpl
+import com.vladislav.shumilov.rocket_data.model.local.FairingsImpl
 import com.vladislav.shumilov.rocket_data.model.local.CoreImpl
+import com.vladislav.shumilov.rocket_data.model.local.FirstStageToCoreImpl
+import com.vladislav.shumilov.rocket_data.model.local.SecondStageToPayloadImpl
+import com.vladislav.shumilov.rocket_data.model.local.PayloadImpl
+import com.vladislav.shumilov.rocket_data.model.local.OrbitParamsImpl
 import com.vladislav.shumilov.core_data.database.Converters
-import com.vladislav.shumilov.launch_data.model.local.*
+import com.vladislav.shumilov.launch_data.model.local.LaunchImpl
+import com.vladislav.shumilov.launch_data.model.local.LaunchSiteImpl
+import com.vladislav.shumilov.launch_data.model.local.LaunchFailureDetailsImpl
+import com.vladislav.shumilov.launch_data.model.local.LinksImpl
+import com.vladislav.shumilov.launch_data.model.local.LaunchToShipImpl
+import com.vladislav.shumilov.launch_data.model.local.LaunchToMissionImpl
 import com.vladislav.shumilov.mission_data.model.local.MissionImpl
 import com.vladislav.shumilov.ship_data.model.local.ShipImpl
 

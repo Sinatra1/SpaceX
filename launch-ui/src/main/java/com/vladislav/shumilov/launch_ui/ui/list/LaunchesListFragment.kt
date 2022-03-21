@@ -67,7 +67,7 @@ class LaunchesListFragment : Fragment(), BaseListFragment {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? =
+    ): View =
         DataBindingUtil.inflate<LaunchesListBinding>(
             inflater,
             R.layout.launches_list,
