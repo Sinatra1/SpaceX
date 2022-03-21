@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: "io.gitlab.arturbosch.detekt"
 
 android {
     compileSdkVersion 29
@@ -80,4 +81,9 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
     implementation "androidx.room:room-rxjava2:$room_version"
+
+    detekt "io.gitlab.arturbosch.detekt:detekt-cli:1.17.1"
+
+    testImplementation "io.gitlab.arturbosch.detekt:detekt-api:1.17.1"
+    testImplementation "io.gitlab.arturbosch.detekt:detekt-test:1.17.1"
 }
