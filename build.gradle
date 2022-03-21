@@ -25,6 +25,8 @@ buildscript {
     ext.rxjava2_adapter_version = '1.0.0'
     ext.fresco_version = '2.3.0'
     ext.material_version = '1.2.1'
+    ext.mockito_version = '4.4.0'
+    ext.mockito_kotlin_version = '3.2.0'
 
     repositories {
         google()

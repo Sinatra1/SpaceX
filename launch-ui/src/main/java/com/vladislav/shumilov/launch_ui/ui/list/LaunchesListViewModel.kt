@@ -1,8 +1,8 @@
 package com.vladislav.shumilov.launch_ui.ui.list
 
-import android.content.Context
 import android.content.res.Resources
 import android.view.View
+import androidx.annotation.VisibleForTesting
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -18,9 +18,15 @@ import com.vladislav.shumilov.launch_ui.ui.detail.LaunchDetailFragment
 import io.reactivex.disposables.CompositeDisposable
 import com.vladislav.shumilov.launch_ui.R
 
+@VisibleForTesting
+const val FIRST_FLIGHT_NUMBER = 1
+
+@VisibleForTesting
+const val START_OFFSET = 0
+
 @FragmentScope
 internal class LaunchesListViewModel(
-    private val launchInteractor: LaunchInteractor,
+    private val interactor: LaunchInteractor,
     resources: Resources
 ) : ViewModel() {
 
@@ -31,8 +37,8 @@ internal class LaunchesListViewModel(
     val isShownCenterProgress = ObservableBoolean(true)
     val isShownBottomProgress = ObservableBoolean(false)
 
-    private val inProcessLiveData = MutableLiveData<Boolean>().apply { value = false }
-    private val isLastPageLiveData = MutableLiveData<Boolean>().apply { value = false }
+    private val inProcessLiveData = MutableLiveData<Boolean>(false)
+    private val isLastPageLiveData = MutableLiveData<Boolean>(false)
     private val isShownRefreshingIcon = MutableLiveData<Boolean>()
     private var offset = START_OFFSET
     private val compositeDisposable = CompositeDisposable()
@@ -50,7 +56,7 @@ internal class LaunchesListViewModel(
 
         compositeDisposable.clear()
 
-        compositeDisposable += launchInteractor.getLaunchesForList(offset, LAUNCHES_LIMIT)
+        compositeDisposable += interactor.getLaunchesForList(offset, LAUNCHES_LIMIT)
             .subscribe({ launches ->
                 onLoadedLaunchesSuccess(launches)
             }, {
@@ -119,6 +125,3 @@ internal class LaunchesListViewModel(
     private fun isFirstFlight(launchForList: LaunchForList) =
         launchForList.launch.flightNumber == FIRST_FLIGHT_NUMBER
 }
-
-private const val FIRST_FLIGHT_NUMBER = 1
-private const val START_OFFSET = 0

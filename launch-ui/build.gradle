@@ -108,4 +108,9 @@ dependencies {
         exclude group: 'com.facebook.fresco', module: 'imagepipeline-native'
     }
 
+    //Mockito
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+    testImplementation "org.mockito.kotlin:mockito-kotlin:$mockito_kotlin_version"
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+
 }
