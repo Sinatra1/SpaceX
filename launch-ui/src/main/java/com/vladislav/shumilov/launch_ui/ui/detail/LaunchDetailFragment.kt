@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.ui.NavigationUI
 import androidx.transition.TransitionInflater
 import com.vladislav.shumilov.core_data.FragmentScope
+import com.vladislav.shumilov.core_ui.di.modules.CoreViewModelFactory
 import com.vladislav.shumilov.core_ui.ui.activity.SingleActivity
 import com.vladislav.shumilov.core_ui.ui.list_with_detail.BaseDetailFragment
 import com.vladislav.shumilov.core_ui.utils.isLandscape
@@ -37,7 +38,7 @@ class LaunchDetailFragment : BaseDetailFragment() {
     }
 
     @Inject
-    lateinit var viewModelFactory: LaunchDetailViewModelFactory
+    lateinit var viewModelFactory: CoreViewModelFactory
 
     private lateinit var binding: LaunchDetailBinding
 

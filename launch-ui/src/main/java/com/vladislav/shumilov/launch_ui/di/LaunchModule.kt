@@ -1,20 +1,25 @@
 package com.vladislav.shumilov.launch_ui.di
 
+import androidx.lifecycle.ViewModel
 import com.vladislav.shumilov.rocket_domain.repository.RocketLocalRepository
 import com.vladislav.shumilov.rocket_domain.repository.RocketRemoteRepository
 import com.vladislav.shumilov.app_data.database.AppDatabase
 import com.vladislav.shumilov.core_data.FragmentScope
+import com.vladislav.shumilov.core_data.ViewModelKey
 import com.vladislav.shumilov.launch_data.api.LaunchApi
 import com.vladislav.shumilov.launch_data.database.*
 import com.vladislav.shumilov.launch_data.repository.*
 import com.vladislav.shumilov.launch_domain.repository.*
 import com.vladislav.shumilov.launch_domain.ui.LaunchInteractor
 import com.vladislav.shumilov.launch_ui.common.LaunchInteractorImpl
+import com.vladislav.shumilov.launch_ui.ui.detail.LaunchDetailViewModel
+import com.vladislav.shumilov.launch_ui.ui.list.LaunchesListViewModel
 import com.vladislav.shumilov.mission_data.database.MissionDao
 import com.vladislav.shumilov.ship_data.database.ShipDao
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import dagger.multibindings.IntoMap
 import retrofit2.Retrofit
 
 @Module
@@ -128,4 +133,18 @@ internal abstract class LaunchModule {
     @Binds
     @FragmentScope
     abstract fun bindLinksRemoteRepository(impl: LinksRemoteRepositoryImpl): LinksRemoteRepository
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(LaunchesListViewModel::class)
+    abstract fun bindLaunchesListViewModel(
+        viewModel: LaunchesListViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(LaunchDetailViewModel::class)
+    abstract fun bindLaunchDetailViewModel(
+        viewModel: LaunchDetailViewModel
+    ): ViewModel
 }

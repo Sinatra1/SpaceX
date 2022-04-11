@@ -18,6 +18,7 @@ import androidx.transition.TransitionInflater
 import com.vladislav.shumilov.core_ui.ui.list_with_detail.BaseListFragment
 import com.vladislav.shumilov.core_ui.ui.list_with_detail.BaseListWithDetail
 import com.vladislav.shumilov.core_data.FragmentScope
+import com.vladislav.shumilov.core_ui.di.modules.CoreViewModelFactory
 import com.vladislav.shumilov.launch_domain.model.local.LaunchForList
 import com.vladislav.shumilov.launch_ui.R
 import com.vladislav.shumilov.launch_ui.app
@@ -37,7 +38,7 @@ class LaunchesListFragment : Fragment(), BaseListFragment {
     }
 
     @Inject
-    internal lateinit var viewModelFactory: LaunchesListViewModelFactory
+    lateinit var viewModelFactory: CoreViewModelFactory
 
     private lateinit var binding: LaunchesListBinding
 

@@ -17,6 +17,7 @@ import com.vladislav.shumilov.launch_domain.ui.LaunchInteractor
 import com.vladislav.shumilov.launch_ui.ui.detail.LaunchDetailFragment
 import io.reactivex.disposables.CompositeDisposable
 import com.vladislav.shumilov.launch_ui.R
+import javax.inject.Inject
 
 @VisibleForTesting
 const val FIRST_FLIGHT_NUMBER = 1
@@ -25,7 +26,7 @@ const val FIRST_FLIGHT_NUMBER = 1
 const val START_OFFSET = 0
 
 @FragmentScope
-internal class LaunchesListViewModel(
+internal class LaunchesListViewModel @Inject constructor(
     private val interactor: LaunchInteractor,
     resources: Resources
 ) : ViewModel() {

@@ -16,9 +16,10 @@ import com.vladislav.shumilov.launch_domain.model.local.LaunchForDetail
 import com.vladislav.shumilov.launch_domain.ui.LaunchInteractor
 import com.vladislav.shumilov.launch_ui.util.getRocketDetailCardViewItemsForLaunch
 import io.reactivex.disposables.CompositeDisposable
+import javax.inject.Inject
 
 @FragmentScope
-class LaunchDetailViewModel(
+class LaunchDetailViewModel @Inject constructor(
     private val launchInteractor: LaunchInteractor,
     private val resources: Resources,
     val carouselVM: CarouselViewModel
