@@ -26,8 +26,8 @@ class LaunchRemoteRepositoryImpl @Inject constructor(
 ) : LaunchRemoteRepository {
 
     @Suppress(UNCHECKED_CAST)
-    override fun getList(offset: Int, limit: Int) =
-        launchApi.getList(offset, limit) as Single<List<LaunchResponse>>
+    override suspend fun getList(offset: Int, limit: Int) =
+        launchApi.getList(offset, limit) as List<LaunchResponse>
 
     override fun responsesToModels(launchResponses: List<LaunchResponse>): List<Launch> {
         val launches = mutableListOf<Launch>()

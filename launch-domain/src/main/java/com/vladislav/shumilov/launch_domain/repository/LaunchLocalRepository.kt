@@ -10,10 +10,10 @@ interface LaunchLocalRepository {
 
     fun getList(limit: Int = Int.MAX_VALUE): Single<List<Launch>>
 
-    fun getLaunchesForList(
+    suspend fun getLaunchesForList(
         offset: Int,
         limit: Int = Int.MAX_VALUE
-    ): Single<List<LaunchForList>>
+    ): List<LaunchForList>
 
     fun getLaunchForDetail(launchId: String): Single<LaunchForDetail>
 

@@ -15,10 +15,10 @@ private const val LAUNCHES_OFFSET = 0
 @FragmentScope
 interface LaunchApi {
     @GET("launches")
-    fun getList(
+    suspend fun getList(
         @Query("offset") offset: Int = LAUNCHES_OFFSET,
         @Query("limit") limit: Int = LAUNCHES_LIMIT,
         @Query("sort") sort: String = LAUNCHES_SORT,
         @Query("order") order: String = LAUNCHES_ORDER
-    ): Single<List<LaunchResponseImpl>>
+    ): List<LaunchResponseImpl>
 }

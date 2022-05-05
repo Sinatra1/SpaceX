@@ -54,8 +54,8 @@ class LaunchLocalRepositoryImpl @Inject constructor(
 
     @Suppress(UNCHECKED_CAST)
     @WorkerThread
-    override fun getLaunchesForList(offset: Int, limit: Int) =
-        launchDao.getLaunchesForList(offset, limit) as Single<List<LaunchForList>>
+    override suspend fun getLaunchesForList(offset: Int, limit: Int) =
+        launchDao.getLaunchesForList(offset, limit) as List<LaunchForList>
 
     @Suppress(UNCHECKED_CAST)
     @WorkerThread

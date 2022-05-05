@@ -6,7 +6,7 @@ import io.reactivex.Single
 
 interface LaunchInteractor {
 
-    fun getLaunchesForList(offset: Int, limit: Int): Single<List<LaunchForList>>
+    suspend fun getLaunchesForList(offset: Int, limit: Int): List<LaunchForList>
 
     fun getLaunchForDetail(launchId: String): Single<LaunchForDetail>
 }

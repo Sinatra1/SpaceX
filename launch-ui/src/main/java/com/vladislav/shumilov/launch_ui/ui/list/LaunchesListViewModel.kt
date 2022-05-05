@@ -7,16 +7,18 @@ import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import com.vladislav.shumilov.core_data.FragmentScope
-import com.vladislav.shumilov.core_data.util.plusAssign
 import com.vladislav.shumilov.launch_data.api.LAUNCHES_LIMIT
 import com.vladislav.shumilov.launch_domain.model.local.LaunchForList
 import com.vladislav.shumilov.launch_domain.ui.LaunchInteractor
 import com.vladislav.shumilov.launch_ui.ui.detail.LaunchDetailFragment
 import io.reactivex.disposables.CompositeDisposable
 import com.vladislav.shumilov.launch_ui.R
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @VisibleForTesting
@@ -57,12 +59,13 @@ internal class LaunchesListViewModel @Inject constructor(
 
         compositeDisposable.clear()
 
-        compositeDisposable += interactor.getLaunchesForList(offset, LAUNCHES_LIMIT)
-            .subscribe({ launches ->
-                onLoadedLaunchesSuccess(launches)
-            }, {
-                onLoadedLaunchesError()
-            })
+        viewModelScope.launch(IO) {
+            runCatching {
+                interactor.getLaunchesForList(offset, LAUNCHES_LIMIT)
+            }
+                .onSuccess(::onLoadedLaunchesSuccess)
+                .onFailure { onLoadedLaunchesError() }
+        }
     }
 
     override fun onCleared() {
