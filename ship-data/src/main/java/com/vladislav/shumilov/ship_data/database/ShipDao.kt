@@ -5,7 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.vladislav.shumilov.ship_data.model.local.ShipImpl
-import io.reactivex.Single
 
 @Dao
 interface ShipDao {
@@ -14,5 +13,5 @@ interface ShipDao {
     fun insertList(missions: List<ShipImpl>)
 
     @Query("select * from ${ShipImpl.TABLE_NAME}")
-    fun getList(): Single<List<ShipImpl>>
+    suspend fun getList(): List<ShipImpl>
 }

@@ -13,7 +13,6 @@ import com.vladislav.shumilov.rocket_domain.repository.RocketLocalRepository
 import com.vladislav.shumilov.rocket_domain.repository.SecondStageLocalRepository
 import com.vladislav.shumilov.core_data.FragmentScope
 import com.vladislav.shumilov.core_data.util.UNCHECKED_CAST
-import io.reactivex.Single
 import javax.inject.Inject
 
 @FragmentScope
@@ -35,7 +34,7 @@ class RocketLocalRepositoryImpl @Inject constructor(
     }
 
     @Suppress(UNCHECKED_CAST)
-    override fun getList() = rocketDao.getList() as Single<List<Rocket>>
+    override suspend fun getList() = rocketDao.getList() as List<Rocket>
 
     private fun insertFirstStages(rockets: List<Rocket>) {
         val firstStages = mutableListOf<FirstStage>()

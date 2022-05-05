@@ -5,7 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.vladislav.shumilov.rocket_data.model.local.FirstStageImpl
-import io.reactivex.Single
 
 @Dao
 interface FirstStageDao {
@@ -14,5 +13,5 @@ interface FirstStageDao {
     fun insertList(firstStages: List<FirstStageImpl>)
 
     @Query("select * from ${FirstStageImpl.TABLE_NAME}")
-    fun getList(): Single<List<FirstStageImpl>>
+    suspend fun getList(): List<FirstStageImpl>
 }

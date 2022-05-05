@@ -7,7 +7,7 @@ import androidx.annotation.Px
 import androidx.core.content.ContextCompat
 import com.vladislav.shumilov.launch_ui.R
 
-class LaunchesListDecoration(context: Context) : RecyclerView.ItemDecoration() {
+internal class LaunchesListDecoration(context: Context) : RecyclerView.ItemDecoration() {
     private val divider = ContextCompat.getDrawable(context, R.drawable.common_line_divider)
 
     @Px

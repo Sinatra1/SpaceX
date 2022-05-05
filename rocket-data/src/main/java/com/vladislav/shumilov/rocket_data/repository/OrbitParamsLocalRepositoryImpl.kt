@@ -5,7 +5,6 @@ import com.vladislav.shumilov.rocket_data.model.local.OrbitParamsImpl
 import com.vladislav.shumilov.rocket_domain.model.local.OrbitParams
 import com.vladislav.shumilov.rocket_domain.repository.OrbitParamsLocalRepository
 import com.vladislav.shumilov.core_data.util.UNCHECKED_CAST
-import io.reactivex.Single
 import javax.inject.Inject
 
 class OrbitParamsLocalRepositoryImpl @Inject constructor(
@@ -18,5 +17,5 @@ class OrbitParamsLocalRepositoryImpl @Inject constructor(
     }
 
     @Suppress(UNCHECKED_CAST)
-    override fun getList() = orbitParamsDao.getList() as Single<List<OrbitParams>>
+    override suspend fun getList() = orbitParamsDao.getList() as List<OrbitParams>
 }

@@ -5,7 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.vladislav.shumilov.launch_data.model.local.LaunchToShipImpl
-import io.reactivex.Single
 
 @Dao
 interface LaunchToShipDao {
@@ -14,5 +13,5 @@ interface LaunchToShipDao {
     fun insertList(launchToShips: List<LaunchToShipImpl>)
 
     @Query("select * from ${LaunchToShipImpl.TABLE_NAME}")
-    fun getList(): Single<List<LaunchToShipImpl>>
+    suspend fun getList(): List<LaunchToShipImpl>
 }

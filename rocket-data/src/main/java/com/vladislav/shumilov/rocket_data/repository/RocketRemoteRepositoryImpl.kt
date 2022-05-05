@@ -11,8 +11,7 @@ class RocketRemoteRepositoryImpl @Inject constructor(
     private val firstStageRemoteRepository: FirstStageRemoteRepository,
     private val secondStageRemoteRepository: SecondStageRemoteRepository,
     private val fairingsRemoteRepository: FairingsRemoteRepository
-) :
-    RocketRemoteRepository {
+) : RocketRemoteRepository {
 
     override fun responseToModel(rocketResponse: RocketResponse) =
         RocketImpl(

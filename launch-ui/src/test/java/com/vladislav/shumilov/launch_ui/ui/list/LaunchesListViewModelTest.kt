@@ -2,11 +2,9 @@ package com.vladislav.shumilov.launch_ui.ui.list
 
 import android.content.res.Resources
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.vladislav.shumilov.launch_data.api.LAUNCHES_LIMIT
 import com.vladislav.shumilov.launch_domain.model.local.LaunchForList
 import com.vladislav.shumilov.launch_domain.ui.LaunchInteractor
 import com.vladislav.shumilov.launch_ui.R
-import io.reactivex.Single
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -36,7 +34,7 @@ class LaunchesListViewModelTest {
     private lateinit var resources: Resources
 
     @Mock
-    private lateinit var launchList: Single<List<LaunchForList>>
+    private lateinit var launchList: List<LaunchForList>
 
     private lateinit var viewModel: LaunchesListViewModel
 
@@ -45,10 +43,6 @@ class LaunchesListViewModelTest {
         whenever(
             resources.getString(R.string.launches_mission_icon_transition_name)
         ).thenReturn(MISSION_ICON_TRANSITION_NAME)
-
-        whenever(
-            interactor.getLaunchesForList(START_OFFSET, LAUNCHES_LIMIT)
-        ).thenReturn(launchList)
 
         viewModel = LaunchesListViewModel(interactor, resources)
     }

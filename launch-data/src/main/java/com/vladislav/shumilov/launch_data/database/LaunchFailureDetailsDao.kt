@@ -5,7 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.vladislav.shumilov.launch_data.model.local.LaunchFailureDetailsImpl
-import io.reactivex.Single
 
 @Dao
 interface LaunchFailureDetailsDao {
@@ -14,5 +13,5 @@ interface LaunchFailureDetailsDao {
     fun insertList(launchFailureDetails: List<LaunchFailureDetailsImpl>)
 
     @Query("select * from ${LaunchFailureDetailsImpl.TABLE_NAME}")
-    fun getList(): Single<List<LaunchFailureDetailsImpl>>
+    suspend fun getList(): List<LaunchFailureDetailsImpl>
 }

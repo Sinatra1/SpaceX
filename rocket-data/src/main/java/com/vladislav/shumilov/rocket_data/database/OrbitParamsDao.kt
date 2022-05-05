@@ -5,7 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.vladislav.shumilov.rocket_data.model.local.OrbitParamsImpl
-import io.reactivex.Single
 
 @Dao
 interface OrbitParamsDao {
@@ -14,5 +13,5 @@ interface OrbitParamsDao {
     fun insertList(orbitParams: List<OrbitParamsImpl>)
 
     @Query("select * from ${OrbitParamsImpl.TABLE_NAME}")
-    fun getList(): Single<List<OrbitParamsImpl>>
+    suspend fun getList(): List<OrbitParamsImpl>
 }

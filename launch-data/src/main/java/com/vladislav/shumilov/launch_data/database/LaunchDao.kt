@@ -8,7 +8,6 @@ import com.vladislav.shumilov.launch_data.api.LAUNCHES_SORT
 import com.vladislav.shumilov.launch_data.model.local.LaunchForDetailImpl
 import com.vladislav.shumilov.launch_data.model.local.LaunchImpl
 import com.vladislav.shumilov.launch_data.model.local.LaunchForListImpl
-import io.reactivex.Single
 
 @Dao
 interface LaunchDao {
@@ -17,15 +16,15 @@ interface LaunchDao {
     fun insertList(launches: List<LaunchImpl>)
 
     @Query("SELECT * FROM ${LaunchImpl.TABLE_NAME} LIMIT :limit")
-    fun getList(limit: Int = Int.MAX_VALUE): Single<List<LaunchImpl>>
+    suspend fun getList(limit: Int = Int.MAX_VALUE): List<LaunchImpl>
 
     @Query("SELECT * FROM ${LaunchImpl.TABLE_NAME} ORDER BY :sort DESC LIMIT :limit OFFSET :offset")
-    fun getLaunchesForList(
+    suspend fun getLaunchesForList(
         offset: Int,
         limit: Int = Int.MAX_VALUE,
         sort: String = LAUNCHES_SORT
-    ): Single<List<LaunchForListImpl>>
+    ): List<LaunchForListImpl>
 
     @Query("SELECT * FROM ${LaunchImpl.TABLE_NAME} WHERE id = :launchId")
-    fun getLaunchForDetail(launchId: String): Single<LaunchForDetailImpl>
+    suspend fun getLaunchForDetail(launchId: String): LaunchForDetailImpl
 }

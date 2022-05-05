@@ -2,7 +2,7 @@ package com.vladislav.shumilov.spacex.di
 
 import com.vladislav.shumilov.app_data.database.AppDatabase
 import com.vladislav.shumilov.core_data.ApplicationScope
-import com.vladislav.shumilov.core_ui.CoreComponent
+import com.vladislav.shumilov.core_ui.di.CoreComponent
 import com.vladislav.shumilov.design_ui.di.DesignComponent
 import com.vladislav.shumilov.launch_ui.di.LaunchComponentHolder
 import com.vladislav.shumilov.spacex.App

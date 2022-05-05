@@ -1,4 +1,4 @@
-package com.vladislav.shumilov.core_ui
+package com.vladislav.shumilov.core_ui.di
 
 import android.app.Application
 import android.content.Context
@@ -6,9 +6,9 @@ import android.content.res.Resources
 import com.google.gson.Gson
 import com.vladislav.shumilov.core_data.ApplicationContext
 import com.vladislav.shumilov.core_data.CoreScope
+import com.vladislav.shumilov.core_ui.di.modules.HttpModule
 import com.vladislav.shumilov.core_ui.injection.modules.AppModule
 import com.vladislav.shumilov.core_ui.injection.modules.GsonModule
-import com.vladislav.shumilov.core_ui.injection.modules.HttpModule
 import dagger.Component
 import retrofit2.Retrofit
 

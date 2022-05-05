@@ -10,7 +10,6 @@ import com.vladislav.shumilov.rocket_domain.repository.PayloadLocalRepository
 import com.vladislav.shumilov.rocket_domain.repository.SecondStageLocalRepository
 import com.vladislav.shumilov.core_data.FragmentScope
 import com.vladislav.shumilov.core_data.util.UNCHECKED_CAST
-import io.reactivex.Single
 import javax.inject.Inject
 
 @FragmentScope
@@ -29,7 +28,7 @@ class SecondStageLocalRepositoryImpl @Inject constructor(
     }
 
     @Suppress(UNCHECKED_CAST)
-    override fun getList() = secondStageDao.getList() as Single<List<SecondStage>>
+    override suspend fun getList() = secondStageDao.getList() as List<SecondStage>
 
     private fun insertPayloads(secondStages: List<SecondStage>) {
         val payloads = mutableListOf<Payload>()

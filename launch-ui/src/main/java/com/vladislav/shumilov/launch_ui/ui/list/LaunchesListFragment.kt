@@ -24,7 +24,6 @@ import com.vladislav.shumilov.launch_ui.R
 import com.vladislav.shumilov.launch_ui.app
 import com.vladislav.shumilov.launch_ui.databinding.LaunchesListBinding
 import com.vladislav.shumilov.launch_ui.ui.detail.LaunchDetailFragment
-import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 
@@ -50,7 +49,6 @@ class LaunchesListFragment : Fragment(), BaseListFragment {
     private var launchesListAdapter: LaunchesListAdapter? = null
     private var inProcess = false
     private var isLastPage = false
-    private var compositeDisposable: CompositeDisposable? = null
     private val handler = Handler()
     private lateinit var navController: NavController
 
@@ -97,20 +95,11 @@ class LaunchesListFragment : Fragment(), BaseListFragment {
     override fun onResume() {
         super.onResume()
 
-        compositeDisposable = CompositeDisposable()
-
         launchesListAdapter?.let {
-            compositeDisposable?.add(it.onClickViewHolderCallback.subscribe { (view, launchList) ->
+            it.getViewHolderClickEvent().observe(viewLifecycleOwner) { (view, launchList) ->
                 transmitSelectedItemId(launchList.launch.id, view)
-            })
+            }
         }
-    }
-
-    override fun onPause() {
-        super.onPause()
-
-        compositeDisposable?.dispose()
-        compositeDisposable = null
     }
 
     override fun onDestroyView() {

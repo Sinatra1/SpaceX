@@ -1,6 +1,6 @@
 package com.vladislav.shumilov.spacex
 
-import com.vladislav.shumilov.core_ui.DaggerCoreComponent
+import com.vladislav.shumilov.core_ui.di.DaggerCoreComponent
 import com.vladislav.shumilov.core_ui.injection.modules.AppModule
 import com.vladislav.shumilov.design_ui.di.DaggerDesignComponent
 import com.vladislav.shumilov.launch_ui.LaunchApp
@@ -9,7 +9,6 @@ import com.vladislav.shumilov.spacex.di.AppComponent
 import com.vladislav.shumilov.spacex.di.DaggerAppComponent
 import com.vladislav.shumilov.rocket_ui.RocketApp
 import com.vladislav.shumilov.rocket_ui.di.RocketComponent
-import com.vladislav.shumilov.spacex.BuildConfig
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import timber.log.Timber

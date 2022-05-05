@@ -15,7 +15,6 @@ import com.vladislav.shumilov.mission_domain.model.local.Mission
 import com.vladislav.shumilov.ship_data.database.ShipDao
 import com.vladislav.shumilov.ship_data.model.local.ShipImpl
 import com.vladislav.shumilov.ship_domain.model.local.Ship
-import io.reactivex.Single
 import javax.inject.Inject
 
 @FragmentScope
@@ -50,17 +49,17 @@ class LaunchLocalRepositoryImpl @Inject constructor(
 
     @Suppress(UNCHECKED_CAST)
     @WorkerThread
-    override fun getList(limit: Int) = launchDao.getList(limit) as Single<List<Launch>>
+    override suspend fun getList(limit: Int) = launchDao.getList(limit) as List<Launch>
 
     @Suppress(UNCHECKED_CAST)
     @WorkerThread
-    override fun getLaunchesForList(offset: Int, limit: Int) =
-        launchDao.getLaunchesForList(offset, limit) as Single<List<LaunchForList>>
+    override suspend fun getLaunchesForList(offset: Int, limit: Int) =
+        launchDao.getLaunchesForList(offset, limit) as List<LaunchForList>
 
     @Suppress(UNCHECKED_CAST)
     @WorkerThread
-    override fun getLaunchForDetail(launchId: String)  =
-        launchDao.getLaunchForDetail(launchId) as Single<LaunchForDetail>
+    override suspend fun getLaunchForDetail(launchId: String)  =
+        launchDao.getLaunchForDetail(launchId) as LaunchForDetail
 
     override fun getListWithMissionsByList(launches: List<Launch>): List<LaunchForList> {
         val launchesWithMissions = mutableListOf<LaunchForListImpl>()
