@@ -1,13 +1,13 @@
 package com.vladislav.shumilov.design_ui.views.carousel.viewModel
 
-import android.os.Handler
-import android.os.Looper
 import androidx.databinding.ObservableInt
-import com.vladislav.shumilov.core_data.util.plusAssign
-import io.reactivex.Observable
-import io.reactivex.disposables.CompositeDisposable
-import timber.log.Timber
-import java.util.concurrent.TimeUnit
+import com.vladislav.shumilov.core_data.coroutines.CloseableCoroutineScope
+import com.vladislav.shumilov.core_data.util.flowInterval
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 internal class CarouselViewModelImpl @Inject constructor() : CarouselViewModel {
@@ -16,17 +16,17 @@ internal class CarouselViewModelImpl @Inject constructor() : CarouselViewModel {
     private var isCarouselStarted = false
     private var delay = 0L
     private var count = 0
-    private val compositeDisposable = CompositeDisposable()
-    private val handler = Handler(Looper.getMainLooper())
+    private var scope: CloseableCoroutineScope? = null
 
     override val onPageSelectedListener = { position: Int ->
         if (currentItemIndex.get() != position) {
             pauseCarousel()
             currentItemIndex.set(position)
 
-            handler.postDelayed({
+            scope?.launch {
+                delay(delay)
                 resumeCarousel()
-            }, delay)
+            }
         }
     }
 
@@ -36,17 +36,18 @@ internal class CarouselViewModelImpl @Inject constructor() : CarouselViewModel {
         currentItemIndex.set(start)
         isCarouselStarted = true
 
-        compositeDisposable += Observable.interval(delay, TimeUnit.MILLISECONDS)
-            .subscribe(
-                {
-                    setCurrentItemIndex(start, count)
-                }, Timber::e
-            )
+        scope = CloseableCoroutineScope(IO + SupervisorJob())
+        scope?.launch {
+                flowInterval(delay)
+                    .collect {
+                        setCurrentItemIndex(start, count)
+                    }
+            }
     }
 
     override fun stopCarousel() {
         currentItemIndex.set(START_CAROUSEL_INDEX)
-        compositeDisposable.clear()
+        scope?.close()
     }
 
     override fun resumeCarousel() {

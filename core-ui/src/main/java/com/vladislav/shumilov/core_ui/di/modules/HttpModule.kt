@@ -1,7 +1,6 @@
-package com.vladislav.shumilov.core_ui.injection.modules
+package com.vladislav.shumilov.core_ui.di.modules
 
 import com.google.gson.Gson
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import com.vladislav.shumilov.core_data.BuildConfig.API_URL
 import com.vladislav.shumilov.core_data.CoreScope
 import com.vladislav.shumilov.core_data.api.ApiKeyInterceptor
@@ -39,6 +38,5 @@ object HttpModule {
             .baseUrl(API_URL)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create(gson))
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
 }

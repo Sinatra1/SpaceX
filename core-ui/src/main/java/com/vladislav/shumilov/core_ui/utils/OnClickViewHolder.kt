@@ -1,7 +1,8 @@
 package com.vladislav.shumilov.core_ui.utils
 
-import io.reactivex.subjects.Subject
+import androidx.lifecycle.LiveData
 
 interface OnClickViewHolder<T> {
-    var onClickViewHolderCallback: Subject<T>
+
+    fun getViewHolderClickEvent(): LiveData<T>
 }

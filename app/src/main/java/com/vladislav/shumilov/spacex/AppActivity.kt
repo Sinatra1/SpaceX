@@ -1,4 +1,4 @@
-package vladislav.shumilov.spacex
+package com.vladislav.shumilov.spacex
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
@@ -7,13 +7,12 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.vladislav.shumilov.core_ui.ui.activity.SingleActivity
 import com.vladislav.shumilov.core_ui.utils.isTabletDevice
-import com.vladislav.shumilov.spacex.R
 import dagger.android.support.DaggerAppCompatActivity
 
 internal class AppActivity : DaggerAppCompatActivity(),
     SingleActivity {
 
-    lateinit var navController: NavController
+    private var navController: NavController? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,8 +25,8 @@ internal class AppActivity : DaggerAppCompatActivity(),
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        item?.itemId?.let { itemId ->
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        item.itemId.let { itemId ->
             if (itemId == android.R.id.home) {
                 popBackStack()
                 return false
@@ -38,7 +37,7 @@ internal class AppActivity : DaggerAppCompatActivity(),
     }
 
     override fun popBackStack() {
-        navController.popBackStack()
+        navController?.popBackStack()
     }
 
     override fun getNavigationController() = navController

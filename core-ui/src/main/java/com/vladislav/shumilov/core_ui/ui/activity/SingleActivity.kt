@@ -5,5 +5,5 @@ import androidx.navigation.NavController
 interface SingleActivity {
     fun popBackStack()
 
-    fun getNavigationController(): NavController
+    fun getNavigationController(): NavController?
 }

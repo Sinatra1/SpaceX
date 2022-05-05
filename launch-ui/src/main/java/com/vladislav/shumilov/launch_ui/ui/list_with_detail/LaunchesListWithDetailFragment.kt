@@ -17,7 +17,7 @@ private const val LIST_FRAGMENT_TAG = "launches_list_fragment"
 private const val DETAIL_FRAGMENT_TAG = "launch_detail_fragment"
 
 @FragmentScope
-class LaunchesListWithDetailFragment :
+internal class LaunchesListWithDetailFragment :
     BaseListWithDetailFragment<LaunchesListFragment, LaunchDetailFragment>(), LifecycleObserver {
 
     override val layoutId = R.layout.launches_list_with_detail

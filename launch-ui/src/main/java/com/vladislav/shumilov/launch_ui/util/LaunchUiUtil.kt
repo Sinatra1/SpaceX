@@ -9,7 +9,7 @@ import com.vladislav.shumilov.launch_domain.model.local.LaunchForDetail
 import com.vladislav.shumilov.launch_ui.R
 import com.vladislav.shumilov.rocket_ui.util.getCoreCardViewItems
 
-fun getRocketDetailCardViewItemsForLaunch(
+internal fun getRocketDetailCardViewItemsForLaunch(
     launchForDetail: LaunchForDetail,
     resources: Resources
 ): List<CardWithListItemModel> {

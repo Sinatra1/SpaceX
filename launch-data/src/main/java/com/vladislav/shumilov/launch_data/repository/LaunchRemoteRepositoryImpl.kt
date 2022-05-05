@@ -11,7 +11,6 @@ import com.vladislav.shumilov.launch_domain.model.remote.LaunchResponse
 import com.vladislav.shumilov.launch_domain.repository.*
 import com.vladislav.shumilov.mission_data.model.local.MissionImpl
 import com.vladislav.shumilov.ship_data.model.local.ShipImpl
-import io.reactivex.Single
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.mutableListOf
@@ -26,8 +25,8 @@ class LaunchRemoteRepositoryImpl @Inject constructor(
 ) : LaunchRemoteRepository {
 
     @Suppress(UNCHECKED_CAST)
-    override fun getList(offset: Int, limit: Int) =
-        launchApi.getList(offset, limit) as Single<List<LaunchResponse>>
+    override suspend fun getList(offset: Int, limit: Int) =
+        launchApi.getList(offset, limit) as List<LaunchResponse>
 
     override fun responsesToModels(launchResponses: List<LaunchResponse>): List<Launch> {
         val launches = mutableListOf<Launch>()

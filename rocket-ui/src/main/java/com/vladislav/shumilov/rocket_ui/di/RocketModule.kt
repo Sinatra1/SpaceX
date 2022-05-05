@@ -1,6 +1,5 @@
 package com.vladislav.shumilov.rocket_ui.di
 
-import com.vladislav.shumilov.payload_data.repository.PayloadLocalRepositoryImpl
 import com.vladislav.shumilov.rocket_data.database.*
 import com.vladislav.shumilov.rocket_data.repository.*
 import com.vladislav.shumilov.rocket_domain.repository.*

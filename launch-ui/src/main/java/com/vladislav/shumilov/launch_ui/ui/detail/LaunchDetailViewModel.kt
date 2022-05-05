@@ -8,19 +8,19 @@ import com.vladislav.shumilov.common_domain.card_view_with_list.model.CardWithLi
 import com.vladislav.shumilov.common_ui.ui.util.CAROUSEL_DELAY
 import com.vladislav.shumilov.common_ui.ui.util.prepareCarouselItems
 import com.vladislav.shumilov.core_data.FragmentScope
-import com.vladislav.shumilov.core_data.util.plusAssign
 import com.vladislav.shumilov.design_ui.views.carousel.model.CarouselItemModel
 import com.vladislav.shumilov.design_ui.views.carousel.viewModel.CarouselViewModel
 import com.vladislav.shumilov.design_ui.views.carousel.viewModel.START_CAROUSEL_INDEX
 import com.vladislav.shumilov.launch_domain.model.local.LaunchForDetail
 import com.vladislav.shumilov.launch_domain.ui.LaunchInteractor
 import com.vladislav.shumilov.launch_ui.util.getRocketDetailCardViewItemsForLaunch
-import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @FragmentScope
-class LaunchDetailViewModel @Inject constructor(
-    private val launchInteractor: LaunchInteractor,
+internal class LaunchDetailViewModel @Inject constructor(
+    private val interactor: LaunchInteractor,
     private val resources: Resources,
     val carouselVM: CarouselViewModel
 ) : ViewModel(), LifecycleObserver {
@@ -30,8 +30,6 @@ class LaunchDetailViewModel @Inject constructor(
     val rocketDetails = ObservableField<List<CardWithListItemModel>>()
     val launchCarouselImages = ObservableField<List<CarouselItemModel>>()
     val isCarouselVisible = ObservableBoolean(false)
-
-    private val compositeDisposable = CompositeDisposable()
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume() {
@@ -44,22 +42,21 @@ class LaunchDetailViewModel @Inject constructor(
     }
 
     fun getLaunchForDetail(launchId: String) {
-
-        compositeDisposable += launchInteractor.getLaunchForDetail(launchId)
-            .subscribe({ launch ->
-                onLoadedLaunchSuccess(launch)
-            }, {
-                onLoadedLaunchError()
-            })
+        viewModelScope.launch(Dispatchers.IO) {
+            runCatching {
+                interactor.getLaunchForDetail(launchId)
+            }
+                .onSuccess(::onLoadedLaunchSuccess)
+                .onFailure { onLoadedLaunchError() }
+        }
     }
 
     override fun onCleared() {
         carouselVM.stopCarousel()
-        compositeDisposable.clear()
     }
 
     private fun onLoadedLaunchSuccess(launch: LaunchForDetail) {
-        launchLiveData.value = launch
+        launchLiveData.postValue(launch)
         launchForDetail.set(launch)
 
         val details = getRocketDetailCardViewItemsForLaunch(launch, resources)
