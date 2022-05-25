@@ -6,6 +6,7 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -15,6 +16,9 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionInflater
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.model.UpdateAvailability
+import com.google.android.play.core.ktx.requestAppUpdateInfo
 import com.vladislav.shumilov.core_ui.ui.list_with_detail.BaseListFragment
 import com.vladislav.shumilov.core_ui.ui.list_with_detail.BaseListWithDetail
 import com.vladislav.shumilov.core_data.FragmentScope
@@ -25,6 +29,10 @@ import com.vladislav.shumilov.launch_ui.app
 import com.vladislav.shumilov.launch_ui.databinding.LaunchesListBinding
 import com.vladislav.shumilov.launch_ui.ui.detail.LaunchDetailFragment
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -54,6 +62,8 @@ class LaunchesListFragment : Fragment(), BaseListFragment {
     private val handler = Handler()
     private lateinit var navController: NavController
 
+    private val appUpdateManager by lazy { AppUpdateManagerFactory.create(requireActivity()) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -62,6 +72,25 @@ class LaunchesListFragment : Fragment(), BaseListFragment {
         app()?.createLaunchComponent()?.inject(this)
 
         viewModel.getLaunchesForList()
+
+        CoroutineScope(IO).launch {
+            runCatching {
+                appUpdateManager.requestAppUpdateInfo().updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+            }.onSuccess { isUpdateAvailable ->
+                CoroutineScope(Main.immediate).launch {
+                    if (isUpdateAvailable) {
+                        Toast.makeText(requireContext(), R.string.launches_app_new_version, Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(requireContext(), R.string.launches_app_up_to_date, Toast.LENGTH_LONG).show()
+                    }
+                }
+            }.onFailure { error ->
+                    CoroutineScope(Main.immediate).launch {
+                        Toast.makeText(requireContext(), error.localizedMessage, Toast.LENGTH_LONG)
+                            .show()
+                    }
+                }
+        }
     }
 
     override fun onCreateView(
