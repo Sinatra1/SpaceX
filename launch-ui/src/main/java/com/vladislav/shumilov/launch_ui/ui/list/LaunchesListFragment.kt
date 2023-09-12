@@ -8,22 +8,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionInflater
-import com.vladislav.shumilov.core_ui.ui.list_with_detail.BaseListFragment
-import com.vladislav.shumilov.core_ui.ui.list_with_detail.BaseListWithDetail
 import com.vladislav.shumilov.core_data.FragmentScope
 import com.vladislav.shumilov.core_ui.di.modules.CoreViewModelFactory
+import com.vladislav.shumilov.core_ui.ui.list_with_detail.BaseListFragment
+import com.vladislav.shumilov.core_ui.ui.list_with_detail.BaseListWithDetail
 import com.vladislav.shumilov.launch_domain.model.local.LaunchForList
 import com.vladislav.shumilov.launch_ui.R
 import com.vladislav.shumilov.launch_ui.app
 import com.vladislav.shumilov.launch_ui.databinding.LaunchesListBinding
 import com.vladislav.shumilov.launch_ui.ui.detail.LaunchDetailFragment
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -47,8 +49,7 @@ class LaunchesListFragment : Fragment(), BaseListFragment {
     }
 
     private var launchesListAdapter: LaunchesListAdapter? = null
-    private var inProcess = false
-    private var isLastPage = false
+
     private val handler = Handler()
     private lateinit var navController: NavController
 
@@ -89,17 +90,7 @@ class LaunchesListFragment : Fragment(), BaseListFragment {
     override fun onStart() {
         super.onStart()
 
-        setLiveDataListeners()
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        launchesListAdapter?.let {
-            it.getViewHolderClickEvent().observe(viewLifecycleOwner) { (view, launchList) ->
-                transmitSelectedItemId(launchList.launch.id, view)
-            }
-        }
+        setListeners()
     }
 
     override fun onDestroyView() {
@@ -108,9 +99,9 @@ class LaunchesListFragment : Fragment(), BaseListFragment {
         app()?.clearLaunchComponent()
     }
 
-    override fun showDetailFragment(itemId: String, transitionView: View?) {
+    override fun showDetailFragment(itemId: String) {
         handler.post {
-            viewModel.showLaunchDetailFragment(itemId, transitionView)
+            viewModel.showLaunchDetailFragment(itemId)
         }
     }
 
@@ -131,7 +122,10 @@ class LaunchesListFragment : Fragment(), BaseListFragment {
     }
 
     private fun setListAdapter() {
-        launchesListAdapter = LaunchesListAdapter(requireContext())
+        launchesListAdapter = LaunchesListAdapter { launchList ->
+            transmitSelectedItemId(launchList.launch.id)
+        }
+
         binding.launchesList.layoutManager = LinearLayoutManager(activity)
         binding.launchesList.adapter = launchesListAdapter
         binding.launchesList.addItemDecoration(
@@ -146,18 +140,12 @@ class LaunchesListFragment : Fragment(), BaseListFragment {
         )
     }
 
-    private fun setLiveDataListeners() {
-        viewModel.getLaunches().observe(viewLifecycleOwner, Observer { launches ->
-            showLaunches(launches)
-        })
-
-        viewModel.getInProcess().observe(viewLifecycleOwner, Observer { inProcess ->
-            this.inProcess = inProcess
-        })
-
-        viewModel.getIsLastPage().observe(viewLifecycleOwner, Observer { isLastPage ->
-            this.isLastPage = isLastPage
-        })
+    private fun setListeners() {
+        lifecycleScope.launch {
+            viewModel.stateFlow.collect {
+                showLaunches(it.launches)
+            }
+        }
     }
 
     private fun showLaunches(launches: List<LaunchForList>) {
@@ -172,18 +160,12 @@ class LaunchesListFragment : Fragment(), BaseListFragment {
         }
     }
 
-    private fun transmitSelectedItemId(launchId: String, transitionView: View? = null) {
-        (parentFragment as? BaseListWithDetail)?.transmitSelectedItemId(
-            launchId,
-            transitionView
-        )
+    private fun transmitSelectedItemId(launchId: String) {
+        (parentFragment as? BaseListWithDetail)?.transmitSelectedItemId(launchId)
     }
 
-    private fun initializeSelectedItemId(launchId: String, transitionView: View? = null) {
-        (parentFragment as? BaseListWithDetail)?.initializeSelectedItemId(
-            launchId,
-            transitionView
-        )
+    private fun initializeSelectedItemId(launchId: String) {
+        (parentFragment as? BaseListWithDetail)?.initializeSelectedItemId(launchId)
     }
 
     private fun getSelectedLaunchId(): String? =
@@ -199,7 +181,7 @@ class LaunchesListFragment : Fragment(), BaseListFragment {
             val totalItemCount = layoutManager.itemCount
             val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
-            if (!inProcess && !isLastPage) {
+            if (!viewModel.state.isInProgress && !viewModel.state.isLastPage) {
                 if (visibleItemCount + firstVisibleItemPosition >= totalItemCount
                     && firstVisibleItemPosition >= 0
                     && totalItemCount >= PAGE_SIZE

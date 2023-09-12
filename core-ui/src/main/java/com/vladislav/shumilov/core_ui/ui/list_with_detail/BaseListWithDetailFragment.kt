@@ -55,15 +55,15 @@ abstract class BaseListWithDetailFragment<ListFragment : Fragment, DetailFragmen
         }
     }
 
-    override fun initializeSelectedItemId(itemId: String, transitionView: View?) {
+    override fun initializeSelectedItemId(itemId: String) {
         if (selectedItemId == null && commonDetailContainerView != null) {
-            transmitSelectedItemId(itemId, transitionView)
+            transmitSelectedItemId(itemId)
         }
     }
 
-    override fun transmitSelectedItemId(itemId: String, transitionView: View?) {
+    override fun transmitSelectedItemId(itemId: String) {
         selectedItemId = itemId
-        setDetailFragment(transitionView)
+        setDetailFragment()
     }
 
     override fun getSelectedItemId(): String? = selectedItemId
@@ -76,7 +76,7 @@ abstract class BaseListWithDetailFragment<ListFragment : Fragment, DetailFragmen
 
     protected abstract fun getDetailFragmentTag(): String
 
-    private fun setDetailFragment(transitionView: View? = null) {
+    private fun setDetailFragment() {
         selectedItemId?.let {
             selectListRow(it)
 
@@ -89,7 +89,7 @@ abstract class BaseListWithDetailFragment<ListFragment : Fragment, DetailFragmen
                     ).commit()
                 canShowDetailFragment = true
             } else {
-                showDetailFragment(it, transitionView)
+                showDetailFragment(it)
                 canShowDetailFragment = false
             }
         }
@@ -101,10 +101,9 @@ abstract class BaseListWithDetailFragment<ListFragment : Fragment, DetailFragmen
             .commit()
     }
 
-    private fun showDetailFragment(itemId: String, transitionView: View? = null) {
-        (childFragmentManager.findFragmentByTag(getListFragmentTag()) as? BaseListFragment)?.showDetailFragment(
-            itemId, transitionView
-        )
+    private fun showDetailFragment(itemId: String) {
+        (childFragmentManager.findFragmentByTag(getListFragmentTag()) as? BaseListFragment)
+            ?.showDetailFragment(itemId)
     }
 
     private fun selectListRow(itemId: String) {

@@ -8,11 +8,15 @@ import com.vladislav.shumilov.common_domain.card_view_with_list.model.CardWithLi
 import com.vladislav.shumilov.common_ui.ui.util.CAROUSEL_DELAY
 import com.vladislav.shumilov.common_ui.ui.util.prepareCarouselItems
 import com.vladislav.shumilov.core_data.FragmentScope
+import com.vladislav.shumilov.core_ui.delegates.DefaultStateDelegate
+import com.vladislav.shumilov.core_ui.models.StateDelegate
 import com.vladislav.shumilov.design_ui.views.carousel.model.CarouselItemModel
 import com.vladislav.shumilov.design_ui.views.carousel.viewModel.CarouselViewModel
 import com.vladislav.shumilov.design_ui.views.carousel.viewModel.START_CAROUSEL_INDEX
 import com.vladislav.shumilov.launch_domain.model.local.LaunchForDetail
 import com.vladislav.shumilov.launch_domain.ui.LaunchInteractor
+import com.vladislav.shumilov.launch_ui.models.LaunchDetailState
+import com.vladislav.shumilov.launch_ui.models.LaunchesListState
 import com.vladislav.shumilov.launch_ui.util.getRocketDetailCardViewItemsForLaunch
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,9 +27,8 @@ internal class LaunchDetailViewModel @Inject constructor(
     private val interactor: LaunchInteractor,
     private val resources: Resources,
     val carouselVM: CarouselViewModel
-) : ViewModel(), LifecycleObserver {
+) : ViewModel(), LifecycleObserver, StateDelegate<LaunchDetailState> by DefaultStateDelegate(LaunchDetailState()) {
 
-    private val launchLiveData = MutableLiveData<LaunchForDetail>()
     val launchForDetail = ObservableField<LaunchForDetail>()
     val rocketDetails = ObservableField<List<CardWithListItemModel>>()
     val launchCarouselImages = ObservableField<List<CarouselItemModel>>()
@@ -56,7 +59,12 @@ internal class LaunchDetailViewModel @Inject constructor(
     }
 
     private fun onLoadedLaunchSuccess(launch: LaunchForDetail) {
-        launchLiveData.postValue(launch)
+        updateState {
+            copy(
+                launch = launch,
+            )
+        }
+
         launchForDetail.set(launch)
 
         val details = getRocketDetailCardViewItemsForLaunch(launch, resources)
