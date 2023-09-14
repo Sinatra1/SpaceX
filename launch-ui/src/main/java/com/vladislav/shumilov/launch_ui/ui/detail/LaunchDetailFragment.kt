@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.viewModels
 import androidx.navigation.ui.NavigationUI
 import androidx.transition.TransitionInflater
 import com.vladislav.shumilov.core_data.FragmentScope
@@ -42,10 +42,7 @@ class LaunchDetailFragment : BaseDetailFragment() {
 
     private lateinit var binding: LaunchDetailBinding
 
-    private val viewModel: LaunchDetailViewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory)
-            .get(LaunchDetailViewModel::class.java)
-    }
+    private val viewModel: LaunchDetailViewModel by viewModels { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

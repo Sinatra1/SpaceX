@@ -42,7 +42,7 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
 
     //ViewModel
-    implementation "android.arch.lifecycle:viewmodel:$lifecycle_version"
+    implementation "androidx.fragment:fragment-ktx:$ktx_fragment_version"
     implementation "no.tornado.databinding:databinding:$databinding_version"
 
     //Retrofit

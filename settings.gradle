@@ -1,1 +1,2 @@
 include ':app', ':core-data', ':core-domain', ':launch-ui', ':core-ui', ':launch-data', ':launch-domain', ':rocket-domain', ':rocket-data', ':rocket-ui', ':app-data', ':mission-domain', ':mission-data', ':mission-ui', ':ship-domain', ':ship-data', ':ship-ui', ':common-ui', ':common-domain', ':common-data', ':design-ui'
+include ':library-compose'

@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -24,7 +24,6 @@ import com.vladislav.shumilov.launch_ui.R
 import com.vladislav.shumilov.launch_ui.app
 import com.vladislav.shumilov.launch_ui.databinding.LaunchesListBinding
 import com.vladislav.shumilov.launch_ui.ui.detail.LaunchDetailFragment
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -43,10 +42,7 @@ class LaunchesListFragment : Fragment(), BaseListFragment {
 
     private lateinit var binding: LaunchesListBinding
 
-    private val viewModel: LaunchesListViewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory)
-            .get(LaunchesListViewModel::class.java)
-    }
+    private val viewModel: LaunchesListViewModel by viewModels { viewModelFactory }
 
     private var launchesListAdapter: LaunchesListAdapter? = null
 
