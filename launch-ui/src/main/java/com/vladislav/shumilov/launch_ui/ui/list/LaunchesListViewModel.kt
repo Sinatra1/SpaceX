@@ -25,6 +25,9 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -57,6 +60,7 @@ internal class LaunchesListViewModel @Inject constructor(
         _errorFlow.resetReplayCache()
 
         testFlowThreads()
+        testFlowCombine()
     }
 
     private fun testFlowThreads() {
@@ -64,22 +68,49 @@ internal class LaunchesListViewModel @Inject constructor(
             emit(1)
             emit(2)
             emit(3)
-            Log.e("my_tag", "Body on ${Thread.currentThread().name}")
+            Log.e("flow_threads", "Body on ${Thread.currentThread().name}")
             //IO
         }
 
         viewModelScope.launch(Default) {
             flow.map {
-                Log.e("my_tag", "map $it on ${Thread.currentThread().name}")
+                Log.e("flow_threads", "map $it on ${Thread.currentThread().name}")
                 //IO
                 it
             }
             .flowOn(IO)
             .collect { value ->
-                Log.e("my_tag", "Collected value $value on ${Thread.currentThread().name}")
+                Log.e("flow_threads", "Collected value $value on ${Thread.currentThread().name}")
                 //Default
             }
         }
+    }
+
+    private fun testFlowCombine() {
+        val flow1 = (1..5).asFlow()
+        val flow2 = (6..10).asFlow()
+
+        val combinedFlow = flow1.combine(flow2) { value1, value2 ->
+            "Combined: $value1 - $value2"
+        }
+
+        viewModelScope.launch {
+            combinedFlow.collectLatest { result ->
+                Log.e("flow_combine", "Collected value $result on ${Thread.currentThread().name}")
+            }
+        }
+
+        /*
+            Collected value Combined: 1 - 6 on main
+            Collected value Combined: 2 - 6 on main
+            Collected value Combined: 2 - 7 on main
+            Collected value Combined: 3 - 7 on main
+            Collected value Combined: 3 - 8 on main
+            Collected value Combined: 4 - 8 on main
+            Collected value Combined: 4 - 9 on main
+            Collected value Combined: 5 - 9 on main
+            Collected value Combined: 5 - 10 on main
+         */
     }
 
     fun getLaunchesForList() {
