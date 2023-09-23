@@ -1,6 +1,7 @@
 package com.vladislav.shumilov.launch_ui.ui.list
 
 import android.content.res.Resources
+import android.util.Log
 import androidx.annotation.VisibleForTesting
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.ViewModel
@@ -16,12 +17,17 @@ import com.vladislav.shumilov.launch_ui.R
 import com.vladislav.shumilov.launch_ui.models.LaunchesListState
 import com.vladislav.shumilov.launch_ui.models.START_OFFSET
 import com.vladislav.shumilov.launch_ui.ui.detail.LaunchDetailFragment
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @VisibleForTesting
 const val FIRST_FLIGHT_NUMBER = 1
+private const val TAG = "parallel_launches"
 
 @FragmentScope
 internal class LaunchesListViewModel @Inject constructor(
@@ -49,13 +55,54 @@ internal class LaunchesListViewModel @Inject constructor(
 
         setIsShownProgress(true)
 
-        viewModelScope.launch(IO) {
-            runCatching {
-                interactor.getLaunchesForList(state.offset, LAUNCHES_LIMIT)
-            }
-                .onSuccess(::onLoadedLaunchesSuccess)
-                .onFailure { onLoadedLaunchesError() }
+        viewModelScope.launch(IO + launchesExceptionViewHolder) {
+            executeAllRequestsInParallel(state.offset)
+            executeAllRequestsInParallel(state.offset + 2 * LAUNCHES_LIMIT)
         }
+    }
+
+    private suspend fun CoroutineScope.executeAllRequestsInParallel(offset: Int) {
+        Log.d(TAG, "parallel request started ${Thread.currentThread().name}")
+        val deferred1 = async {
+            runCatching {
+                Log.d(TAG, "request1 start ${Thread.currentThread().name}")
+                val request1 = getLaunchesForListRequest1(offset)
+                Log.d(TAG, "request1 end")
+                request1
+            }.onFailure {
+                Log.d(TAG, "request1 error ${it.localizedMessage}")
+            }.getOrNull().orEmpty()
+        }
+        val deferred2 = async {
+            runCatching {
+                Log.d(TAG, "request2 start ${Thread.currentThread().name}")
+                val request2 = getLaunchesForListRequest2(offset + LAUNCHES_LIMIT)
+                Log.d(TAG, "request2 end")
+                request2
+            }.onFailure {
+                Log.d(TAG, "request2 error ${it.localizedMessage}")
+            }.getOrNull().orEmpty()
+        }
+
+        val launches = mutableListOf<LaunchForList>()
+
+        awaitAll(deferred1, deferred2).forEach {
+            launches.addAll(it)
+        }
+
+        onLoadedLaunchesSuccess(launches)
+
+        Log.d(TAG, "parallel request ended ${Thread.currentThread().name}")
+    }
+
+    private suspend fun getLaunchesForListRequest1(offset: Int) =
+        interactor.getLaunchesForList(offset, LAUNCHES_LIMIT)
+
+    private suspend fun getLaunchesForListRequest2(offset: Int) =
+        interactor.getLaunchesForList(offset, LAUNCHES_LIMIT)
+
+    private val launchesExceptionViewHolder = CoroutineExceptionHandler { coroutineContext, throwable ->
+        Log.d(TAG, "parallel request error ${throwable.localizedMessage} ${Thread.currentThread().name}")
     }
 
     fun setNavController(navController: NavController) {

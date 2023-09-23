@@ -182,7 +182,7 @@ class LaunchesListFragment : Fragment(), BaseListFragment {
                     && firstVisibleItemPosition >= 0
                     && totalItemCount >= PAGE_SIZE
                 ) {
-                    viewModel.getLaunchesForList()
+                    //viewModel.getLaunchesForList()
                 }
             }
         }
