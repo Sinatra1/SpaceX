@@ -26,6 +26,9 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -52,6 +55,31 @@ internal class LaunchesListViewModel @Inject constructor(
 
     fun onCreate() {
         _errorFlow.resetReplayCache()
+
+        testFlowThreads()
+    }
+
+    private fun testFlowThreads() {
+        val flow = flow {
+            emit(1)
+            emit(2)
+            emit(3)
+            Log.e("my_tag", "Body on ${Thread.currentThread().name}")
+            //IO
+        }
+
+        viewModelScope.launch(Default) {
+            flow.map {
+                Log.e("my_tag", "map $it on ${Thread.currentThread().name}")
+                //IO
+                it
+            }
+            .flowOn(IO)
+            .collect { value ->
+                Log.e("my_tag", "Collected value $value on ${Thread.currentThread().name}")
+                //Default
+            }
+        }
     }
 
     fun getLaunchesForList() {
