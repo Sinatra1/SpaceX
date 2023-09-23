@@ -32,6 +32,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.zip
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -61,6 +62,7 @@ internal class LaunchesListViewModel @Inject constructor(
 
         testFlowThreads()
         testFlowCombine()
+        testFlowZip()
     }
 
     private fun testFlowThreads() {
@@ -110,6 +112,29 @@ internal class LaunchesListViewModel @Inject constructor(
             Collected value Combined: 4 - 9 on main
             Collected value Combined: 5 - 9 on main
             Collected value Combined: 5 - 10 on main
+         */
+    }
+
+    private fun testFlowZip() {
+        val flow1 = (1..5).asFlow()
+        val flow2 = (6..10).asFlow()
+
+        val combinedFlow = flow1.zip(flow2) { value1, value2 ->
+            "Zipped: $value1 - $value2"
+        }
+
+        viewModelScope.launch {
+            combinedFlow.collectLatest { result ->
+                Log.e("flow_zip", "Zip value $result on ${Thread.currentThread().name}")
+            }
+        }
+
+        /*
+            Zip value Zipped: 1 - 6 on main
+            Zip value Zipped: 2 - 7 on main
+            Zip value Zipped: 3 - 8 on main
+            Zip value Zipped: 4 - 9 on main
+            Zip value Zipped: 5 - 10 on main
          */
     }
 
