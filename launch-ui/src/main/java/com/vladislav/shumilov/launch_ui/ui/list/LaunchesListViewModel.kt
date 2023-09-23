@@ -19,9 +19,13 @@ import com.vladislav.shumilov.launch_ui.models.START_OFFSET
 import com.vladislav.shumilov.launch_ui.ui.detail.LaunchDetailFragment
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -38,9 +42,17 @@ internal class LaunchesListViewModel @Inject constructor(
     val isShownCenterProgress = ObservableBoolean(true)
     val isShownBottomProgress = ObservableBoolean(false)
 
+    private val _errorFlow = MutableSharedFlow<String>(replay = 1)
+
+    val errorFlow: Flow<String> = _errorFlow.distinctUntilChanged()
+
     private lateinit var navController: NavController
     private val missionIconTransitionName: String =
         resources.getString(R.string.launches_mission_icon_transition_name)
+
+    fun onCreate() {
+        _errorFlow.resetReplayCache()
+    }
 
     fun getLaunchesForList() {
         if (state.isInProgress || state.isLastPage) {
@@ -71,6 +83,7 @@ internal class LaunchesListViewModel @Inject constructor(
                 request1
             }.onFailure {
                 Log.d(TAG, "request1 error ${it.localizedMessage}")
+                sendErrorEvent(it.localizedMessage)
             }.getOrNull().orEmpty()
         }
         val deferred2 = async {
@@ -81,6 +94,7 @@ internal class LaunchesListViewModel @Inject constructor(
                 request2
             }.onFailure {
                 Log.d(TAG, "request2 error ${it.localizedMessage}")
+                sendErrorEvent(it.localizedMessage)
             }.getOrNull().orEmpty()
         }
 
@@ -103,6 +117,13 @@ internal class LaunchesListViewModel @Inject constructor(
 
     private val launchesExceptionViewHolder = CoroutineExceptionHandler { coroutineContext, throwable ->
         Log.d(TAG, "parallel request error ${throwable.localizedMessage} ${Thread.currentThread().name}")
+        viewModelScope.launch(Default) {
+            sendErrorEvent(throwable.localizedMessage.orEmpty())
+        }
+    }
+
+    private fun sendErrorEvent(errorMessage: String) {
+        _errorFlow.tryEmit(errorMessage)
     }
 
     fun setNavController(navController: NavController) {

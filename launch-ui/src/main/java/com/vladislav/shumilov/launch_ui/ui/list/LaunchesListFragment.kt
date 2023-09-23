@@ -6,6 +6,7 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -56,6 +57,8 @@ class LaunchesListFragment : Fragment(), BaseListFragment {
 
         app()?.createLaunchComponent()?.inject(this)
 
+        setListeners()
+
         viewModel.getLaunchesForList()
     }
 
@@ -81,12 +84,6 @@ class LaunchesListFragment : Fragment(), BaseListFragment {
         viewModel.setNavController(navController)
 
         setListAdapter()
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        setListeners()
     }
 
     override fun onDestroyView() {
@@ -140,6 +137,15 @@ class LaunchesListFragment : Fragment(), BaseListFragment {
         lifecycleScope.launch {
             viewModel.stateFlow.collect {
                 showLaunches(it.launches)
+            }
+        }
+
+        lifecycleScope.launch {
+            with(viewModel) {
+                onCreate()
+                errorFlow.collect {
+                    Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+                }
             }
         }
     }
