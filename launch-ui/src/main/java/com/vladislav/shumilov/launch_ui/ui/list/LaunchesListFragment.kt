@@ -16,6 +16,11 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionInflater
+import androidx.work.Constraints
+import androidx.work.NetworkType
+import androidx.work.OneTimeWorkRequest
+import androidx.work.WorkManager
+import androidx.work.WorkRequest
 import com.vladislav.shumilov.core_data.FragmentScope
 import com.vladislav.shumilov.core_ui.di.modules.CoreViewModelFactory
 import com.vladislav.shumilov.core_ui.ui.list_with_detail.BaseListFragment
@@ -25,6 +30,7 @@ import com.vladislav.shumilov.launch_ui.R
 import com.vladislav.shumilov.launch_ui.app
 import com.vladislav.shumilov.launch_ui.databinding.LaunchesListBinding
 import com.vladislav.shumilov.launch_ui.ui.detail.LaunchDetailFragment
+import com.vladislav.shumilov.launch_ui.ui.work.OneTimeWork
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -60,6 +66,12 @@ class LaunchesListFragment : Fragment(), BaseListFragment {
         setListeners()
 
         viewModel.getLaunchesForList()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        startOneTimeWork()
     }
 
     override fun onCreateView(
@@ -192,5 +204,20 @@ class LaunchesListFragment : Fragment(), BaseListFragment {
                 }
             }
         }
+    }
+
+    private fun startOneTimeWork() {
+        val constraints: Constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .setRequiresCharging(true)
+            .build()
+
+        val oneTimeWorkRequest: WorkRequest = OneTimeWorkRequest.Builder(OneTimeWork::class.java)
+            .setConstraints(constraints)
+            .build()
+
+        WorkManager
+            .getInstance(requireContext().applicationContext)
+            .enqueue(oneTimeWorkRequest)
     }
 }

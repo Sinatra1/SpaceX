@@ -99,6 +99,10 @@ dependencies {
         exclude group: 'com.facebook.fresco', module: 'imagepipeline-native'
     }
 
+    //Worker
+    implementation "androidx.work:work-runtime-ktx:$work_version"
+    androidTestImplementation "androidx.work:work-testing:$work_version"
+
     //Mockito
     testImplementation "org.mockito:mockito-core:$mockito_version"
     testImplementation "org.mockito.kotlin:mockito-kotlin:$mockito_kotlin_version"
