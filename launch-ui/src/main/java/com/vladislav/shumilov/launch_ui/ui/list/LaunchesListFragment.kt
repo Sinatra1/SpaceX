@@ -19,6 +19,7 @@ import androidx.transition.TransitionInflater
 import androidx.work.Constraints
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequest
+import androidx.work.OutOfQuotaPolicy
 import androidx.work.WorkManager
 import androidx.work.WorkRequest
 import com.vladislav.shumilov.core_data.FragmentScope
@@ -30,6 +31,7 @@ import com.vladislav.shumilov.launch_ui.R
 import com.vladislav.shumilov.launch_ui.app
 import com.vladislav.shumilov.launch_ui.databinding.LaunchesListBinding
 import com.vladislav.shumilov.launch_ui.ui.detail.LaunchDetailFragment
+import com.vladislav.shumilov.launch_ui.ui.work.ForegroundWorker
 import com.vladislav.shumilov.launch_ui.ui.work.OneTimeWork
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -71,7 +73,8 @@ class LaunchesListFragment : Fragment(), BaseListFragment {
     override fun onResume() {
         super.onResume()
 
-        startOneTimeWork()
+        //startOneTimeWork()
+        startExpeditedWork()
     }
 
     override fun onCreateView(
@@ -214,6 +217,16 @@ class LaunchesListFragment : Fragment(), BaseListFragment {
 
         val oneTimeWorkRequest: WorkRequest = OneTimeWorkRequest.Builder(OneTimeWork::class.java)
             .setConstraints(constraints)
+            .build()
+
+        WorkManager
+            .getInstance(requireContext().applicationContext)
+            .enqueue(oneTimeWorkRequest)
+    }
+
+    private fun startExpeditedWork() {
+        val oneTimeWorkRequest: WorkRequest = OneTimeWorkRequest.Builder(ForegroundWorker::class.java)
+            .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
             .build()
 
         WorkManager
